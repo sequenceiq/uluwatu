@@ -148,16 +148,21 @@
 					$('#sort-clusters-btn').removeClass('disabled');
 					$("#notification-n-filtering").prop( "disabled", false );
 				});
+				
 				// terminate modal cluster name
 				$('#modal-terminate').on('shown.bs.modal', function () {
 					$(this).find('strong').text(selectedCluster.find('h4').text());
 				});
+				
 				// terminate cluster for good
 				$('#terminate-cluster-btn').click(function () {
+					// hide modal
 					$('#modal-terminate').modal('hide');
+					// back to clusters view
 					$('.carousel').carousel(0);
 					// must force isotope redraw, its container height set 0 by by some fucking shite
 					$container.isotope();
+					// enable toolbar buttons
 					$('#toggle-cluster-block-btn').removeClass('disabled');
 					$('#sort-clusters-btn').removeClass('disabled');
 					$("#notification-n-filtering").prop( "disabled", false );
@@ -169,7 +174,7 @@
 							.find('span').text("stopping").parent().removeClass().addClass('state0-stop-blink')
 							// disable start/stop button
 							.next().addClass('disabled');
-						// update display
+						// update isotope
 						$container.isotope('updateSortData').isotope();
 						// notification
 						var startTime = new Date();
@@ -180,7 +185,7 @@
 							.parent().parent().addClass('has-feedback').addClass('has-error')
 							// show warning sign
 							.find('i').removeClass('hidden');
-						// simulated delay
+						// simulated delay then finishing
 						var	DELETE_IN_COMPLETED = window.setTimeout(function () {
 							// set notification
 							var endTime = new Date();
@@ -193,7 +198,7 @@
 							// remove cluster visually
 							$container.isotope('remove', selectedCluster);
 							$container.isotope();
-							}, 30000);						
+							}, 30000);	// 30s simulated delay					
 					});
 				});
 				
