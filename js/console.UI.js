@@ -70,7 +70,7 @@
 					$(this).parent().addClass( "disabled" );
 				});
 				// filtering in the notification textfield
-				var $quicksearch = $('#notification-n-filtering').keyup( debounce( function () {
+				var $quicksearch = $('#notification-n-filter').keyup( debounce( function () {
 						qsRegex = new RegExp( $quicksearch.val(), 'gi' );
 						$container.isotope();
 					}, 300 ) );
@@ -89,7 +89,7 @@
 						// hide warning sign <i>
 						.next().addClass('hidden');
 					// delete state classes
-					$('.combo-box').removeClass('has-feedback has-error has-warning has-success');
+					$('#combo-box').removeClass('has-feedback has-error has-warning has-success');
 				});
 				
 // cluster-block hide/show
