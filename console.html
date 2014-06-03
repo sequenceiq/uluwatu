@@ -84,17 +84,17 @@
 					
 <!-- .... CLUSTERS PANEL NOTIFICATION AND CONTROLS BAR ...................... -->
 					
-					<div class="row notification-controls" id="notification-controls" data-spy="affix" data-offset-top="52"><!-- data-offset-top = @navbar-height -->
+					<div class="row" id="clusters-bar" data-spy="affix" data-offset-top="52"><!-- data-offset-top = @navbar-height -->
 						
-						<!-- collapse/open button and notification -->
-						<div class="col-sm-7 col-xs-8 notification"><!-- OPTIONAL HTML:
-							class: 'has-feedback' AND 'has-error' - cluster stopping or stopped because of error not by stop button (v.02?) 
+						<!-- collapse/open button and notification/filter field -->
+						<div class="col-sm-7 col-xs-8 combo-box"><!-- OPTIONAL HTML:
+							class: 'has-feedback' AND ('has-error' OR 'has-warning OR 'has-success') - notification colors based on new cluster states 
 							-->
 							<div class="input-group">
 								<span class="input-group-btn">
 									<a href="#" id="toggle-cluster-block-btn" class="btn btn-fa-2x btn-info" role="button" title="toggle cluster panel"><i class="fa fa-angle-up fa-2x fa-fw-forced"></i></a>
 								</span>
-								<input id="notification-n-filtering" role="alert" type="text" class="form-control" placeholder="type cluster name" value=""><!-- OPTIONAL HTML:
+								<input id="notification-n-filter" role="alert" type="text" class="form-control" placeholder="type cluster name" value=""><!-- OPTIONAL HTML:
 									value: 'time' 'cluster name' 'state' - after cluster state changed
 									-->
 								<i class="fa fa-warning form-control-feedback hidden"></i><!-- OPTIONAL HTML:
@@ -123,7 +123,7 @@
 						<!-- create cluster button -->
 						<div class="col-sm-3 col-xs-2"><a href="#" id="create-cluster-btn" class="btn btn-success btn-block btn-collapse-title disabled" role="button"><i class="fa fa-plus fa-fw"></i><span> create cluster</span></a></div>
 					
-					</div><!-- .row .notification-controls -->
+					</div><!-- .row .cluster-bar -->
 					
 					
 					<div class="carousel-inner">
@@ -134,34 +134,9 @@
 						
 					<div class="row cluster-block collapse in">
 						<div class="isotope-wrapper">
-						
-						<div class="cluster" id="cluster-002">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">Test Dept. cluster<i class="fa fa-angle-right fa-25x"></i></a></h4>
-							<dl class="mod-uptime">
-								<dt>uptime</dt>
-								<dd class="big-numeral">2<sup>h</sup>57<sup>m</sup></dd>
-							</dl>
-							<dl class="mod-nodes">
-								<dt>nodes</dt>
-								<dd class="big-numeral">1</dd>
-							</dl>
-							<div class="state1-stop"><span>stopped</span></div><!-- OPTIONAL HTML:
-								class: 'state0-stop-blink'  <span>stopping/stopped</span> - stopping/stopped alert state OR
-								class: 'state1-stop'  <span>stopped</span> - stopped state OR
-								class: 'state2-ready-blink'  <span>getting ready/ready</span> - getting ready/ready alert state (v0.2) OR
-								class: 'state3-ready'  <span>ready</span> - ready state (v0.2) OR
-								class: 'state4-run-blink'  <span>starting/running</span> - starting/running alert state (v0.2) OR								
-								class: 'state5-run'  <span>running</span> - running state
-							-->
-							<a href="#" class="btn btn-cluster btn-block disabled" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a><!-- OPTIONAL HTML:
-								a class: 'disabled' - disabled start/stop button (v0.2?)
-								a title: 'start cluster'  i class: 'fa-play' - start button OR
-								a title: 'stop cluster'  i class: 'fa-pause' - stop button
-							-->
-						</div>
-													
+							
 						<div class="cluster" id="cluster-001">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">Cluster_name_20_char<i class="fa fa-angle-right fa-25x"></i></a></h4>
+							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>Cluster_name_20_char</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
 							<dl class="mod-uptime">
 								<dt>uptime</dt>
 								<dd class="big-numeral">9999<sup>h</sup>99<sup>m</sup></dd>
@@ -170,12 +145,12 @@
 								<dt>nodes</dt>
 								<dd class="big-numeral">999</dd>
 							</dl>
-							<div class="state5-run"><span>running</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
+							<div class="mod-LED"><span class="state5-run">running</span></div>
+							<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
 						</div>
 						
 						<div class="cluster" id="cluster-010">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">Cluster_010<i class="fa fa-angle-right fa-25x"></i></a></h4>
+							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>Cluster_010</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
 							<dl class="mod-uptime">
 								<dt>uptime</dt>
 								<dd class="big-numeral">10<sup>h</sup>10<sup>m</sup></dd>
@@ -184,12 +159,12 @@
 								<dt>nodes</dt>
 								<dd class="big-numeral">2</dd>
 							</dl>
-							<div class="state5-run"><span>running</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
+							<div class="mod-LED"><span class="state1-stop">stopped</span></div>
+							<a href="#" class="mod-start-stop btn btn-cluster btn-block disabled" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a>
 						</div>
 
 						<div class="cluster" id="cluster-003">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">lalyos_clusterfuck<i class="fa fa-angle-right fa-25x"></i></a></h4>
+							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>lalyos_clusterfuck</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
 							<dl class="mod-uptime">
 								<dt>uptime</dt>
 								<dd class="big-numeral">0<sup>h</sup>00<sup>m</sup></dd>
@@ -198,49 +173,10 @@
 								<dt>nodes</dt>
 								<dd class="big-numeral">3</dd>
 							</dl>
-							<div class="state3-ready"><span>ready</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a>
+							<div class="mod-LED"><span class="state3-ready">ready</span></div>
+							<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a>
 						</div>
 
-						<div class="cluster" id="cluster-009">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">Cluster_009<i class="fa fa-angle-right fa-25x"></i></a></h4>
-							<dl class="mod-uptime">
-								<dt>uptime</dt>
-								<dd class="big-numeral">9<sup>h</sup>09<sup>m</sup></dd>
-							</dl>
-							<dl class="mod-nodes">
-								<dt>nodes</dt>
-								<dd class="big-numeral">2</dd>
-							</dl>
-							<div class="state5-run"><span>running</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
-						</div>
-						<div class="cluster" id="cluster-008">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button">Cluster_008<i class="fa fa-angle-right fa-25x"></i></a></h4>
-							<dl class="mod-uptime">
-								<dt>uptime</dt>
-								<dd class="big-numeral">8<sup>h</sup>08<sup>m</sup></dd>
-							</dl>
-							<dl class="mod-nodes">
-								<dt>nodes</dt>
-								<dd class="big-numeral">2</dd>
-							</dl>
-							<div class="state5-run"><span>running</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
-						</div>
-						<div class="cluster" id="cluster-007">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button" data-slide="next">Cluster_007<i class="fa fa-angle-right fa-25x"></i></a></h4>
-							<dl class="mod-uptime">
-								<dt>uptime</dt>
-								<dd class="big-numeral">7<sup>h</sup>07<sup>m</sup></dd>
-							</dl>
-							<dl class="mod-nodes">
-								<dt>nodes</dt>
-								<dd class="big-numeral">2</dd>
-							</dl>
-							<div class="state5-run"><span>running</span></div>
-							<a href="#" class="btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
-						</div>
 							
 					</div><!-- .isotope-wrapper -->							
 					</div><!-- .cluster-block -->
@@ -426,7 +362,7 @@
 										
 										<div class="row btn-row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<a href="#" id="createCluster" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i>create and start cluster</a>
+												<a href="#" id="create-cluster-form-btn" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i>create and start cluster</a>
 											</div>
 										</div>
 										
@@ -1057,7 +993,42 @@
 			</footer>
 
 
+
+		<div class="hidden">
+<!--  new cluster to clone ................................................. -->
+			<div class="cluster" id="cluster-000">
+				<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>New cluster</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
+				<dl class="mod-uptime">
+					<dt>uptime</dt>
+					<dd class="big-numeral">0<sup>h</sup>00<sup>m</sup></dd>
+				</dl>
+				<dl class="mod-nodes">
+					<dt>nodes</dt>
+					<dd class="big-numeral">1</dd>
+				</dl>
+				<div class="mod-LED">
+					<span class="state1-stop">stopped</span></div><!-- OPTIONAL HTML:
+						class: 'state0-stop-blink'  text: stopping/stopped - stopping/stopped alert state OR
+						class: 'state1-stop'  text: stopped - stopped state OR
+						class: 'state2-ready-blink'  text: readying/ready - getting ready/ready alert state (v0.2) OR
+						class: 'state3-ready'  text: ready - ready state (v0.2) OR
+						class: 'state4-run-blink'  text: starting/running - starting/running alert state (v0.2) OR								
+						class: 'state5-run'  text: running - running state
+						-->
+				<a href="#" class="mod-start-stop btn btn-cluster btn-block disabled" role="button" title="stop cluster">
+					<i class="fa fa-pause fa-lg"></i>
+				</a><!-- OPTIONAL HTML:
+					a class: 'disabled' - disabled start/stop button (v0.2?)
+					a title: 'start cluster'  i class: 'fa-play' - start button OR
+					a title: 'stop cluster'  i class: 'fa-pause' - stop button
+					-->
+			</div>
+		</div>
+
+		
 <!-- MODALS ................................................................. -->
+		
+<!--  TERMINATE CLUSTER MODAL .............................................. -->
 			
 			<div class="modal fade" id="modal-terminate" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
 				<div class="modal-dialog modal-sm">
