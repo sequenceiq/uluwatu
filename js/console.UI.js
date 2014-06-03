@@ -1,10 +1,8 @@
 			$(document).ready(function () {
 				
 				var timers = new Array;
+				var timersIndex = 0;
 				var viewedCluster;
-				var newCluster;
-				var newClusterName;
-				var newClusterIdString;
 				var clusterIdNumber = 11; 
 				
 // copy credential menu selection to menu label, remove alert color and enable create cluster button
@@ -158,7 +156,7 @@
 				$('#modal-terminate').on('shown.bs.modal', function () {
 					$(this).find('strong').text(viewedCluster.find('h4 a span').text());
 				});				
-				// terminate cluster for good
+// terminate cluster for good
 				$('#terminate-cluster-btn').click(function () {
 					var selectedCluster = viewedCluster;
 					// hide modal
@@ -175,39 +173,42 @@
 					$('.carousel').on('slid.bs.carousel', function () {
 						// unbind event
 						$(this).off('slid.bs.carousel');
-						// set LED
-						selectedCluster.find('.mod-LED span').removeClass().addClass('state0-stop-blink').text("stopping");
-						// disable start/stop button
-						selectedCluster.find('.mod-start-stop').addClass('disabled');
-						// update isotope
-						$container.isotope('updateSortData').isotope();
-						var startTime = new Date();
-						// set state classes
-						$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
-						// set notification
-						$('#notification-n-filter')
-							// set text
-							.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " is being terminated")
-							// show warning sign <i>
-							.next().removeClass('hidden');
-						// simulated terminating
-						timers["DELETE_IN_COMPLETED"+selectedCluster] = window.setTimeout(function () {
-							var endTime = new Date();
+						// set isotope item attributes with VISUAL DELAY
+						timers[timersIndex++] = window.setTimeout(function () {
+							// set LED
+							selectedCluster.find('.mod-LED span').removeClass().addClass('state0-stop-blink').text("stopping");
+							// disable start/stop button
+							selectedCluster.find('.mod-start-stop').addClass('disabled');
+							// update isotope
+							$container.isotope('updateSortData').isotope();
+							var startTime = new Date();
 							// set state classes
 							$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
 							// set notification
 							$('#notification-n-filter')
-							.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " has been terminated")
-								// show warning sign
+								// set text
+								.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " is being terminated")
+								// show warning sign <i>
 								.next().removeClass('hidden');
-							// remove cluster visually
-							$container.isotope('remove', selectedCluster);
-							$container.isotope();
-							}, 20000);	// 30s delay simulated termination					
+							// simulated terminating process delay
+							timers[timersIndex++] = window.setTimeout(function () {
+								var endTime = new Date();
+								// set state classes
+								$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
+								// set notification
+								$('#notification-n-filter')
+								.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " has been terminated")
+									// show warning sign
+									.next().removeClass('hidden');
+								// remove cluster visually
+								$container.isotope('remove', selectedCluster);
+								$container.isotope();
+								}, 20000);	// 30s delay simulated termination
+						}, 500);	// 0.5s VISUAL DELAY	
 					});
 				});
 				
-				// create new cluster
+// create new cluster
 				$('#create-cluster-form-btn').click(function () {
 					// back to clusters view
 					$('.carousel').carousel(0);
@@ -222,22 +223,21 @@
 					$('.carousel').on('slid.bs.carousel', function () {
 						// unbind event
 						$(this).off('slid.bs.carousel');
-						// add new isotope item after a short delay
-						var	visualDelay = window.setTimeout(function () {
-							// get new cluster name
-							newClusterName = $('.create-cluster form #clusterName').val();
-							if (newClusterName == "") { newClusterName = "New cluster"; }
-							// generate cluster id
+						// add new isotope item with VISUAL DELAY
+						timers[timersIndex++] = window.setTimeout(function () {
+							// irrelevant JS simulation of creating new cluster DOM object
+							var newClusterName = $('.create-cluster form #clusterName').val();
+								if (newClusterName == "") { newClusterName = "New cluster"; }
 							var newClusterID = "cluster-" + ("00"+clusterIdNumber).slice(-3);
-							newClusterIdString = "#" + newClusterID; 
-							newCluster = $('#cluster-000').clone();
+							var newClusterIdString = "#" + newClusterID; 
+							var newCluster = $('#cluster-000').clone(true, true);
 							newCluster.attr("id", newClusterID);
-							clusterIdNumber++;							
-							$container.isotope( 'insert', newCluster );
-							// name
-							$(newClusterIdString).find('h4 a span').text(newClusterName);
+							$(newCluster).find('h4 a span').text(newClusterName);
+							clusterIdNumber++;
+							// insert new cluster DOM object with isotope
+							$container.isotope( 'insert', newCluster );							
 							// set LED
-							$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state4-run-blink').text("starting")
+							$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state2-run-blink').text("starting")
 							// disable start/stop button
 							$(newClusterIdString).find('.mod-start-stop').addClass('disabled');
 							// update isotope
@@ -251,12 +251,14 @@
 								.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + $(newClusterIdString).find('h4').text() + " is being started")
 								// show warning sign
 								.next().removeClass('hidden');
-							// simulated delay then finishing
-							timers["CREATE_IN_COMPLETED"+clusterIdNumber] = window.setTimeout(function () {
+							// simulated process delay
+							timers[timersIndex++] = window.setTimeout(function () {
 								// set LED
 								$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state5-run').text("starting")
 								// enable start/stop button
 								$(newClusterIdString).find('.mod-start-stop').removeClass('disabled');
+								// update isotope
+								$container.isotope('updateSortData').isotope();
 								// set notification
 								var endTime = new Date();
 								// set state classes
@@ -267,7 +269,7 @@
 									// show warning sign
 								.next().removeClass('hidden');
 							}, 20000);	// 20s delay simulated creating
-						}, 700);	// 0.7s visual delay				
+						}, 500);	// 0.5s VISUAL DELAY				
 					});
 				});
 
