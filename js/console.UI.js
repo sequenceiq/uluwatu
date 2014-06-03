@@ -118,6 +118,12 @@
 				$(".cluster h4 .btn-cluster").click(function () {
 					viewedCluster = $(this).parent().parent();
 					$('.carousel').carousel(1);
+					// after slid in open panel
+					$('.carousel').on('slid.bs.carousel', function () {
+						// unbind event
+						$(this).off('slid.bs.carousel');
+						$('#cluster-details-panel-collapse').collapse('show');
+					});
 					$('.cluster-details h4').text(viewedCluster.find('h4').text());
 					$('#toggle-cluster-block-btn').addClass('disabled');
 					$('#sort-clusters-btn').addClass('disabled');
@@ -126,6 +132,11 @@
 				// back to clusters
 				$("#cluster-details-back-btn").click(function () {
 					$('.carousel').carousel(0);
+					$('.carousel').on('slid.bs.carousel', function () {
+						// unbind event
+						$(this).off('slid.bs.carousel');
+						$('#cluster-details-panel-collapse').collapse('hide');
+					});
 					// must force isotope redraw, its container height set 0 by by some fucking shite
 					$container.isotope();
 					$('#toggle-cluster-block-btn').removeClass('disabled');
@@ -136,6 +147,12 @@
 				// show create cluster panel
 				$('#create-cluster-btn').click(function () {
 					$('.carousel').carousel(2);
+					// after slid in open panel
+					$('.carousel').on('slid.bs.carousel', function () {
+						// unbind event
+						$(this).off('slid.bs.carousel');
+						$('#create-cluster-panel-collapse').collapse('show');
+					});
 					$(this).addClass('disabled');
 					$('#toggle-cluster-block-btn').addClass('disabled');
 					$('#sort-clusters-btn').addClass('disabled');
@@ -144,6 +161,11 @@
 				// back to clusters
 				$("#create-cluster-back-btn").click(function () {
 					$('.carousel').carousel(0);
+					$('.carousel').on('slid.bs.carousel', function () {
+						// unbind event
+						$(this).off('slid.bs.carousel');
+						$('#create-cluster-panel-collapse').collapse('hide');
+					});
 					// must force isotope redraw, .isotope-wrapper's height set 0 by by some fucking shite
 					$container.isotope();
 					$('#toggle-cluster-block-btn').removeClass('disabled');
@@ -156,7 +178,8 @@
 				$('#modal-terminate').on('shown.bs.modal', function () {
 					$(this).find('strong').text(viewedCluster.find('h4 a span').text());
 				});				
-// terminate cluster for good
+
+// terminate cluster process
 				$('#terminate-cluster-btn').click(function () {
 					var selectedCluster = viewedCluster;
 					// hide modal
@@ -208,7 +231,7 @@
 					});
 				});
 				
-// create new cluster
+// create new cluster process
 				$('#create-cluster-form-btn').click(function () {
 					// back to clusters view
 					$('.carousel').carousel(0);
@@ -273,24 +296,77 @@
 					});
 				});
 
-				
-// main template/blueprint/credential panels icon toggle
-				$('.panel-btn-in-header-collapse').on('hidden.bs.collapse', function () {
-  				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
+
+// panel collapse scrolling
+				// management panel click
+				$('.panel-panel-container > .panel-heading > a').click(function (e) {
+					e.preventDefault();
+					$(this).parent().next().collapse('toggle');
 				});
-				$('.panel-btn-in-header-collapse').on('shown.bs.collapse', function () {
-  				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
+				// accordion panel click
+				$('.panel-heading > h5 > a').click(function (e) {
+					e.preventDefault();
+					$(this).parent().parent().next().collapse('toggle');
 				});
-// create panels button switch
-				$('.panel-under-btn-collapse').on('shown.bs.collapse', function () {
-  				$(this).parent().prev()
-						.find('.btn').fadeTo("fast", 0, function () { 
-							$(this).removeClass('btn-success').addClass('btn-info')
-							.find('i').removeClass('fa-plus').addClass('fa-times').removeClass('fa-fw')
-							.parent().find('span').addClass('hidden');
-							$(this).fadeTo("slow", 1);
+				// create panel click
+				$('.btn-row-over-panel > a').click(function (e) {
+					e.preventDefault();
+					$(this).parent().parent().next().collapse('toggle');
+				});
+
+				// solo panel or accordion shown
+				$('.panel-collapse').on('shown.bs.collapse', function (e) {
+					e.preventDefault();
+					var panel = $(this).parent();		// panel
+					var offset = panel.offset().top;
+					if(offset) {
+						$('html,body').animate({
+							scrollTop: offset - 64
+						}, 500); 
+					}
+				});
+				// create panel shown
+				$('.panel-under-btn-collapse').on('shown.bs.collapse', function (e) {
+					e.preventDefault();
+					// button switch
+					$(this).parent().prev()
+					.find('.btn').fadeTo("fast", 0, function () { 
+						$(this).removeClass('btn-success').addClass('btn-info')
+						.find('i').removeClass('fa-plus').addClass('fa-times').removeClass('fa-fw')
+						.parent().find('span').addClass('hidden');
+						$(this).fadeTo("slow", 1);
 					});
+					// scroll
+					var panel = $(this).parent().prev();	// btn-row-over-panel
+					var offset = panel.offset().top;
+					if(offset) {
+						$('html,body').animate({
+							scrollTop: offset - 64
+						}, 500); 
+					}
+				});				
+				// management panel shown	
+				$('.panel-btn-in-header-collapse').on('shown.bs.collapse', function (e) {
+					e.preventDefault();
+					// button switch
+  				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
+					// scroll
+					var panel = $(this).parent().parent();	// panel
+					var offset = panel.offset().top;
+					if(offset) {
+						$('html,body').animate({
+							scrollTop: offset - 64
+						}, 500); 
+					}
 				});
+				
+				// management panel button switch back
+				$('.panel-btn-in-header-collapse').on('hidden.bs.collapse', function (e) {
+					e.preventDefault();
+					$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
+				});
+
+				// create panels' button switch back
 				$('.panel-under-btn-collapse').on('hidden.bs.collapse', function () {
   				$(this).parent().prev()
 						.find('.btn').fadeTo("fast", 0, function () { 
@@ -301,3 +377,4 @@
 					});
 				});			
 			});
+
