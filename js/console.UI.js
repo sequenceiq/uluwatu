@@ -89,7 +89,7 @@
 						// hide warning sign <i>
 						.next().addClass('hidden');
 					// delete state classes
-					$('#combo-box').removeClass('has-feedback has-error has-warning has-success');
+					$('.combo-box').removeClass('has-feedback has-error has-warning has-success');
 				});
 				
 // cluster-block hide/show
@@ -295,6 +295,89 @@
 						}, 500);	// 0.5s VISUAL DELAY				
 					});
 				});
+
+				// stop cluster process
+				$('.mod-start-stop').click(function () {
+					if ($(this).find('i').hasClass('fa-pause')) {
+					// STOP
+						var cluster = $(this).parent();
+						// set LED
+						cluster.find('.mod-LED span').removeClass().addClass('state0-stop-blink').text("stopping")
+						// disable start/stop button
+						cluster.find('.mod-start-stop').addClass('disabled');
+						// update isotope after VISUAL DELAY
+						timers[timersIndex++] = window.setTimeout(function () {
+							$container.isotope('updateSortData').isotope();
+						}, 500);	// 0.5s VISUAL DELAY
+						// notification
+						var startTime = new Date();
+						// set state classes
+						$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
+						$('#notification-n-filter')
+						// set text
+						.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is stopping")
+						// show warning sign
+						.next().removeClass('hidden');
+						// simulated process delay
+						timers[timersIndex++] = window.setTimeout(function () {
+							// set LED
+							cluster.find('.mod-LED span').removeClass().addClass('state3-stop').text("ready")
+							// disable start/stop button
+							cluster.find('.mod-start-stop').removeClass('disabled').attr("title", 'start cluster')
+							.find('i').removeClass('fa-pause').addClass('fa-play');
+							// update isotope
+							$container.isotope('updateSortData').isotope();
+							// set notification
+							var endTime = new Date();
+							// set state classes
+							$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
+							$('#notification-n-filter')
+							// set text
+							.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " has stopped")
+							// show warning sign
+							.next().removeClass('hidden');
+						}, 20000);	// 20s delay simulated stopping
+					} else {
+					// START
+						var cluster = $(this).parent();
+						// set LED
+						cluster.find('.mod-LED span').removeClass().addClass('state2-run-blink').text("starting")
+						// disable start/stop button
+						cluster.find('.mod-start-stop').addClass('disabled');
+						// update isotope after VISUAL DELAY
+						timers[timersIndex++] = window.setTimeout(function () {
+							$container.isotope('updateSortData').isotope();
+						}, 500);	// 0.5s VISUAL DELAY
+						// notification
+						var startTime = new Date();
+						// set state classes
+						$('#clusters-bar .combo-box').removeClass('has-warning has-error').addClass('has-feedback has-success');
+						$('#notification-n-filter')
+						// set text
+						.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is starting")
+						// show warning sign
+						.next().removeClass('hidden');
+						// simulated process delay
+						timers[timersIndex++] = window.setTimeout(function () {
+							// set LED
+							cluster.find('.mod-LED span').removeClass().addClass('state5-run').text("ready")
+							// disable start/stop button
+							cluster.find('.mod-start-stop').removeClass('disabled').attr("title", 'start cluster')
+							.find('i').removeClass('fa-play').addClass('fa-pause');
+							// update isotope
+							$container.isotope('updateSortData').isotope();
+							// set notification
+							var endTime = new Date();
+							// set state classes
+							$('#clusters-bar .combo-box').removeClass('has-warning has-error').addClass('has-feedback has-success');
+							$('#notification-n-filter')
+							// set text
+							.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is running")
+							// show warning sign
+							.next().removeClass('hidden');
+						}, 20000);	// 20s delay simulated stopping
+					}
+				});				
 
 
 // panel collapse scrolling
