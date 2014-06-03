@@ -459,5 +459,23 @@
 							$(this).fadeTo("slow", 1);
 					});
 				});			
+			
+
+// btn-segmented-control
+				$('.btn-segmented-control a').click(function (e) {
+					var selected = 'btn-info';
+					var active = 'btn-default';
+					var control = $(this).parent().parent();
+					e.preventDefault();
+					control.find('a').each(function () {
+						$(this).removeClass(selected).addClass(active);
+					});
+					$(this).removeClass(active).addClass(selected);
+					
+					// do something...
+				});
+			
 			});
 
+
+	
