@@ -256,6 +256,7 @@
 							var newCluster = $('#cluster-000').clone(true, true);
 							newCluster.attr("id", newClusterID);
 							$(newCluster).find('h4 a span').text(newClusterName);
+							$(newCluster).find('.mod-nodes dd').text($('.create-cluster form #clusterSize').val());
 							clusterIdNumber++;
 							// insert new cluster DOM object with isotope
 							$container.isotope( 'insert', newCluster );							

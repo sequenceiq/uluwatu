@@ -346,6 +346,18 @@
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
+											<label class="col-sm-3 control-label" for="clusterSize">cluster size</label>
+											<div class="col-sm-9">
+												<input type="number" class="form-control" id="clusterSize">
+											</div><!-- .col-sm-9 -->
+										</div><!-- .form-group -->
+										<div class="form-group">
+											<label class="col-sm-3 control-label" for="clusterDescription">description</label>
+											<div class="col-sm-9">
+												<textarea rows="3" class="form-control" id="clusterDescription"></textarea>
+											</div><!-- .col-sm-9 -->
+										</div><!-- .form-group -->
+										<div class="form-group">
 											<label class="col-sm-3 control-label" for="selectTemplate">template</label>
 											<div class="col-sm-9">
 												<select class="form-control" id="selectTemplate">
@@ -424,19 +436,19 @@
 											<form class="form-horizontal" role="form">
 												
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="textfield">cloud provider</label>
+													<label class="col-sm-3 control-label" for="providerSelector">cloud provider</label>
 													<div class="col-sm-9 ">
-														<div class="btn-segmented-control">
+														<div class="btn-segmented-control" id="providerSelector">
 															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
-																	<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
-																		class: 'btn-info' - selected
-																		class: 'btn-default' - not selected
+																<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
+																	class: 'btn-info' - selected OR
+																	class: 'btn-default' - not selected
 																	-->
-																	<a href="#" class="btn btn-default" role="button">Azure</a>
+																<a href="#" class="btn btn-default" role="button">Azure</a>
 															</div>
 															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
-																	<a href="#" class="btn btn-default" role="button">lalyosCloud9</a>
-																	<a href="#" class="btn btn-default" role="button">Openstack</a>
+																<a href="#" class="btn btn-default" role="button">lalyosFartCloud</a>
+																<a href="#" class="btn btn-default" role="button">Openstack</a>
 															</div>
 														</div><!-- .btn-segmented-control -->
 													</div><!-- .col-sm-9 -->
@@ -447,26 +459,26 @@
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
 													</div><!-- .col-sm-9 -->
-													
+
 												</div><!-- .form-group -->
 												<div class="form-group has-feedback has-error">
 													<label class="col-sm-3 control-label" for="textfieldwitherror">textfieldwitherror</label>
 													<div class="col-sm-9">
 														<!-- no div.inputgroup without add-on -->
-															<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="textfieldwitherror">
-															<i class="fa fa-warning form-control-feedback"></i>
+														<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="textfieldwitherror">
+														<i class="fa fa-warning form-control-feedback"></i>
 														<!-- no div.inputgroup without add-on -->
 														<span class="help-block">Invalid textfieldwitherror</span>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="textarea">textarea</label>
 													<div class="col-sm-9">
 														<textarea class="form-control" id="textarea" placeholder="placeholder text" rows="3"></textarea>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="inlinecheckbox">inlinecheckbox</label>
 													<div class="col-sm-9" id="inlinecheckbox">
@@ -490,7 +502,7 @@
 														</div>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="inlineradio">inlineradio</label>
 													<div class="col-sm-9" id="inlineradio">
@@ -511,7 +523,7 @@
 														</div>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group has-feedback has-error">
 													<label class="col-sm-3 control-label" for="select">select</label>
 													<div class="col-sm-9">
@@ -526,7 +538,7 @@
 														<span class="help-block">MUST select</span>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="multiselect">multiselect</label>
 													<div class="col-sm-9">
@@ -787,102 +799,48 @@
 										<div class="panel-body">
 
 											<form class="form-horizontal" role="form">
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="providerSelector">cloud provider</label>
+													<div class="col-sm-9 ">
+														<div class="btn-segmented-control" id="providerSelector">
+															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
+																<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
+																	class: 'btn-info' - selected OR
+																	class: 'btn-default' - not selected
+																	-->
+																<a href="#" class="btn btn-default" role="button">Azure</a>
+															</div>
+															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
+																<a href="#" class="btn btn-default" role="button">lalyosFartCloud</a>
+																<a href="#" class="btn btn-default" role="button">Openstack</a>
+															</div>
+														</div><!-- .btn-segmented-control -->
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
 
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="textfield">credential name</label>
+													<label class="col-sm-3 control-label" for="credentialName">name</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
+														<input type="text" class="form-control" id="credentialName" placeholder="max. 20 char">
 													</div><!-- .col-sm-9 -->
-													
 												</div><!-- .form-group -->
+
 												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="textfieldwitherror">textfieldwitherror</label>
+													<label class="col-sm-3 control-label" for="roleAm">roleAm</label>
 													<div class="col-sm-9">
 														<!-- no div.inputgroup without add-on -->
-															<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="textfieldwitherror">
-															<i class="fa fa-warning form-control-feedback"></i>
+														<input type="text" class="form-control" id="roleAm" placeholder="placeholder text" value="">
+														<i class="fa fa-warning form-control-feedback"></i>
 														<!-- no div.inputgroup without add-on -->
-														<span class="help-block">Invalid textfieldwitherror</span>
+														<span class="help-block">Invalid roleAm</span>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-												
+
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="textarea">textarea</label>
+													<label class="col-sm-3 control-label" for="instanceRoleAm">instance RoleAm</label>
 													<div class="col-sm-9">
-														<textarea class="form-control" id="textarea" placeholder="placeholder text" rows="3"></textarea>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-												
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="inlinecheckbox">inlinecheckbox</label>
-													<div class="col-sm-9" id="inlinecheckbox">
-														<div class="checkbox-inline">
-															<label>
-																<input type="checkbox" value="">
-																Option 1
-															</label>
-														</div>
-														<div class="checkbox-inline">
-															<label>
-																<input type="checkbox" value="">
-																Option 2
-															</label>
-														</div>
-														<div class="checkbox-inline">
-															<label>
-																<input type="checkbox" value="">
-																Option 3
-															</label>
-														</div>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-												
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="inlineradio">inlineradio</label>
-													<div class="col-sm-9" id="inlineradio">
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Option 1
-															</label>
-														</div>
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Option 2
-															</label>
-														</div>
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Option 3
-															</label>
-														</div>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-												
-												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="select">select</label>
-													<div class="col-sm-9">
-														<select class="form-control" id="select">
-															<option>– select option –</option>
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-														</select>													
-														<span class="help-block">MUST select</span>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-												
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="multiselect">multiselect</label>
-													<div class="col-sm-9">
-														<select multiple class="form-control" id="multiselect">
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-														</select>													
+														<input type="text" class="form-control" id="instanceRoleAm" placeholder="max. 20 char">
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												
@@ -1024,8 +982,14 @@
 							 <p>Terminate <strong>Cluster_name_20_char</strong> and its stack?</p>
       			</div><!-- .modal-body -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-              <button id="terminate-cluster-btn" type="button" class="btn btn-danger"><i class="fa fa-times fa-fw"></i> terminate</button>
+							<div class="row">
+							<div class="col-xs-6">
+								<button type="button" class="btn btn-block btn-default" data-dismiss="modal">cancel</button>
+              </div>
+							<div class="col-xs-6">
+								<button id="terminate-cluster-btn" type="button" class="btn btn-block btn-danger"><i class="fa fa-times fa-fw"></i> terminate</button>
+							</div>
+							</div>
 						</div><!-- .modal-footer -->
 					</div><!-- .modal-content -->
 				</div><!-- .modal-dialog -->
