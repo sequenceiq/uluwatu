@@ -150,16 +150,16 @@
 						</div>
 						
 						<div class="cluster" id="cluster-010">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>Cluster_010</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
+							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>v0.2</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
 							<dl class="mod-uptime">
 								<dt>uptime</dt>
-								<dd class="big-numeral">10<sup>h</sup>10<sup>m</sup></dd>
+								<dd class="big-numeral">1<sup>h</sup>35<sup>m</sup></dd>
 							</dl>
 							<dl class="mod-nodes">
 								<dt>nodes</dt>
 								<dd class="big-numeral">2</dd>
 							</dl>
-							<div class="mod-LED"><span class="state3-stop">stopped</span></div>
+							<div class="mod-LED"><span class="state4-ready">ready</span></div>
 							<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a>
 						</div>
 
@@ -173,8 +173,8 @@
 								<dt>nodes</dt>
 								<dd class="big-numeral">3</dd>
 							</dl>
-							<div class="mod-LED"><span class="state5-run">ready</span></div>
-							<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="stop cluster"><i class="fa fa-pause fa-lg"></i></a>
+							<div class="mod-LED"><span class="state3-stop">stopped</span></div>
+							<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="start cluster"><i class="fa fa-play fa-lg"></i></a>
 						</div>
 
 							
@@ -348,7 +348,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label" for="clusterSize">cluster size</label>
 											<div class="col-sm-9">
-												<input type="number" class="form-control" id="clusterSize">
+												<input type="number" class="form-control" id="clusterSize" value="1">
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
@@ -614,6 +614,56 @@
 													
 												</form>
 											</div>
+											</div>
+										</div><!-- .panel -->
+										
+										<!-- .............. TEMPLATE .............................................. -->	
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-template-collapse02" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse02"><i class="fa fa-file-o fa-fw"></i> Template_name_002</a></h5>
+											</div>
+											<div id="panel-template-collapse02" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">Parameter 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">Parameter 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">Parameter 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">Parameter 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">Parameter 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+													</form>
+												</div>
 											</div>
 										</div><!-- .panel -->
 										
@@ -926,10 +976,16 @@
 			
 		
 			<footer>  
-				<div class="container">
+				<div class="container-fluid">
 					<div class="row">
-						
-					</div><!-- .row -->  		                  	 
+						<div class="col-xs-3">
+							<a href="http://sequenceiq.com"><img src="img/logo-sm.png" alt="logo"></a>
+						</div>
+						<div class="col-xs-9">
+							<p class="text-right">© SequenceIQ Inc. 2014. <span class="hidden-xs">All rights reserved.</span>
+							<br><a href="pp.html">Privacy Policy</a> &nbsp; <a href="tos.html">Terms of Service</a></p>
+						</div>
+					</div><!-- .row -->  
 				</div><!-- .container -->  		
 			</footer>
 
