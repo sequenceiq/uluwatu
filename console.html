@@ -63,7 +63,7 @@
 									<i class="fa fa-tag fa-fw"></i> <span class="text-danger">select a credential</span> <b class="caret"></b>
 								</a>
           			<ul class="dropdown-menu">
-									<li><a href="#" data-value="cred-001">Credential_Name_20ch</a></li>
+									<li><a href="#" data-value="cred-001">Credential_name_20ch</a></li>
 									<li><a href="#" data-value="cred-002">AWS_Cred_02</a></li>
 									<li><a href="#" data-value="cred-003">lalyos' VIP cred</a></li>
 									<li class="divider"></li>
@@ -164,7 +164,7 @@
 						</div>
 
 						<div class="cluster" id="cluster-003">
-							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>lalyos_clusterfuck</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
+							<h4><a href="#" class="btn btn-cluster btn-block" role="button"><span>lalyos' pet cluster</span><i class="fa fa-angle-right fa-25x"></i></a></h4>
 							<dl class="mod-uptime">
 								<dt>uptime</dt>
 								<dd class="big-numeral">7<sup>h</sup>51<sup>m</sup></dd>
@@ -206,106 +206,269 @@
 									<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+											<label class="col-sm-3 control-label" for="cluster-size">cluster size</label>
 											<div class="col-sm-9">
-												<p id="parameter1" class="form-control-static">Parameter 1</p>
+												<p id="cluster-size" class="form-control-static">1</p>
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+											<label class="col-sm-3 control-label" for="cluster-description">description</label>
 											<div class="col-sm-9">
-												<p id="parameter1" class="form-control-static">Parameter 1</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
-											<div class="col-sm-9">
-												<p id="parameter1" class="form-control-static">Parameter 1</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
-											<div class="col-sm-9">
-												<p id="parameter1" class="form-control-static">Parameter 1</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
-											<div class="col-sm-9">
-												<p id="parameter1" class="form-control-static">Parameter 1</p>
+												<p id="cluster-description" class="form-control-static">a brutal Hadoop cluster</p>
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 
 									</form>
-										
+									
+<!-- ............ BLUEPRINT .................................................. -->										
+
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h5><a href="#panel-collapse01" data-toggle="collapse"><i class="fa fa-file-o fa-fw"></i> Template_name</a></h5>
+											<h5><a href="#cluster-blueprint-collapse01" data-toggle="collapse"><i class="fa fa-th fa-fw"></i> blueprint-c1</a></h5>
 										</div>
-										<div id="panel-collapse01" class="panel-collapse collapse">
-										<div class="panel-body">
 
+										<div id="cluster-blueprint-collapse01" class="panel-collapse collapse">
 
-										</div>
+											<p class="btn-row-over-panel text-right"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+											<div class="panel-body">
+
+												<form class="form-horizontal" role="document">
+
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="source">source</label>
+														<div class="col-sm-9">
+															<pre id="source" class="form-control-static blueprint-source">{ "host_groups" : [
+    { "name" : "host_group_1",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "HISTORYSERVER" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "NAGIOS_SERVER" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "AMBARI_SERVER" },
+        { "name" : "APP_TIMELINE_SERVER" },
+        { "name" : "GANGLIA_SERVER" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" },
+        { "name" : "RESOURCEMANAGER" } ],
+      "cardinality" : "1" },
+    { "name" : "host_group_2",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "STORM_REST_API" },
+        { "name" : "STORM_UI_SERVER" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "SECONDARY_NAMENODE" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" },
+        { "name" : "DRPC_SERVER" },
+        { "name" : "NIMBUS" } ],
+      "cardinality" : "1" },
+    { "name" : "host_group_3",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "NAMENODE" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" } ],
+      "cardinality" : "1" } ],
+  "Blueprints" : {
+    "blueprint_name" : "blueprint-c1",
+    "stack_name" : "HDP",
+    "stack_version" : "2.1" } }</pre>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+
+												</form>
+											</div>
 										</div>
 									</div><!-- .panel -->
-									
-<!-- ............ STACK PANEL ............................................. -->									
+
+<!-- ............ STACK PANEL ................................................ -->									
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h5>Stack_name</h5>
+											<h5>stack-0123</h5>
 										</div>
 										<div class="panel-body">
 
 											<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+													<label class="col-sm-3 control-label" for="parameter1">status</label>
 													<div class="col-sm-9">
-														<p id="parameter1" class="form-control-static">Parameter 1</p>
+														<p id="parameter1" class="form-control-static">CREATED</p>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+													<label class="col-sm-3 control-label" for="parameter1">creation time</label>
 													<div class="col-sm-9">
-														<p id="parameter1" class="form-control-static">Parameter 1</p>
+														<p id="parameter1" class="form-control-static">2010-07-27T22:28:28Z</p>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+													<label class="col-sm-3 control-label" for="parameter1">ambari server IP</label>
 													<div class="col-sm-9">
-														<p id="parameter1" class="form-control-static">Parameter 1</p>
+														<p id="parameter1" class="form-control-static">ambari.server.ip</p>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+													<label class="col-sm-3 control-label" for="parameter1">stack name</label>
 													<div class="col-sm-9">
-														<p id="parameter1" class="form-control-static">Parameter 1</p>
+														<p id="parameter1" class="form-control-static">coreos 1</p>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												<div class="form-group">
-													<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+													<label class="col-sm-3 control-label" for="parameter1">stack ID</label>
 													<div class="col-sm-9">
-														<p id="parameter1" class="form-control-static">Parameter 1</p>
+														<p id="parameter1" class="form-control-static">arn:aws:cloudformation:eu-west-1:755047402263:stack/coreos/fa71a930-e16b-11e3-8185-50014118ec7c</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">logical resource ID</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">CoreOSELB</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">physical resource ID</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">coreos-CoreOSELB-EIJBBQ9335MT</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">resource type</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">AWS::ElasticLoadBalancing::LoadBalancer</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">timestamp</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">1400733975000</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">resource status</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">CREATE_COMPLETE</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="parameter1">resource status reason</label>
+													<div class="col-sm-9">
+														<p id="parameter1" class="form-control-static">null</p>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 
 											</form>
+											
+<!-- ............... TEMPLATE ................................................ -->	
 
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<h5><a href="#panel-collapse02" data-toggle="collapse"><i class="fa fa-th fa-fw"></i> Blueprint_name</a></h5>
+													<h5><a href="#cluster-template-collapse01" data-toggle="collapse"  data-target="#cluster-template-collapse01"><i class="fa fa-file-o fa-fw"></i> Azure_template_001</a></h5>
 												</div>
-												<div id="panel-collapse02" class="panel-collapse collapse">
+												<div id="cluster-template-collapse01" class="panel-collapse collapse">
+
 													<div class="panel-body">
 
+														<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">Azure</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">location</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">NORTH_EUROPE</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">description</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">a brutal Azure cluster</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">address prefix</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">172.16.0.0/16</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">subnet address prefix</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">172.16.0.0/24</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">deployment slot</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">production</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">image name</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">c290a6b031d841e09f2da759bbabe71f__Oracle-Linux-6</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">username</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">lalyos_the_Impaler</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">password</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">123</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">disable SSH password authentication</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">true</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">vmType</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">small</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
 
+														</form>
 													</div>
 												</div>
 											</div><!-- .panel -->
 
+											
 										</div><!-- .panel-body -->
 
 									</div><!-- .panel -->
@@ -314,9 +477,7 @@
 								</div><!-- .panel-body -->
 								</div><!-- .panel-collapse -->
 							</div><!-- .panel -->
-							
-							
-							
+														
 						</div>
 					</div><!-- .cluster-details -->
 					
@@ -362,9 +523,9 @@
 											<div class="col-sm-9">
 												<select class="form-control" id="selectTemplate">
 													<option>– select a template –</option>
-													<option>Template_name_001</option>
-													<option>Template_name_002</option>
-													<option>Template_name_003</option>
+													<option>Azure_template_001</option>
+													<option>AWS_A</option>
+													<option>lalyosCloud 9</option>
 												</select>
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
@@ -373,9 +534,8 @@
 											<div class="col-sm-9">
 												<select class="form-control" id="selectBlueprint">
 													<option>– select a blueprint –</option>
-													<option>Blueprint_name_001</option>
-													<option>Blueprint_name_002</option>
-													<option>Blueprint_name_003</option>
+													<option>blueprint-c1</option>
+													<option>single-node-hdfs-yarn</option>
 												</select>
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
@@ -459,16 +619,70 @@
 													<div class="col-sm-9">
 														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
 													</div><!-- .col-sm-9 -->
-
 												</div><!-- .form-group -->
+
 												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="textfieldwitherror">textfieldwitherror</label>
+													<label class="col-sm-3 control-label" for="textfieldwitherror">amild</label>
 													<div class="col-sm-9">
 														<!-- no div.inputgroup without add-on -->
-														<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="textfieldwitherror">
+														<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="something bad">
 														<i class="fa fa-warning form-control-feedback"></i>
 														<!-- no div.inputgroup without add-on -->
 														<span class="help-block">Invalid textfieldwitherror</span>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="textfield">SSH location</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="textfield">key name</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group has-feedback has-error">
+													<label class="col-sm-3 control-label" for="select">region</label>
+													<div class="col-sm-9">
+														<select class="form-control" id="select">
+															<option>– select option –</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+														</select>													
+														<span class="help-block">MUST select</span>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="inlineradio">instance type</label>
+													<div class="col-sm-9" id="inlineradio">
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">type 1</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">type 2</label>
+														</div>
+														<div class="radio-inline">
+															<label>
+																<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">type 3</label>
+														</div>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="textfield">cluster name</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 
@@ -485,59 +699,21 @@
 														<div class="checkbox-inline">
 															<label>
 																<input type="checkbox" value="">
-																Option 1
-															</label>
+																Option 1</label>
 														</div>
 														<div class="checkbox-inline">
 															<label>
 																<input type="checkbox" value="">
-																Option 2
-															</label>
+																Option 2</label>
 														</div>
 														<div class="checkbox-inline">
 															<label>
 																<input type="checkbox" value="">
-																Option 3
-															</label>
+																Option 3</label>
 														</div>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
-
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="inlineradio">inlineradio</label>
-													<div class="col-sm-9" id="inlineradio">
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Option 1
-															</label>
-														</div>
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Option 2
-															</label>
-														</div>
-														<div class="radio-inline">
-															<label>
-																<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Option 3
-															</label>
-														</div>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-
-												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="select">select</label>
-													<div class="col-sm-9">
-														<select class="form-control" id="select">
-															<option>– select option –</option>
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-														</select>													
-														<span class="help-block">MUST select</span>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
+												
 
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="multiselect">multiselect</label>
@@ -571,7 +747,7 @@
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-template-collapse01" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse01"><i class="fa fa-file-o fa-fw"></i> Template_name_001</a></h5>
+												<h5><a href="#panel-template-collapse01" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse01"><i class="fa fa-file-o fa-fw"></i> Azure_template_001</a></h5>
 											</div>
 											<div id="panel-template-collapse01" class="panel-collapse collapse">
 												
@@ -582,33 +758,69 @@
 												<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">Azure</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">location</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">NORTH_EUROPE</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">description</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">a brutal Azure cluster</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">address prefix</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">172.16.0.0/16</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">subnet address prefix</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">172.16.0.0/24</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">deployment slot</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">production</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">image name</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">c290a6b031d841e09f2da759bbabe71f__Oracle-Linux-6</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">username</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">lalyos_the_Impaler</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">password</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">123</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">disable SSH password authentication</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">true</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="parameter1">vmType</label>
+														<div class="col-sm-9">
+															<p id="parameter1" class="form-control-static">small</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													
@@ -617,11 +829,11 @@
 											</div>
 										</div><!-- .panel -->
 										
-										<!-- .............. TEMPLATE .............................................. -->	
+<!-- .............. TEMPLATE .............................................. -->	
 
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-template-collapse02" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse02"><i class="fa fa-file-o fa-fw"></i> Template_name_002</a></h5>
+												<h5><a href="#panel-template-collapse02" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse02"><i class="fa fa-file-o fa-fw"></i> AWS_A</a></h5>
 											</div>
 											<div id="panel-template-collapse02" class="panel-collapse collapse">
 
@@ -632,33 +844,39 @@
 													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
 															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">Parameter 1</p>
+																<p id="parameter1" class="form-control-static">AWS</p>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<label class="col-sm-3 control-label" for="parameter1">region</label>
 															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">Parameter 1</p>
+																<p id="parameter1" class="form-control-static">eu-west-1</p>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<label class="col-sm-3 control-label" for="parameter1">SSH location</label>
 															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">Parameter 1</p>
+																<p id="parameter1" class="form-control-static">172.16.0.0</p>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<label class="col-sm-3 control-label" for="parameter1">key name</label>
 															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">Parameter 1</p>
+																<p id="parameter1" class="form-control-static">sequence-eu</p>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+															<label class="col-sm-3 control-label" for="parameter1">instance type</label>
 															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">Parameter 1</p>
+																<p id="parameter1" class="form-control-static">m3.xlarge</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">ami ID</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">ami-12345678</p>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 
@@ -667,7 +885,50 @@
 											</div>
 										</div><!-- .panel -->
 										
-																																						
+<!-- .............. TEMPLATE .............................................. -->	
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-template-collapse03" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse03"><i class="fa fa-file-o fa-fw"></i> lalyosFartCloud #9</a></h5>
+											</div>
+											<div id="panel-template-collapse03" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">lalyosFartCloud</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">SSH key address</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">168.0.0.1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">power</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">mega</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">location</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">VIII. ker</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+													</form>
+												</div>
+											</div>
+										</div><!-- .panel -->
+
 									</div><!-- #template-list-accordion -->
 									
 								</div><!-- .panel-body -->
@@ -684,7 +945,7 @@
 							<div class="panel panel-default panel-panel-container">
 								<div class="panel-heading panel-heading-nav">
 									<a href="#panel-blueprints-collapse" id="templates-btn" class="btn btn-info btn-fa-2x" role="button" data-toggle="collapse" data-target="#panel-blueprints-collapse"><i class="fa fa-angle-down fa-2x fa-fw-forced"></i></a>
-									<h4><span class="badge pull-right">1</span> manage blueprints</h4>
+									<h4><span class="badge pull-right">2</span> manage blueprints</h4>
 								</div>								
 								<div id="panel-blueprints-collapse" class="panel-btn-in-header-collapse collapse">
 																	
@@ -731,9 +992,11 @@
 									
 									<div class="panel-group" id="blueprint-list-accordion">
 										
+<!-- .............. BLUEPRINT ............................................. -->										
+										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-blueprint-collapse01" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> Blueprint_name_001</a></h5>
+												<h5><a href="#panel-blueprint-collapse01" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> blueprint-c1</a></h5>
 											</div>
 
 											<div id="panel-blueprint-collapse01" class="panel-collapse collapse">
@@ -813,6 +1076,92 @@
 											</div>
 											</div>
 										</div><!-- .panel -->
+								
+<!-- .............. BLUEPRINT ............................................. -->			
+										
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-blueprint-collapse02" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> single-node-hdfs-yarn</a></h5>
+											</div>
+
+											<div id="panel-blueprint-collapse02" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel text-right"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="document">
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="source">source</label>
+															<div class="col-sm-9">
+																<pre id="source" class="form-control-static blueprint-source">{ "host_groups" : [
+    { "name" : "host_group_1",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "HISTORYSERVER" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "NAGIOS_SERVER" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "AMBARI_SERVER" },
+        { "name" : "APP_TIMELINE_SERVER" },
+        { "name" : "GANGLIA_SERVER" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" },
+        { "name" : "RESOURCEMANAGER" } ],
+      "cardinality" : "1" },
+    { "name" : "host_group_2",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "STORM_REST_API" },
+        { "name" : "STORM_UI_SERVER" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "SECONDARY_NAMENODE" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" },
+        { "name" : "DRPC_SERVER" },
+        { "name" : "NIMBUS" } ],
+      "cardinality" : "1" },
+    { "name" : "host_group_3",
+      "components" : [
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "ZOOKEEPER_CLIENT" },
+        { "name" : "PIG" },
+        { "name" : "NAMENODE" },
+        { "name" : "SUPERVISOR" },
+        { "name" : "TEZ_CLIENT" },
+        { "name" : "HDFS_CLIENT" },
+        { "name" : "NODEMANAGER" },
+        { "name" : "YARN_CLIENT" },
+        { "name" : "MAPREDUCE2_CLIENT" },
+        { "name" : "DATANODE" },
+        { "name" : "GANGLIA_MONITOR" } ],
+      "cardinality" : "1" } ],
+  "Blueprints" : {
+    "blueprint_name" : "blueprint-c1",
+    "stack_name" : "HDP",
+    "stack_version" : "2.1" } }</pre>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+													</form>
+												</div>
+											</div>
+										</div><!-- .panel -->
+
 
 																			
 									</div><!-- #blueprint-list-accordion -->
@@ -834,7 +1183,7 @@
 							<div class="panel panel-default panel-panel-container">
 								<div class="panel-heading panel-heading-nav">
 									<a href="#panel-credentials-collapse" id="credentials-btn" class="btn btn-info btn-fa-2x" role="button" data-toggle="collapse"><i class="fa fa-angle-down fa-2x fa-fw-forced"></i></a>
-									<h4><span class="badge pull-right">2</span> manage credentials</h4>
+									<h4><span class="badge pull-right">3</span> manage credentials</h4>
 								</div>
 								
 								<div id="panel-credentials-collapse" class="panel-btn-in-header-collapse collapse">
@@ -877,20 +1226,20 @@
 												</div><!-- .form-group -->
 
 												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="roleAm">roleAm</label>
+													<label class="col-sm-3 control-label" for="roleArn">roleArn</label>
 													<div class="col-sm-9">
 														<!-- no div.inputgroup without add-on -->
-														<input type="text" class="form-control" id="roleAm" placeholder="placeholder text" value="">
+														<input type="text" class="form-control" id="roleArn" placeholder="placeholder text" value="">
 														<i class="fa fa-warning form-control-feedback"></i>
 														<!-- no div.inputgroup without add-on -->
-														<span class="help-block">Invalid roleAm</span>
+														<span class="help-block">Invalid roleArn</span>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="instanceRoleAm">instance RoleAm</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" id="instanceRoleAm" placeholder="max. 20 char">
+														<input type="text" class="form-control" id="instanceRoleAm" placeholder="placeholder text">
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												
@@ -913,7 +1262,7 @@
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i> Credential_name_001</a></h5>
+												<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i> Credential_name_20ch</a></h5>
 											</div>
 											<div id="panel-credential-collapse01" class="panel-collapse collapse">
 											
@@ -925,38 +1274,104 @@
 												<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">Azure</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">ss-1234-5678-</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
+														<label class="col-sm-3 control-label" for="parameter1">jks password</label>
 														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
-														</div><!-- .col-sm-9 -->
-													</div><!-- .form-group -->
-													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
-														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
-														</div><!-- .col-sm-9 -->
-													</div><!-- .form-group -->
-													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">parameter1</label>
-														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Parameter 1</p>
+															<p id="parameter1" class="form-control-static">password</p>
 														</div><!-- .col-sm-9 -->
 													</div><!-- .form-group -->
 													
 												</form>
 											</div>
+											</div>
+										</div><!-- .panel -->
+										
+<!-- ............. CREDENTIAL ............................................... -->												
+										
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse02"><i class="fa fa-tag fa-fw"></i> AWS_Cred_02</a></h5>
+											</div>
+											<div id="panel-credential-collapse02" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">AWS</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">roleAm</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">instance RoleAm</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+													</form>
+												</div>
+											</div>
+										</div><!-- .panel -->
+										
+<!-- ............. CREDENTIAL ............................................... -->		
+										
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-credential-collapse03" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse03"><i class="fa fa-tag fa-fw"></i> lalyos' VIP Cred</a></h5>
+											</div>
+											<div id="panel-credential-collapse03" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">lalyosFartCloud</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">lalyos-no1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="parameter1">password</label>
+															<div class="col-sm-9">
+																<p id="parameter1" class="form-control-static">password</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+													</form>
+												</div>
 											</div>
 										</div><!-- .panel -->
 										

@@ -231,7 +231,7 @@
 					});
 				});
 				
-// create new cluster process
+// create new cluster simulation
 				$('#create-cluster-form-btn').click(function () {
 					// back to clusters view
 					$('.carousel').carousel(0);
@@ -259,7 +259,8 @@
 							$(newCluster).find('.mod-nodes dd').text($('.create-cluster form #clusterSize').val());
 							clusterIdNumber++;
 							// insert new cluster DOM object with isotope
-							$container.isotope( 'insert', newCluster );							
+							$container.prepend(newCluster)
+								.isotope( 'prepended', newCluster );							
 							// set LED
 							$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state2-run-blink').text("starting")
 							// disable start/stop button
