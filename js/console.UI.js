@@ -1,490 +1,650 @@
-			$(document).ready(function () {
-				
-				var timers = new Array;
-				var timersIndex = 0;
-				var viewedCluster;
-				var clusterIdNumber = 11; 
-				
-// copy credential menu selection to menu label, remove alert color and enable create cluster button
-				$("#menu-credential ul li a").click(function () {
-					if (!($(this).hasClass("not-option"))) {
-						$(this).parents("#menu-credential").find('.dropdown-toggle span').text($(this).text()).removeClass('text-danger');
-						$('#create-cluster-btn').removeClass('disabled');
-					}
-				});
-				
-// switch cluster title to normal word break if title has space in the middle 
-				$(".cluster h4 .btn-cluster").each(function () {
-					var s = $(this).text().trim();
-					if (s.indexOf(" ") > -1 && (s.indexOf(" ") > 4 || s.lastIndexOf(" ") < 15)) {
-						$(this).css("word-break", "normal");
-					}
-				});
-				
-// initialize Isotope with sort and filter
-				var qsRegex;
-				var $container = $('.isotope-wrapper').isotope({
-					itemSelector: '.cluster',
-					layoutMode: 'masonry',
-					masonry: {
-						columnWidth: 156,
-						gutter: 0
-					},
-					filter: function () {
-						return qsRegex ? $(this).find('h4 a').text().match(qsRegex) : true;
-					},
-					getSortData: {
-						// cluster name
-						name: function (itemElem) {
-							var str = $(itemElem).find('h4 a').text();
-							return str.toLowerCase();
-						},
-						// cluster node number
-						nodes: function (itemElem) {
-							var str = $(itemElem).find('.mod-nodes dd').text();
-							return parseInt(str);
-						},
-						// cluster state from CSS class
-						state: function (itemElem) {
-							var str = $(itemElem).find('.mod-LED span').attr("class");
-							return str;
-						},
-						// cluster uptime
-						uptime: function (itemElem) {
-							var str = $(itemElem).find('.mod-uptime dd').text();
-							return parseInt(str);
-						}
-					}
-				});
-				$container.isotope({ sortBy : 'state' });
-				// sorting dropdown
-				$('#sort-clusters-btn + ul li').on('click', 'a', function (e) {
-					// get sort parameters from selected menuitem 
-					var sortByValue = $(this).attr('data-sort-by');
-					var sortAsc = $(this).attr('data-sort-asc');
-					$container.isotope({ sortBy: sortByValue, sortAscending: sortAsc });
-					// set button label to selected sort mode
-					$("#sort-clusters-btn span.title").text( sortByValue );
-					// disable selected menu item
-					$(this).parents().find('.disabled').removeClass( "disabled" );
-					$(this).parent().addClass( "disabled" );
-				});
-				// filtering in the notification textfield
-				var $quicksearch = $('#notification-n-filter').keyup( debounce( function () {
-						qsRegex = new RegExp( $quicksearch.val(), 'gi' );
-						$container.isotope();
-					}, 300 ) );
-				// debounce so filtering doesn't happen every millisecond
-				function debounce(fn, threshold) {
-					var timeout;
-					return function debounced() {
-						if (timeout) { clearTimeout(timeout); }
-						function delayed() { fn(); timeout = null; }
-						timeout = setTimeout(delayed, threshold || 100);
-					}
-				}				
-// notification/filter field clearing on focus for filtering
-				$('#notification-n-filter').focusin(function () {
-					$(this).val("").trigger("keyup")
-						// hide warning sign <i>
-						.next().addClass('hidden');
-					// delete state classes
-					$('.combo-box').removeClass('has-feedback has-error has-warning has-success');
-				});
-				
-// cluster-block hide/show
-				$('#toggle-cluster-block-btn').click(function () {
-					$('.cluster-block').collapse('toggle');
-					// must force isotope redraw, its container height set 0 by some fucking shite
-					$container.isotope();
-				});
-				// toggle fa-angle-up/down icon and sort button
-				$('.cluster-block').on('hidden.bs.collapse', function () {
-  				$('#toggle-cluster-block-btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
-					$('#sort-clusters-btn').addClass('disabled');
-					$("#notification-n-filtering").prop("disabled", true);
-				});
-				$('.cluster-block').on('shown.bs.collapse', function () {
-  				$('#toggle-cluster-block-btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
-					$('#sort-clusters-btn').removeClass('disabled');
-					$("#notification-n-filtering").prop("disabled", false);
-				});
-				
-// Bootstrap carousel as clusters / cluster details / create cluster slider
-				// init
-				$('.carousel').carousel('pause');
+$(document).ready(function () {
 
-				// show cluster details
-				$(".cluster h4 .btn-cluster").click(function () {
-					viewedCluster = $(this).parent().parent();
-					$('.carousel').carousel(1);
-					// after slid in open panel
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						$('#cluster-details-panel-collapse').collapse('show');
-					});
-					$('.cluster-details h4').text(viewedCluster.find('h4').text());
-					$('#toggle-cluster-block-btn').addClass('disabled');
-					$('#sort-clusters-btn').addClass('disabled');
-					$("#notification-n-filtering").prop("disabled", true);
-				});
-				// back to clusters
-				$("#cluster-details-back-btn").click(function () {
-					$('.carousel').carousel(0);
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						$('#cluster-details-panel-collapse').collapse('hide');
-					});
-					// must force isotope redraw, its container height set 0 by by some fucking shite
-					$container.isotope();
-					$('#toggle-cluster-block-btn').removeClass('disabled');
-					$('#sort-clusters-btn').removeClass('disabled');
-					$("#notification-n-filtering").prop("disabled", false);
-				});
-				
-				// show create cluster panel
-				$('#create-cluster-btn').click(function () {
-					$('.carousel').carousel(2);
-					// after slid in open panel
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						$('#create-cluster-panel-collapse').collapse('show');
-					});
-					$(this).addClass('disabled');
-					$('#toggle-cluster-block-btn').addClass('disabled');
-					$('#sort-clusters-btn').addClass('disabled');
-					$("#notification-n-filtering").prop("disabled", true);
-				});
-				// back to clusters
-				$("#create-cluster-back-btn").click(function () {
-					$('.carousel').carousel(0);
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						$('#create-cluster-panel-collapse').collapse('hide');
-					});
-					// must force isotope redraw, .isotope-wrapper's height set 0 by by some fucking shite
-					$container.isotope();
-					$('#toggle-cluster-block-btn').removeClass('disabled');
-					$('#sort-clusters-btn').removeClass('disabled');
-					$("#notification-n-filtering").prop("disabled", false);
-					$('#create-cluster-btn').removeClass('disabled');
-				});
-				
-				// terminate modal cluster name
-				$('#modal-terminate').on('shown.bs.modal', function () {
-					$(this).find('strong').text(viewedCluster.find('h4 a span').text());
-				});				
+	(function CONSOLE($) {
 
-// terminate cluster process
-				$('#terminate-cluster-btn').click(function () {
-					var selectedCluster = viewedCluster;
-					// hide modal
-					$('#modal-terminate').modal('hide');
-					// back to clusters view
-					$('.carousel').carousel(0);
-					// must force isotope redraw, its container height set 0 by by some fucking shite
-					$container.isotope();
-					// enable cluster bar buttons
-					$('#toggle-cluster-block-btn').removeClass('disabled');
-					$('#sort-clusters-btn').removeClass('disabled');
-					$("#notification-n-filtering").prop("disabled", false);
-					// remove cluster in isotope
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						// set isotope item attributes with VISUAL DELAY
-						timers[timersIndex++] = window.setTimeout(function () {
-							// set LED
-							selectedCluster.find('.mod-LED span').removeClass().addClass('state0-stop-blink').text("stopping");
-							// disable start/stop button
-							selectedCluster.find('.mod-start-stop').addClass('disabled');
-							// update isotope
-							$container.isotope('updateSortData').isotope();
-							var startTime = new Date();
-							// set state classes
-							$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
-							// set notification
-							$('#notification-n-filter')
-								// set text
-								.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " is being terminated")
-								// show warning sign <i>
-								.next().removeClass('hidden');
-							// simulated terminating process delay
-							timers[timersIndex++] = window.setTimeout(function () {
-								var endTime = new Date();
-								// set state classes
-								$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
-								// set notification
-								$('#notification-n-filter')
-								.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + selectedCluster.find('h4').text() + " has been terminated")
-									// show warning sign
-									.next().removeClass('hidden');
-								// remove cluster visually
-								$container.isotope('remove', selectedCluster);
-								$container.isotope();
-								}, 20000);	// 30s delay simulated termination
-						}, 500);	// 0.5s VISUAL DELAY	
-					});
-				});
-				
-// create new cluster simulation
-				$('#create-cluster-form-btn').click(function () {
-					// back to clusters view
-					$('.carousel').carousel(0);
-					// must force isotope redraw, its container height set 0 by by some fucking shite
-					$container.isotope();
-					// enable toolbar buttons
-					$('#toggle-cluster-block-btn').removeClass('disabled');
-					$('#sort-clusters-btn').removeClass('disabled');
-					$('#create-cluster-btn').removeClass('disabled');
-					$("#notification-n-filtering").prop("disabled", false);
-					// add cluster in isotope
-					$('.carousel').on('slid.bs.carousel', function () {
-						// unbind event
-						$(this).off('slid.bs.carousel');
-						// add new isotope item with VISUAL DELAY
-						timers[timersIndex++] = window.setTimeout(function () {
-							// irrelevant JS simulation of creating new cluster DOM object
-							var newClusterName = $('.create-cluster form #clusterName').val();
-								if (newClusterName == "") { newClusterName = "New cluster"; }
-							var newClusterID = "cluster-" + ("00"+clusterIdNumber).slice(-3);
-							var newClusterIdString = "#" + newClusterID; 
-							var newCluster = $('#cluster-000').clone(true, true);
-							newCluster.attr("id", newClusterID);
-							$(newCluster).find('h4 a span').text(newClusterName);
-							$(newCluster).find('.mod-nodes dd').text($('.create-cluster form #clusterSize').val());
-							clusterIdNumber++;
-							// insert new cluster DOM object with isotope
-							$container.prepend(newCluster)
-								.isotope( 'prepended', newCluster );							
-							// set LED
-							$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state2-run-blink').text("starting")
-							// disable start/stop button
-							$(newClusterIdString).find('.mod-start-stop').addClass('disabled');
-							// update isotope
-							$container.isotope('updateSortData').isotope();
-							// notification
-							var startTime = new Date();
-							// set state classes
-							$('#clusters-bar .combo-box').removeClass('has-error has-warning').addClass('has-feedback has-success');
-							$('#notification-n-filter')
-								// set text
-								.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + $(newClusterIdString).find('h4').text() + " is being started")
-								// show warning sign
-								.next().removeClass('hidden');
-							// simulated process delay
-							timers[timersIndex++] = window.setTimeout(function () {
-								// set LED
-								$(newClusterIdString).find('.mod-LED span').removeClass().addClass('state5-run').text("starting")
-								// enable start/stop button
-								$(newClusterIdString).find('.mod-start-stop').removeClass('disabled');
-								// update isotope
-								$container.isotope('updateSortData').isotope();
-								// set notification
-								var endTime = new Date();
-								// set state classes
-								$('#clusters-bar .combo-box').removeClass('has-error has-warning').addClass('has-feedback has-success');
-								$('#notification-n-filter')
-									// set text
-									.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + $(newClusterIdString).find('h4').text() + " is running")
-									// show warning sign
-								.next().removeClass('hidden');
-							}, 20000);	// 20s delay simulated creating
-						}, 500);	// 0.5s VISUAL DELAY				
-					});
-				});
+		var timers = new Array;
+		var timersIndex = 0;
+		var clustersToolbar;
+		var notification;
+		var clusters = new Array;
+		var clusterIdNumber = 0; 
+		var $container;	// Isotope
 
-				// stop cluster process
-				$('.mod-start-stop').click(function () {
-					if ($(this).find('i').hasClass('fa-pause')) {
-					// STOP
-						var cluster = $(this).parent();
-						// set LED
-						cluster.find('.mod-LED span').removeClass().addClass('state0-stop-blink').text("stopping")
-						// disable start/stop button
-						cluster.find('.mod-start-stop').addClass('disabled');
-						// update isotope after VISUAL DELAY
-						timers[timersIndex++] = window.setTimeout(function () {
-							$container.isotope('updateSortData').isotope();
-						}, 500);	// 0.5s VISUAL DELAY
-						// notification
-						var startTime = new Date();
-						// set state classes
-						$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
-						$('#notification-n-filter')
-						// set text
-						.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is stopping")
-						// show warning sign
-						.next().removeClass('hidden');
-						// simulated process delay
-						timers[timersIndex++] = window.setTimeout(function () {
-							// set LED
-							cluster.find('.mod-LED span').removeClass().addClass('state3-stop').text("ready")
-							// disable start/stop button
-							cluster.find('.mod-start-stop').removeClass('disabled').attr("title", 'start cluster')
-							.find('i').removeClass('fa-pause').addClass('fa-play');
-							// update isotope
-							$container.isotope('updateSortData').isotope();
-							// set notification
-							var endTime = new Date();
-							// set state classes
-							$('#clusters-bar .combo-box').removeClass('has-warning has-success').addClass('has-feedback has-error');
-							$('#notification-n-filter')
-							// set text
-							.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " has stopped")
-							// show warning sign
-							.next().removeClass('hidden');
-						}, 20000);	// 20s delay simulated stopping
-					} else {
-					// START
-						var cluster = $(this).parent();
-						// set LED
-						cluster.find('.mod-LED span').removeClass().addClass('state2-run-blink').text("starting")
-						// disable start/stop button
-						cluster.find('.mod-start-stop').addClass('disabled');
-						// update isotope after VISUAL DELAY
-						timers[timersIndex++] = window.setTimeout(function () {
-							$container.isotope('updateSortData').isotope();
-						}, 500);	// 0.5s VISUAL DELAY
-						// notification
-						var startTime = new Date();
-						// set state classes
-						$('#clusters-bar .combo-box').removeClass('has-warning has-error').addClass('has-feedback has-success');
-						$('#notification-n-filter')
-						// set text
-						.val(("0"+startTime.getHours()).slice(-2) + ":" + ("0"+startTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is starting")
-						// show warning sign
-						.next().removeClass('hidden');
-						// simulated process delay
-						timers[timersIndex++] = window.setTimeout(function () {
-							// set LED
-							cluster.find('.mod-LED span').removeClass().addClass('state5-run').text("ready")
-							// disable start/stop button
-							cluster.find('.mod-start-stop').removeClass('disabled').attr("title", 'start cluster')
-							.find('i').removeClass('fa-play').addClass('fa-pause');
-							// update isotope
-							$container.isotope('updateSortData').isotope();
-							// set notification
-							var endTime = new Date();
-							// set state classes
-							$('#clusters-bar .combo-box').removeClass('has-warning has-error').addClass('has-feedback has-success');
-							$('#notification-n-filter')
-							// set text
-							.val(("0"+endTime.getHours()).slice(-2) + ":" + ("0"+endTime.getMinutes()).slice(-2) + " " + cluster.find('h4').text() + " is running")
-							// show warning sign
-							.next().removeClass('hidden');
-						}, 20000);	// 20s delay simulated stopping
-					}
-				});				
+		var SIM_DELAY = 10000; // 10s delay
+
+		setupEvents();
+		initializeIsotope();
+		syncExistingHadoopClusters();
 
 
-// panel collapse scrolling
-				// solo/accordion panel click
-				$('.panel-heading > h5 > a').click(function (e) {
-					e.preventDefault();
-					accordion = $(this).attr("data-parent");
-					if (accordion != "") {
-						$(accordion).find('.in').collapse('hide');
-					}
-					$(this).parent().parent().next().collapse('toggle');
-				});
-				// create panel click
-				$('.btn-row-over-panel > a').click(function (e) {
-					e.preventDefault();
-					$(this).parent().parent().next().collapse('toggle');
-				});
-				// management panel click
-				$('.panel-panel-container > .panel-heading > a').click(function (e) {
-					e.preventDefault();
-					$(this).parent().next().collapse('toggle');
-				});
+		function setupEvents() {
 
-				// solo panel or in accordion shown
-				$('.panel-collapse').on('shown.bs.collapse', function (e) {
-					e.stopPropagation();
-					var panel = $(this).parent();		// panel
-					var offset = panel.offset().top;
-					if(offset) {
-						$('html,body').animate({
-							scrollTop: offset - 64
-						}, 500); 
-					}
-				});
-				// solo panel or in accordion hidden
-				$('.panel-collapse').on('hidden.bs.collapse', function (e) {
-					e.stopPropagation();
-				});
-				// create panel shown
-				$('.panel-under-btn-collapse').on('shown.bs.collapse', function (e) {
-					e.stopPropagation();
-					// button switch
-					$(this).parent().prev()
-					.find('.btn').fadeTo("fast", 0, function () { 
-						$(this).removeClass('btn-success').addClass('btn-info')
-						.find('i').removeClass('fa-plus').addClass('fa-times').removeClass('fa-fw')
-						.parent().find('span').addClass('hidden');
-						$(this).fadeTo("slow", 1);
-					});
-					// scroll
-					var panel = $(this).parent().prev();	// btn-row-over-panel
-					var offset = panel.offset().top;
-					if(offset) {
-						$('html,body').animate({
-							scrollTop: offset - 64
-						}, 500); 
-					}
-				});
-				// create panel hidden
-				$('.panel-under-btn-collapse').on('hidden.bs.collapse', function (e) {
-					e.stopPropagation();
-					$(this).parent().prev()
-					.find('.btn').fadeTo("fast", 0, function () { 
-						$(this).removeClass('btn-info').addClass('btn-success')
-						.find('i').removeClass('fa-times').addClass('fa-plus').addClass('fa-fw')
-						.parent().find('span').removeClass('hidden');
-						$(this).fadeTo("slow", 1);
-					});
-				});			
-				// management panel shown	
-				$('.panel-btn-in-header-collapse').on('shown.bs.collapse', function (e) {
-					// button switch
-  				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
-					// scroll
-					var panel = $(this).parent().parent();	// panel
-					var offset = panel.offset().top;
-					if(offset) {
-						$('html,body').animate({
-							scrollTop: offset - 64
-						}, 500); 
-					}
-				});
-				// management panel hidden
-				$('.panel-btn-in-header-collapse').on('hidden.bs.collapse', function (e) {
-					// button switch
-					$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
-				});
-				
+			clustersToolbar = new ClustersToolbar();
+			notification = new Notification();
+
+			// copy credential menu selection to menu label, remove alert color and enable create cluster button
+			$("#menu-credential ul li a").click(function () {
+				if (!($(this).hasClass("not-option"))) {
+					$(this).parents("#menu-credential").find('.dropdown-toggle span').text($(this).text()).removeClass('text-danger');
+					clustersToolbar.enableCreateBtn();
+				}
+			});
 			
+			// cluster-block hide/show
+			$('#toggle-cluster-block-btn').click(function () {
+				$('.cluster-block').collapse('toggle');
+				// must force isotope redraw, its container height set 0 by some fucking shite
+				$container.isotope();
+			});
+			// toggle fa-angle-up/down icon and sort button
+			$('.cluster-block').on('hidden.bs.collapse', function () {
+				$('#toggle-cluster-block-btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
+				// disable filter and sort
+				clustersToolbar.enabled(true, false, false, true);
+			});
+			$('.cluster-block').on('shown.bs.collapse', function () {
+				$('#toggle-cluster-block-btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
+				// enable all
+				clustersToolbar.enabled(true, true, true, true);
+			});
 
-// btn-segmented-control
-				$('.btn-segmented-control a').click(function (e) {
-					var selected = 'btn-info';
-					var active = 'btn-default';
-					var control = $(this).parent().parent();
-					e.preventDefault();
-					control.find('a').each(function () {
-						$(this).removeClass(selected).addClass(active);
-					});
-					$(this).removeClass(active).addClass(selected);
-					
-					// do something...
+			// Bootstrap carousel as clusters / cluster details / create cluster slider
+			// init
+			$('.carousel').carousel('pause');	
+
+			// show create cluster panel
+			$('#create-cluster-btn').click(function () {
+				$('.carousel').carousel(2);
+				// after slid in open panel
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					$('#create-cluster-panel-collapse').collapse('show');
 				});
-			
+				// disable clusters toolbar
+				clustersToolbar.enabled(false, false, false, false);
+			});
+			// back to clusters
+			$("#create-cluster-back-btn").click(function () {
+				$('.carousel').carousel(0);
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					$('#create-cluster-panel-collapse').collapse('hide');
+				});
+				// must force isotope redraw, .isotope-wrapper's height set 0 by by some fucking shite
+				$container.isotope();
+				// enable clusters toolbar
+				clustersToolbar.enabled(true, true, true, true);
 			});
 
 
+			// create new cluster
+			$('#create-cluster-form-btn').click(function () {
+				// back to clusters view
+				$('.carousel').carousel(0);
+				// must force isotope redraw, its container height set 0 by by some fucking shite
+				$container.isotope();
+				// enable toolbar buttons
+				clustersToolbar.enabled(true, true, true, true);
+				// create new cluster
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					// add new cluster with VISUAL DELAY
+					timers[timersIndex++] = window.setTimeout(function () {
+
+						var name = $('.create-cluster form #clusterName').val();
+						var size = $('.create-cluster form #clusterSize').val();
+						var uptime = 0;
+						clusters[clusterIdNumber] = new Cluster;
+						clusters[clusterIdNumber].create(name, clusterIdNumber, size, uptime);
+
+						// simulated process
+						sim_CREATEHadoopCluster(clusterIdNumber++);
+
+					}, 500);	// 0.5s VISUAL DELAY				
+				});
+			});
+
+
+			// panel collapse page scrolling
+			// solo/accordion panel click
+			$('.panel-heading > h5 > a').click(function (e) {
+				e.preventDefault();
+				accordion = $(this).attr("data-parent");
+				if (accordion != "") {
+					$(accordion).find('.in').collapse('hide');
+				}
+				$(this).parent().parent().next().collapse('toggle');
+			});
+			// create panel click
+			$('.btn-row-over-panel > a').click(function (e) {
+				e.preventDefault();
+				$(this).parent().parent().next().collapse('toggle');
+			});
+			// management panel click
+			$('.panel-panel-container > .panel-heading > a').click(function (e) {
+				e.preventDefault();
+				$(this).parent().next().collapse('toggle');
+			});
+
+			// solo panel or in accordion shown
+			$('.panel-collapse').on('shown.bs.collapse', function (e) {
+				e.stopPropagation();
+				var panel = $(this).parent();		// panel
+				var offset = panel.offset().top;
+				if(offset) {
+					$('html,body').animate({
+						scrollTop: offset - 64
+					}, 500); 
+				}
+			});
+			// solo panel or in accordion hidden
+			$('.panel-collapse').on('hidden.bs.collapse', function (e) {
+				e.stopPropagation();
+			});
+			// create template/blueprint/credential panel shown
+			$('.panel-under-btn-collapse').on('shown.bs.collapse', function (e) {
+				e.stopPropagation();
+				// button switch
+				$(this).parent().prev()
+				.find('.btn').fadeTo("fast", 0, function () { 
+					$(this).removeClass('btn-success').addClass('btn-info')
+					.find('i').removeClass('fa-plus').addClass('fa-times').removeClass('fa-fw')
+					.parent().find('span').addClass('hidden');
+					$(this).fadeTo("slow", 1);
+				});
+				// scroll
+				var panel = $(this).parent().prev();	// btn-row-over-panel
+				var offset = panel.offset().top;
+				if(offset) {
+					$('html,body').animate({
+						scrollTop: offset - 64
+					}, 500); 
+				}
+			});
+			// create template/blueprint/credential panel hidden
+			$('.panel-under-btn-collapse').on('hidden.bs.collapse', function (e) {
+				e.stopPropagation();
+				$(this).parent().prev()
+				.find('.btn').fadeTo("fast", 0, function () { 
+					$(this).removeClass('btn-info').addClass('btn-success')
+					.find('i').removeClass('fa-times').addClass('fa-plus').addClass('fa-fw')
+					.parent().find('span').removeClass('hidden');
+					$(this).fadeTo("slow", 1);
+				});
+			});			
+			// management panel shown	
+			$('.panel-btn-in-header-collapse').on('shown.bs.collapse', function (e) {
+				// button switch
+				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
+				// scroll
+				var panel = $(this).parent().parent();	// panel
+				var offset = panel.offset().top;
+				if(offset) {
+					$('html,body').animate({
+						scrollTop: offset - 64
+					}, 500); 
+				}
+			});
+			// management panel hidden
+			$('.panel-btn-in-header-collapse').on('hidden.bs.collapse', function (e) {
+				// button switch
+				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
+			});
+			
+
+			// btn-segmented-control
+			$('.btn-segmented-control a').click(function (e) {
+				var selected = 'btn-info';
+				var active = 'btn-default';
+				var control = $(this).parent().parent();
+				e.preventDefault();
+				control.find('a').each(function () {
+					$(this).removeClass(selected).addClass(active);
+				});
+				$(this).removeClass(active).addClass(selected);
+
+				// do something...
+			});
+
+		}
+
+
+		function initializeIsotope() {
+			var qsRegex;
+
+			$container = $('.isotope-wrapper').isotope({
+				itemSelector: '.cluster',
+				layoutMode: 'masonry',
+				masonry: {
+					columnWidth: 156,
+					gutter: 0
+				},
+				filter: function () {
+					return qsRegex ? $(this).find('h4 a').text().match(qsRegex) : true;
+				},
+				getSortData: {
+					// cluster name
+					name: function (itemElem) {
+						var str = $(itemElem).find('h4 a').text();
+						return str.toLowerCase();
+					},
+					// cluster node number
+					nodes: function (itemElem) {
+						var str = $(itemElem).find('.mod-nodes dd').text();
+						return parseInt(str);
+					},
+					// cluster state from CSS class
+					state: function (itemElem) {
+						var str = $(itemElem).find('.mod-LED span').attr("class");
+						return str;
+					},
+					// cluster uptime
+					uptime: function (itemElem) {
+						var str = $(itemElem).find('.mod-uptime dd').text();
+						return parseInt(str);
+					}
+				}
+			});
+			$container.isotope({ sortBy : 'state' });
+			// sorting dropdown
+			$('#sort-clusters-btn + ul li').on('click', 'a', function (e) {
+				// get sort parameters from selected menuitem 
+				var sortByValue = $(this).attr('data-sort-by');
+				var sortAsc = $(this).attr('data-sort-asc');
+				$container.isotope({ sortBy: sortByValue, sortAscending: sortAsc });
+				// set button label to selected sort mode
+				$("#sort-clusters-btn span.title").text( sortByValue );
+				// disable selected menu item
+				$(this).parents().find('.disabled').removeClass( "disabled" );
+				$(this).parent().addClass( "disabled" );
+			});
+			// filtering in the notification textfield
+			var $quicksearch = $('#notification-n-filter').keyup( debounce( function () {
+				qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+				$container.isotope();
+			}, 300 ) );
+			// debounce so filtering doesn't happen every millisecond
+			function debounce(fn, threshold) {
+				var timeout;
+				return function debounced() {
+					if (timeout) { clearTimeout(timeout); }
+					function delayed() { fn(); timeout = null; }
+					timeout = setTimeout(delayed, threshold || 100);
+				}
+			}				
+		}
+
+
+		function syncExistingHadoopClusters() {
+			// create Clusters based on existing Hadoop clusters
+		}
+
+
+		// process delay simulators	
+		function sim_CREATEHadoopCluster(idNumber) {
+			// simulated process delay
+			timers[timersIndex++] = window.setTimeout(function () {
+				clusters[idNumber].op_COMPLETED();
+			}, SIM_DELAY);
+		}
+		function sim_STARTHadoopCluster(idNumber) {
+			// simulated process delay
+			timers[timersIndex++] = window.setTimeout(function () {
+				clusters[idNumber].op_COMPLETED();
+			}, SIM_DELAY);
+		}
+		function sim_STOPHadoopCluster(idNumber) {
+			// simulated process delay
+			timers[timersIndex++] = window.setTimeout(function () {
+				clusters[idNumber].op_COMPLETED();
+			}, SIM_DELAY);
+		}
+		function sim_DELETEHadoopCluster(idNumber) {
+			// simulated process delay
+			timers[timersIndex++] = window.setTimeout(function () {
+				clusters[idNumber].op_COMPLETED();
+			}, SIM_DELAY);
+		}
+		// error simulator
+		function sim_ERRORHadoopCluster(idNumber) {
+			clusters[idNumber].op_ERROR(': total failure');
+		}
+
+
+
+		/** ... Cluster ........................................................ */
+
+		function Cluster() {
+
+			// HTML manifestation of the cluster
+			var htmlCluster;
+			var clusterName;
+			var clusterSize;
+			var clusterUptime = 0;
+			var clusterIdNumber;
+
+			// finite state machine
+			var fsm;
+			var fsmBlueprint = {
+				initial: 'Creating',
+				events: [
+					{ name: 'op_COMPLETED',		from:	'Creating',														to:	'Running' },
+					{ name: 'op_FAILED',			from:	'Creating',														to:	'Aborted' },
+
+					{ name: 'op_COMPLETED',		from: 'Starting',														to: 'Running' },
+					{ name: 'op_FAILED',			from: 'Starting',														to: 'Stopped' },															
+
+					{ name: 'startstop',			from: 'Running',														to: 'Stopping' },
+					{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Stopped' }, // v0.1
+			// 	{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Standby' }, // v0.2
+					
+					{ name: 'startstop',			from: 'Stopped',														to: 'Starting' }, // v0.1
+			//	{ name: 'startstop',			from: 'Standby',														to: 'Starting' }, // v0.2
+
+					{ name: 'terminate',			from: ['Stopped', 'Standby', 'Running'],		to: 'Terminating' },
+					{ name: 'op_COMPLETED',		from: 'Terminating',												to: 'Terminated' },
+
+					{ name: 'op_ERROR',				from: ['Standby', 'Running'],								to: 'Stopped' }
+				],		
+				callbacks: {					
+					onenterCreating: function(e,f,t) {
+						setLED('state2-run-blink', 'starting'); 
+						setStartStopBtn('fa-pause', 'disabled');
+						notification.send(clusterName, 'has-success', ' is being created');	
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+						// simulated creating process will trigger Cluster.op_COMPLETED() or Cluster.op_FAILED(errormsg)
+						sim_CREATEHadoopCluster(clusterIdNumber);
+					},
+					onenterAborted: function(e,f,t, errormsg) {
+						notification.send(clusterName, 'has-error', '\'s creation failed: ' + errormsg);
+						deleteHtmlCluster();
+					},
+					onenterStarting: function(e,f,t) {
+						setLED('state2-run-blink', 'starting'); 
+						setStartStopBtn('fa-pause', 'disabled');
+						notification.send(clusterName, 'has-success', ' is starting');
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+						// simulated starting process will trigger cluster.op_COMPLETED()
+						sim_STARTHadoopCluster(clusterIdNumber);
+					},
+					onenterRunning: function(e,f,t) {
+						startUptimer(clusterUptime);
+						setLED('state5-run', 'running'); 
+						setStartStopBtn('fa-pause', 'enabled');
+						notification.send(clusterName, 'has-success', ' is running');
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+					},
+					/* v0.2
+					onenterStandby: function(e,f,t) {
+						setLED('state4-ready', 'ready'); 
+						setStartStopBtn('fa-play', 'enabled');
+						notification.send(clusterName, 'has-warning', ' is on standby');
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+					},  */
+					onenterStopping: function(e,f,t) {
+						setLED('state0-stop-blink', 'stopping'); // v0.1
+				//	setLED('state1-ready-blink', 'stopping'); // v0.2
+						setStartStopBtn('fa-play', 'disabled');
+						notification.send(clusterName, 'has-error', ' is stopping'); // v0.1
+				//	notification.send(clusterName, 'has-warning', ' is stopping'); // v0.2
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+						// simulated stopping process will trigger Cluster.op_COMPLETED()
+						sim_STOPHadoopCluster(clusterIdNumber);
+					},
+					onenterStopped: function(e,f,t, errormsg) {
+						stopUptimer();
+						setLED('state3-stop', 'stopped'); 
+						setStartStopBtn('fa-play', 'enabled'); // v0.1
+				//	setStartStopBtn('fa-play', 'disabled'); // v0.2
+						notification.send(clusterName, 'has-error', ' has stopped' + (errormsg?errormsg:''));
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+					},
+					onenterTerminating: function(e,f,t) {
+						setLED('state0-stop-blink', 'stopping'); 
+						setStartStopBtn('fa-play', 'disabled');
+						notification.send(clusterName, 'has-error', ' is being terminated');
+						// update isotope
+						$container.isotope('updateSortData').isotope();
+						// simulated terminating process will trigger Cluster.op_COMPLETED()
+						sim_DELETEHadoopCluster(clusterIdNumber);
+					},
+					onenterTerminated: function(e,f,t) {
+						notification.send(clusterName, 'has-error', ' has been terminated');
+						deleteHtmlCluster();
+					}
+				}
+			};
+
+			function createHtmlCluster(name, id, size, uptime) {
+				htmlCluster = $('#cluster-template').clone(true, true);
+				clusterName = name;
+				if (clusterName == "") { clusterName = "New cluster"; }
+				// switch cluster title to normal word break if name has space in the middle 
+				var str = clusterName.trim();
+				if (str.indexOf(" ") > -1 && (str.indexOf(" ") > 4 || str.lastIndexOf(" ") < 15)) {
+					htmlCluster.find('h4 .btn-cluster').css("word-break", "normal");
+				}
+				clusterIdNumber = id;
+				var htmlId = "cluster-" + ("00" + (clusterIdNumber)).slice(-3);;
+				clusterSize = size;
+				clusterUptime = uptime;
+				htmlCluster.attr("id", htmlId);
+				htmlCluster.find('h4 .btn-cluster span').text(clusterName);
+				htmlCluster.find('.mod-nodes dd').text(clusterSize);
+				// set up HTML events for btns
+				htmlCluster.find('.mod-start-stop').click(function () {
+					fsm.startstop();
+				});
+				htmlCluster.find('h4 .btn-cluster').click(function () {
+					showClusterDetails();
+				});
+				// insert new cluster DOM object with isotope
+				$container.prepend(htmlCluster).isotope( 'prepended', htmlCluster);
+			}	
+			function deleteHtmlCluster() {
+				$container.isotope('remove', htmlCluster);
+				$container.isotope();
+			}
+
+			function showClusterDetails() {
+				// disable cluster toolbar except create cluster btn
+				clustersToolbar.enabled(false, false, false, true);				
+				// slide in details panel
+				$('.carousel').carousel(1);
+				// after slid open panel
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					$('#cluster-details-panel-collapse').collapse('show');
+				});
+				// set name and size
+				$('.cluster-details h4').text(clusterName);
+				$('.cluster-details #cluster-size').text(clusterSize);
+				// set up HTML events
+				$("#cluster-details-back-btn").off('click');
+				$("#cluster-details-back-btn").click(function () {
+					hideClusterDetails();
+				});
+				$("#terminate-btn").off('click');
+				$("#terminate-btn").click(function () {
+					showTerminateModal();
+				});
+			}
+			function hideClusterDetails() {
+				// Enable cluster toolbar
+				clustersToolbar.enabled(true, true, true, true);
+				// slide in clusters
+				$('.carousel').carousel(0);
+				// after slid close panel
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					$('#cluster-details-panel-collapse').collapse('hide');
+				});
+				// must force isotope redraw, its container height set 0 by by some fucking shite
+				$container.isotope();
+			}
+
+			function showTerminateModal() {
+				// open
+				$('#modal-terminate').modal();
+				// display cluster name
+				$('#modal-terminate').find('strong').text(clusterName);
+				// on okay button click do it
+				$("#terminate-cluster-btn").off('click');
+				$("#terminate-cluster-btn").click(function () {
+					terminateCluster();
+				});
+			}
+			function terminateCluster() {
+				// hide modal
+				$('#modal-terminate').modal('hide');
+				// back to clusters view
+				$('.carousel').carousel(0);
+				// must force isotope redraw, its container height set 0 by by some fucking shite
+				$container.isotope();
+				// enable cluster bar buttons
+				clustersToolbar.enabled(true, true, true, true);			
+				$('.carousel').on('slid.bs.carousel', function () {
+					// unbind event
+					$(this).off('slid.bs.carousel');
+					// start terminating after VISUAL DELAY
+					timers[timersIndex++] = window.setTimeout(function () {
+						fsm.terminate();							
+					}, 500);	// 0.5s VISUAL DELAY	
+				});
+			}
+
+			function setLED(state, stateText) {
+				var led = htmlCluster.find('.mod-LED span');
+
+				led.removeClass().addClass(state).text(stateText);
+			}
+			function setStartStopBtn(button, state) {
+				var startStopBtn = htmlCluster.find('.mod-start-stop');
+
+				startStopBtn.find('i').removeClass('fa-play fa-pause').addClass(button);
+				if (state == 'disabled') { startStopBtn.addClass('disabled'); } else { startStopBtn.removeClass('disabled'); }
+			}
+
+			function startUptimer(startTime) {
+				var timer = htmlCluster.find('.mod-uptime dd');
+				var timerSetup = {
+					format: 'HM',
+					layout: '{hn}<sup>h</sup>{mnn}<sup>m</sup>',
+					since: 0
+				}
+				timerSetup.since = startTime;
+				timer.countdown(timerSetup);
+			}
+			function stopUptimer() {
+				var timer = htmlCluster.find('.mod-uptime dd');
+				timer.countdown('pause');
+				clusterUptime = 0;
+			}
+
+
+			/** ........................ public methods .......................... */
+
+			// creating a new Hadoop cluster
+			this.create = function (clusterName, clusterIdNumber, clusterSize) {
+				createHtmlCluster(clusterName, clusterIdNumber, clusterSize, 0);
+				// create state machine
+				fsm = StateMachine.create(fsmBlueprint);
+			}
+			// sync with an existing Hadoop cluster
+			this.sync = function (clusterName, clusterIdNumber, clusterSize, clusterUptime, clusterState) {
+				createHtmlCluster(clusterName, clusterIdNumber, clusterSize, clusterUptime);
+				// create state machine
+				fsmBlueprint.initial = clusterState;
+				fsm = StateMachine.create(fsmBlueprint);
+			}
+			// events
+			this.op_COMPLETED = function () {
+				fsm.op_COMPLETED();
+			}
+			this.op_FAILED = function (errormsg) {
+				fsm.op_FAILED(errormsg);
+			}
+			this.op_ERROR = function (errormsg) {
+				fsm.op_ERROR(errormsg);
+			}
+
+		} // Cluster
+
+
+		/** ... ClustersToolbar ................................................. */
+
+		function ClustersToolbar() {
+
+			var toggleClusterBtn = $('#toggle-cluster-block-btn');
+			var filterField = $("#notification-n-filter");
+			var sortBtn = $('#sort-clusters-btn');
+			var createBtn = $('#create-cluster-btn');
+
+			/** ....................... public methods ........................... */
+
+			this.enabled = function (toggle, filter, sort, create) {
+				if (toggle) { toggleClusterBtn.removeClass('disabled'); } else { toggleClusterBtn.addClass('disabled'); }
+				filterField.prop('disabled', !filter);
+				if (sort) { sortBtn.removeClass('disabled'); } else { sortBtn.addClass('disabled'); }
+				if (create && !($('#menu-credential .dropdown-toggle span').hasClass('text-danger'))) {
+					createBtn.removeClass('disabled'); } else { createBtn.addClass('disabled');
+				}
+			}
+			this.enableCreateBtn = function () {
+				createBtn.removeClass('disabled');
+			}
+
+		} // ClustersToolbar
+
+
+		/** ... Notification ................................................... */
+
+		function Notification() {
+
+			var container = $('#clusters-bar .combo-box');
+			var textField = $('#notification-n-filter');
+			var self = this;
+
+			// setup events
+			// notification/filter field clearing on focus for filtering
+			textField.focusin(function () {
+				self.clear();
+			});
+
+			/** ....................... public methods ........................... */
+
+			this.clear = function () {
+				textField.val("").trigger("keyup")
+				// hide warning sign <i>
+				textField.next().addClass('hidden');
+				// delete message classes
+				container.removeClass('has-feedback has-error has-warning has-success');
+			}
+
+			this.send = function (clusterName, hasCategory, message) {
+				var currentTime = new Date();
+				// set message classes
+				container.removeClass('has-success has-warning has-error').addClass('has-feedback').addClass(hasCategory);
+				// set text
+				textField.val(("0"+currentTime.getHours()).slice(-2) + ":" + ("0"+currentTime.getMinutes()).slice(-2) + " " + clusterName + message)
+				// show warning sign
+				textField.next().removeClass('hidden');
+			}
+
+		} // Notification
+
 	
+	})(jQuery);	// CONSOLE
+
+});
