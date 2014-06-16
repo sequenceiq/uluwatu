@@ -391,7 +391,7 @@ $(document).ready(function () {
 				callbacks: {					
 					onenterCreating: function(e,f,t) {
 						setLED('state2-run-blink', 'starting'); 
-						setStartStopBtn('fa-pause', 'disabled');
+						setStartStopBtn('fa-pause', 'disabled', '');
 						notification.send(clusterName, 'has-success', ' is being created');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
@@ -404,7 +404,7 @@ $(document).ready(function () {
 					},
 					onenterStarting: function(e,f,t) {
 						setLED('state2-run-blink', 'starting'); 
-						setStartStopBtn('fa-pause', 'disabled');
+						setStartStopBtn('fa-pause', 'disabled', '');
 						notification.send(clusterName, 'has-success', ' is starting');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
@@ -414,7 +414,7 @@ $(document).ready(function () {
 					onenterRunning: function(e,f,t) {
 						startUptimer(clusterUptime);
 						setLED('state5-run', 'running'); 
-						setStartStopBtn('fa-pause', 'enabled');
+						setStartStopBtn('fa-pause', 'enabled', 'stop cluster');
 						notification.send(clusterName, 'has-success', ' is running');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
@@ -422,7 +422,7 @@ $(document).ready(function () {
 					/* v0.2
 					onenterStandby: function(e,f,t) {
 						setLED('state4-ready', 'ready'); 
-						setStartStopBtn('fa-play', 'enabled');
+						setStartStopBtn('fa-play', 'enabled', 'start cluster');
 						notification.send(clusterName, 'has-warning', ' is on standby');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
@@ -430,7 +430,7 @@ $(document).ready(function () {
 					onenterStopping: function(e,f,t) {
 						setLED('state0-stop-blink', 'stopping'); // v0.1
 				//	setLED('state1-ready-blink', 'stopping'); // v0.2
-						setStartStopBtn('fa-play', 'disabled');
+						setStartStopBtn('fa-play', 'disabled', '');
 						notification.send(clusterName, 'has-error', ' is stopping'); // v0.1
 				//	notification.send(clusterName, 'has-warning', ' is stopping'); // v0.2
 						// update isotope
@@ -441,7 +441,7 @@ $(document).ready(function () {
 					onenterStopped: function(e,f,t, errormsg) {
 						stopUptimer();
 						setLED('state3-stop', 'stopped'); 
-						setStartStopBtn('fa-play', 'enabled'); // v0.1
+						setStartStopBtn('fa-play', 'enabled', 'start cluster'); // v0.1
 				//	setStartStopBtn('fa-play', 'disabled'); // v0.2
 						notification.send(clusterName, 'has-error', ' has stopped' + errormsg);
 						// update isotope
@@ -449,7 +449,7 @@ $(document).ready(function () {
 					},
 					onenterTerminating: function(e,f,t) {
 						setLED('state0-stop-blink', 'stopping'); 
-						setStartStopBtn('fa-play', 'disabled');
+						setStartStopBtn('fa-play', 'disabled', '');
 						notification.send(clusterName, 'has-error', ' is being terminated');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
@@ -568,13 +568,14 @@ $(document).ready(function () {
 			function setLED(state, stateText) {
 				var led = htmlCluster.find('.mod-LED span');
 
-				led.removeClass().addClass(state).text(stateText);
+				led.removeClass().addClass(state).attr('title', stateText);
 			}
-			function setStartStopBtn(button, state) {
+			function setStartStopBtn(button, state, titleText) {
 				var startStopBtn = htmlCluster.find('.mod-start-stop');
 
 				startStopBtn.find('i').removeClass('fa-play fa-pause').addClass(button);
 				if (state == 'disabled') { startStopBtn.addClass('disabled'); } else { startStopBtn.removeClass('disabled'); }
+				startStopBtn.attr('title', titleText);
 			}
 
 			function startUptimer(startTime) {
