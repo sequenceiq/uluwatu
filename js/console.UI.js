@@ -9,14 +9,16 @@ $(document).ready(function () {
 		var clusters = new Array;
 		var clusterIdNumber = 0; 
 		var $container;	// Isotope
+		var SIM_DELAY = 20000; // 20s delay
+		
 
-		var SIM_DELAY = 10000; // 10s delay
-
+		/** ... startup ........................................................ */
+		
 		setupEvents();
 		initializeIsotope();
 		syncExistingHadoopClusters();
 
-
+		
 		function setupEvents() {
 
 			clustersToolbar = new ClustersToolbar();
@@ -279,21 +281,57 @@ $(document).ready(function () {
 
 
 		function syncExistingHadoopClusters() {
-			// create Clusters based on existing Hadoop clusters
+			// create Clusters based on existing Hadoop clusters			
+			var hadoopClusters = sim_GETHadoopClustersData();
+			var n = hadoopClusters.length;
+			
+			for (var i = 0; i < n; i++) {
+				clusters[clusterIdNumber] = new Cluster;
+				clusters[clusterIdNumber].sync(hadoopClusters[i].name, clusterIdNumber++, 
+																			 hadoopClusters[i].size, hadoopClusters[i].uptime,
+																			 hadoopClusters[i].state);
+			}			
 		}
 
-
+		
+		/** ... simulations .................................................... */
+		
+		// reading existing clusters' data simulator
+		function sim_GETHadoopClustersData() {
+			var HADOOPS = [
+				{ name : 'fuckin-hot-shit',
+					size : 3,
+					uptime : '-517h -48m',
+					state : 'Running'
+				},
+				{ name : 'big-muthafucka',
+				 size : 99,
+				 uptime : '-0h -00m',
+				 state : 'Stopped'
+				},
+				{ name : 'lalyos-001',
+				 size : 1,
+				 uptime : '-0h -00m',
+				 state : 'Starting'
+				}
+			];
+			return HADOOPS;
+		}
 		// process delay simulators	
 		function sim_CREATEHadoopCluster(idNumber) {
+			var errormsg = "";
 			// simulated process delay
 			timers[timersIndex++] = window.setTimeout(function () {
 				clusters[idNumber].op_COMPLETED();
+		//	clusters[idNumber].op_FAILED(errormsg);
 			}, SIM_DELAY);
 		}
 		function sim_STARTHadoopCluster(idNumber) {
+			var errormsg = "";
 			// simulated process delay
 			timers[timersIndex++] = window.setTimeout(function () {
 				clusters[idNumber].op_COMPLETED();
+		//	clusters[idNumber].op_FAILED(errormsg);
 			}, SIM_DELAY);
 		}
 		function sim_STOPHadoopCluster(idNumber) {
@@ -310,7 +348,8 @@ $(document).ready(function () {
 		}
 		// error simulator
 		function sim_ERRORHadoopCluster(idNumber) {
-			clusters[idNumber].op_ERROR(': total failure');
+			var errormsg = ": total failure";
+			clusters[idNumber].op_ERROR(errormsg);
 		}
 
 
@@ -323,7 +362,7 @@ $(document).ready(function () {
 			var htmlCluster;
 			var clusterName;
 			var clusterSize;
-			var clusterUptime = 0;
+			var clusterUptime;
 			var clusterIdNumber;
 
 			// finite state machine
@@ -353,7 +392,7 @@ $(document).ready(function () {
 					onenterCreating: function(e,f,t) {
 						setLED('state2-run-blink', 'starting'); 
 						setStartStopBtn('fa-pause', 'disabled');
-						notification.send(clusterName, 'has-success', ' is being created');	
+						notification.send(clusterName, 'has-success', ' is being created');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
 						// simulated creating process will trigger Cluster.op_COMPLETED() or Cluster.op_FAILED(errormsg)
@@ -404,7 +443,7 @@ $(document).ready(function () {
 						setLED('state3-stop', 'stopped'); 
 						setStartStopBtn('fa-play', 'enabled'); // v0.1
 				//	setStartStopBtn('fa-play', 'disabled'); // v0.2
-						notification.send(clusterName, 'has-error', ' has stopped' + (errormsg?errormsg:''));
+						notification.send(clusterName, 'has-error', ' has stopped' + errormsg);
 						// update isotope
 						$container.isotope('updateSortData').isotope();
 					},
@@ -427,23 +466,26 @@ $(document).ready(function () {
 			function createHtmlCluster(name, id, size, uptime) {
 				htmlCluster = $('#cluster-template').clone(true, true);
 				clusterName = name;
-				if (clusterName == "") { clusterName = "New cluster"; }
+				clusterIdNumber = id;
+				clusterSize = size;
+				clusterUptime = uptime;
+				if (clusterName == "") { clusterName = "New-cluster-" + ("00" + (clusterIdNumber)).slice(-3); }
 				// switch cluster title to normal word break if name has space in the middle 
 				var str = clusterName.trim();
 				if (str.indexOf(" ") > -1 && (str.indexOf(" ") > 4 || str.lastIndexOf(" ") < 15)) {
 					htmlCluster.find('h4 .btn-cluster').css("word-break", "normal");
 				}
-				clusterIdNumber = id;
-				var htmlId = "cluster-" + ("00" + (clusterIdNumber)).slice(-3);;
-				clusterSize = size;
-				clusterUptime = uptime;
+				var htmlId = "cluster-" + ("00" + (clusterIdNumber)).slice(-3);
 				htmlCluster.attr("id", htmlId);
 				htmlCluster.find('h4 .btn-cluster span').text(clusterName);
 				htmlCluster.find('.mod-nodes dd').text(clusterSize);
 				// set up HTML events for btns
+				htmlCluster.find('.mod-start-stop').off('click');
 				htmlCluster.find('.mod-start-stop').click(function () {
+					this.blur();
 					fsm.startstop();
 				});
+				htmlCluster.find('h4 .btn-cluster').off('click');
 				htmlCluster.find('h4 .btn-cluster').click(function () {
 					showClusterDetails();
 				});
@@ -480,7 +522,7 @@ $(document).ready(function () {
 				});
 			}
 			function hideClusterDetails() {
-				// Enable cluster toolbar
+				// enable cluster toolbar
 				clustersToolbar.enabled(true, true, true, true);
 				// slide in clusters
 				$('.carousel').carousel(0);
@@ -488,10 +530,9 @@ $(document).ready(function () {
 				$('.carousel').on('slid.bs.carousel', function () {
 					// unbind event
 					$(this).off('slid.bs.carousel');
-					$('#cluster-details-panel-collapse').collapse('hide');
+					// must force isotope redraw, its container height set 0 by by some fucking shite
+					$container.isotope();
 				});
-				// must force isotope redraw, its container height set 0 by by some fucking shite
-				$container.isotope();
 			}
 
 			function showTerminateModal() {
@@ -541,31 +582,33 @@ $(document).ready(function () {
 				var timerSetup = {
 					format: 'HM',
 					layout: '{hn}<sup>h</sup>{mnn}<sup>m</sup>',
-					since: 0
+					since: '-0h -00m'
 				}
 				timerSetup.since = startTime;
+				timer.countdown('destroy'); // to restart existing uptimer
 				timer.countdown(timerSetup);
+				// timer.countdown('resume');
 			}
 			function stopUptimer() {
 				var timer = htmlCluster.find('.mod-uptime dd');
 				timer.countdown('pause');
-				clusterUptime = 0;
+				clusterUptime = '-0h -00m';
 			}
 
 
 			/** ........................ public methods .......................... */
 
 			// creating a new Hadoop cluster
-			this.create = function (clusterName, clusterIdNumber, clusterSize) {
-				createHtmlCluster(clusterName, clusterIdNumber, clusterSize, 0);
+			this.create = function (name, id, size) {
+				createHtmlCluster(name, id, size, '-0h -00m');
 				// create state machine
 				fsm = StateMachine.create(fsmBlueprint);
 			}
 			// sync with an existing Hadoop cluster
-			this.sync = function (clusterName, clusterIdNumber, clusterSize, clusterUptime, clusterState) {
-				createHtmlCluster(clusterName, clusterIdNumber, clusterSize, clusterUptime);
+			this.sync = function (name, id, size, uptime, state) {
+				createHtmlCluster(name, id, size, uptime);
 				// create state machine
-				fsmBlueprint.initial = clusterState;
+				fsmBlueprint.initial = state;
 				fsm = StateMachine.create(fsmBlueprint);
 			}
 			// events
@@ -582,7 +625,7 @@ $(document).ready(function () {
 		} // Cluster
 
 
-		/** ... ClustersToolbar ................................................. */
+		/** ... ClustersToolbar ................................................ */
 
 		function ClustersToolbar() {
 
@@ -632,8 +675,9 @@ $(document).ready(function () {
 				container.removeClass('has-feedback has-error has-warning has-success');
 			}
 
-			this.send = function (clusterName, hasCategory, message) {
+			this.send = function (clusterName, hasCategory, errormsg) {
 				var currentTime = new Date();
+				var message = errormsg || '';
 				// set message classes
 				container.removeClass('has-success has-warning has-error').addClass('has-feedback').addClass(hasCategory);
 				// set text

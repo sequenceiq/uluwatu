@@ -460,13 +460,13 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label" for="clusterName">cluster name</label>
 											<div class="col-sm-9">
-												<input type="text" class="form-control" id="clusterName" placeholder="max. 20 char">
+												<input type="text" class="form-control" id="clusterName" placeholder="[A-Za-z0-9-]{3,20}">
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
 											<label class="col-sm-3 control-label" for="clusterSize">cluster size</label>
 											<div class="col-sm-9">
-												<input type="number" class="form-control" id="clusterSize" value="1">
+												<input type="number" class="form-control" id="clusterSize" placeholder="2–99">
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
@@ -1038,7 +1038,7 @@
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-blueprint-collapse02" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> single-node-hdfs-yarn</a></h5>
+												<h5><a href="#panel-blueprint-collapse02" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> multi-node-hdfs-yarn</a></h5>
 											</div>
 
 											<div id="panel-blueprint-collapse02" class="panel-collapse collapse">
@@ -1052,65 +1052,63 @@
 														<div class="form-group">
 															<label class="col-sm-3 control-label" for="source">source</label>
 															<div class="col-sm-9">
-																<pre id="source" class="form-control-static blueprint-source">{ "host_groups" : [
-    { "name" : "host_group_1",
-      "components" : [
-        { "name" : "ZOOKEEPER_SERVER" },
-        { "name" : "ZOOKEEPER_CLIENT" },
-        { "name" : "PIG" },
-        { "name" : "HISTORYSERVER" },
-        { "name" : "SUPERVISOR" },
-        { "name" : "NAGIOS_SERVER" },
-        { "name" : "TEZ_CLIENT" },
-        { "name" : "AMBARI_SERVER" },
-        { "name" : "APP_TIMELINE_SERVER" },
-        { "name" : "GANGLIA_SERVER" },
-        { "name" : "HDFS_CLIENT" },
-        { "name" : "NODEMANAGER" },
-        { "name" : "YARN_CLIENT" },
-        { "name" : "MAPREDUCE2_CLIENT" },
-        { "name" : "DATANODE" },
-        { "name" : "GANGLIA_MONITOR" },
-        { "name" : "RESOURCEMANAGER" } ],
-      "cardinality" : "1" },
-    { "name" : "host_group_2",
-      "components" : [
-        { "name" : "ZOOKEEPER_SERVER" },
-        { "name" : "ZOOKEEPER_CLIENT" },
-        { "name" : "PIG" },
-        { "name" : "STORM_REST_API" },
-        { "name" : "STORM_UI_SERVER" },
-        { "name" : "SUPERVISOR" },
-        { "name" : "SECONDARY_NAMENODE" },
-        { "name" : "TEZ_CLIENT" },
-        { "name" : "HDFS_CLIENT" },
-        { "name" : "NODEMANAGER" },
-        { "name" : "YARN_CLIENT" },
-        { "name" : "MAPREDUCE2_CLIENT" },
-        { "name" : "DATANODE" },
-        { "name" : "GANGLIA_MONITOR" },
-        { "name" : "DRPC_SERVER" },
-        { "name" : "NIMBUS" } ],
-      "cardinality" : "1" },
-    { "name" : "host_group_3",
-      "components" : [
-        { "name" : "ZOOKEEPER_SERVER" },
-        { "name" : "ZOOKEEPER_CLIENT" },
-        { "name" : "PIG" },
-        { "name" : "NAMENODE" },
-        { "name" : "SUPERVISOR" },
-        { "name" : "TEZ_CLIENT" },
-        { "name" : "HDFS_CLIENT" },
-        { "name" : "NODEMANAGER" },
-        { "name" : "YARN_CLIENT" },
-        { "name" : "MAPREDUCE2_CLIENT" },
-        { "name" : "DATANODE" },
-        { "name" : "GANGLIA_MONITOR" } ],
-      "cardinality" : "1" } ],
-  "Blueprints" : {
-    "blueprint_name" : "blueprint-c1",
-    "stack_name" : "HDP",
-    "stack_version" : "2.1" } }</pre>
+																<pre id="source" class="form-control-static blueprint-source">{
+  "host_groups": [
+    {
+      "name": "master",
+      "components": [
+        {
+          "name": "NAMENODE"
+        },
+        {
+          "name": "SECONDARY_NAMENODE"
+        },
+        {
+          "name": "RESOURCEMANAGER"
+        },
+        {
+          "name": "HISTORYSERVER"
+        },
+        {
+          "name": "NAGIOS_SERVER"
+        },
+        {
+          "name": "ZOOKEEPER_SERVER"
+        }
+      ],
+      "cardinality": "1"
+    },
+    {
+      "name": "slaves",
+      "components": [
+        {
+          "name": "DATANODE"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "NODEMANAGER"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        }
+      ],
+      "cardinality": "2"
+    }
+  ],
+  "Blueprints": {
+    "blueprint_name": "multi-node-hdfs-yarn",
+    "stack_name": "HDP",
+    "stack_version": "2.0"
+  }
+}</pre>
 															</div><!-- .col-sm-9 -->
 														</div><!-- .form-group -->
 
@@ -1376,7 +1374,7 @@
 					<dd class="big-numeral">1</dd>
 				</dl>
 				<div class="mod-LED">
-					<span class="state3-stop">stopped</span></div><!-- OPTIONAL HTML:
+					<span class="state2-run-blink'">starting</span><!-- OPTIONAL HTML:
 						class: 'state0-stop-blink'  text: stopping/stopped - stopping/stopped alert state OR
 						class: 'state3-stop'  text: stopped - stopped state OR
 						class: 'state1-ready-blink'  text: readying/ready - getting ready/ready alert state (v0.2) OR
@@ -1384,7 +1382,8 @@
 						class: 'state2-run-blink'  text: starting/running - starting/running alert state (v0.2) OR								
 						class: 'state5-run'  text: running - running state
 						-->
-				<a href="#" class="mod-start-stop btn btn-cluster btn-block" role="button" title="stop cluster">
+				</div>
+				<a href="#" class="mod-start-stop btn btn-cluster btn-block disabled" role="button" title="stop cluster">
 					<i class="fa fa-pause fa-lg"></i>
 				</a><!-- OPTIONAL HTML:
 					a class: 'disabled' - disabled start/stop button (v0.2?)
