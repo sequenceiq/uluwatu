@@ -524,10 +524,219 @@
 			<section class="management-panels">
 				<div class="container-fluid">
 					<div class="row">
+
+<!-- .... CREDENTIALS PANEL ................................................ -->
+
+						<div class="col-md-12 col-lg-9">
+
+							<div class="panel panel-default panel-panel-container">
+								<div class="panel-heading panel-heading-nav">
+									<a href="#panel-credentials-collapse" id="credentials-btn" class="btn btn-info btn-fa-2x" role="button" data-toggle="collapse"><i class="fa fa-angle-down fa-2x fa-fw-forced"></i></a>
+									<h4><span class="badge pull-right">3</span> manage credentials</h4>
+								</div>
+
+								<div id="panel-credentials-collapse" class="panel-btn-in-header-collapse collapse">
+									<div class="panel-body">
+
+										<p class="btn-row-over-panel"><a href="#panel-create-template-collapse" class="btn btn-success" role="button" data-toggle="collapse" data-target="#panel-create-credential-collapse"><i class="fa fa-plus fa-fw"></i><span> create credential</span></a></p>
+
+										<!-- ............ CREATE FORM ............................................. -->
+
+										<div class="panel panel-default">
+											<div id="panel-create-credential-collapse" class="panel-under-btn-collapse collapse">
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="form">
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="providerSelector">cloud provider</label>
+															<div class="col-sm-9 ">
+																<div class="btn-segmented-control" id="providerSelector">
+																	<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
+																		<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
+class: 'btn-info' - selected OR
+class: 'btn-default' - not selected
+-->
+																		<a href="#" class="btn btn-default" role="button">Azure</a>
+																	</div>
+																	<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
+																		<a href="#" class="btn btn-default" role="button">lalyosFartCloud</a>
+																		<a href="#" class="btn btn-default" role="button">Openstack</a>
+																	</div>
+																</div><!-- .btn-segmented-control -->
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="credentialName">name</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="credentialName" placeholder="max. 20 char">
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="form-group has-feedback has-error">
+															<label class="col-sm-3 control-label" for="roleArn">roleArn</label>
+															<div class="col-sm-9">
+																<!-- no div.inputgroup without add-on -->
+																<input type="text" class="form-control" id="roleArn" placeholder="placeholder text" value="">
+																<i class="fa fa-warning form-control-feedback"></i>
+																<!-- no div.inputgroup without add-on -->
+																<span class="help-block">Invalid roleArn</span>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="instanceRoleAm">instance RoleAm</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="instanceRoleAm" placeholder="placeholder text">
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="row btn-row">
+															<div class="col-sm-9 col-sm-offset-3">
+																<a href="#" id="createCredential" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i> create credential</a>
+															</div>
+														</div>
+
+													</form>
+												</div>
+											</div>
+										</div><!-- .panel -->
+
+										<!-- ............ CREDENTIAL LIST ........................................... -->									
+
+										<div class="panel-group" id="credential-list-accordion">
+
+											<!-- ............. CREDENTIAL ............................................... -->											
+
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i> Credential_name_20ch</a></h5>
+												</div>
+												<div id="panel-credential-collapse01" class="panel-collapse collapse">
+
+													<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+													<div class="panel-body">
+
+
+														<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">Azure</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">ss-1234-5678-</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">jks password</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">password</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+
+														</form>
+													</div>
+												</div>
+											</div><!-- .panel -->
+
+											<!-- ............. CREDENTIAL ............................................... -->												
+
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse02"><i class="fa fa-tag fa-fw"></i> AWS_Cred_02</a></h5>
+												</div>
+												<div id="panel-credential-collapse02" class="panel-collapse collapse">
+
+													<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+													<div class="panel-body">
+
+
+														<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">AWS</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">roleAm</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">instance RoleAm</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+
+														</form>
+													</div>
+												</div>
+											</div><!-- .panel -->
+
+											<!-- ............. CREDENTIAL ............................................... -->		
+
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h5><a href="#panel-credential-collapse03" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse03"><i class="fa fa-tag fa-fw"></i> lalyos' VIP Cred</a></h5>
+												</div>
+												<div id="panel-credential-collapse03" class="panel-collapse collapse">
+
+													<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+													<div class="panel-body">
+
+
+														<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">lalyosFartCloud</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">lalyos-no1</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="parameter1">password</label>
+																<div class="col-sm-9">
+																	<p id="parameter1" class="form-control-static">password</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+
+														</form>
+													</div>
+												</div>
+											</div><!-- .panel -->
+
+
+										</div><!-- #credential-list-accordion -->
+
+									</div><!-- .panel-body -->
+
+								</div><!-- .panel-collapse -->
+							</div><!-- .panel -->
+
+						</div><!-- .col- -->					
 						
 <!-- .... TEMPLATES PANEL ................................................. -->
 					
-						<div class="col-md-12 col-lg-6">
+						<div class="col-md-12 col-lg-9">
 							
 							<div class="panel panel-default panel-panel-container">
 								<div class="panel-heading panel-heading-nav">
@@ -897,7 +1106,7 @@
 
 <!-- .... BLUEPRINTS PANEL ................................................. -->
 					
-						<div class="col-md-12 col-lg-6">
+						<div class="col-md-12 col-lg-9">
 							
 							<div class="panel panel-default panel-panel-container">
 								<div class="panel-heading panel-heading-nav">
@@ -1129,218 +1338,7 @@
 						</div><!-- .col- -->
 						
 					</div><!-- .row -->
-					<div class="row">
-										
-<!-- .... CREDENTIALS PANEL ................................................ -->
-					
-						<div class="col-md-12 col-lg-6">
-							
-							<div class="panel panel-default panel-panel-container">
-								<div class="panel-heading panel-heading-nav">
-									<a href="#panel-credentials-collapse" id="credentials-btn" class="btn btn-info btn-fa-2x" role="button" data-toggle="collapse"><i class="fa fa-angle-down fa-2x fa-fw-forced"></i></a>
-									<h4><span class="badge pull-right">3</span> manage credentials</h4>
-								</div>
-								
-								<div id="panel-credentials-collapse" class="panel-btn-in-header-collapse collapse">
-								<div class="panel-body">
-									
-									<p class="btn-row-over-panel"><a href="#panel-create-template-collapse" class="btn btn-success" role="button" data-toggle="collapse" data-target="#panel-create-credential-collapse"><i class="fa fa-plus fa-fw"></i><span> create credential</span></a></p>
-									
-<!-- ............ CREATE FORM ............................................. -->
-									
-									<div class="panel panel-default">
-										<div id="panel-create-credential-collapse" class="panel-under-btn-collapse collapse">
-										<div class="panel-body">
 
-											<form class="form-horizontal" role="form">
-												
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="providerSelector">cloud provider</label>
-													<div class="col-sm-9 ">
-														<div class="btn-segmented-control" id="providerSelector">
-															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
-																<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
-																	class: 'btn-info' - selected OR
-																	class: 'btn-default' - not selected
-																	-->
-																<a href="#" class="btn btn-default" role="button">Azure</a>
-															</div>
-															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
-																<a href="#" class="btn btn-default" role="button">lalyosFartCloud</a>
-																<a href="#" class="btn btn-default" role="button">Openstack</a>
-															</div>
-														</div><!-- .btn-segmented-control -->
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="credentialName">name</label>
-													<div class="col-sm-9">
-														<input type="text" class="form-control" id="credentialName" placeholder="max. 20 char">
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-
-												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="roleArn">roleArn</label>
-													<div class="col-sm-9">
-														<!-- no div.inputgroup without add-on -->
-														<input type="text" class="form-control" id="roleArn" placeholder="placeholder text" value="">
-														<i class="fa fa-warning form-control-feedback"></i>
-														<!-- no div.inputgroup without add-on -->
-														<span class="help-block">Invalid roleArn</span>
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-
-												<div class="form-group">
-													<label class="col-sm-3 control-label" for="instanceRoleAm">instance RoleAm</label>
-													<div class="col-sm-9">
-														<input type="text" class="form-control" id="instanceRoleAm" placeholder="placeholder text">
-													</div><!-- .col-sm-9 -->
-												</div><!-- .form-group -->
-												
-												<div class="row btn-row">
-													<div class="col-sm-9 col-sm-offset-3">
-														<a href="#" id="createCredential" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i> create credential</a>
-													</div>
-												</div>
-
-											</form>
-										</div>
-										</div>
-									</div><!-- .panel -->
-									
-<!-- ............ CREDENTIAL LIST ........................................... -->									
-									
-									<div class="panel-group" id="credential-list-accordion">
-									
-<!-- ............. CREDENTIAL ............................................... -->											
-										
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i> Credential_name_20ch</a></h5>
-											</div>
-											<div id="panel-credential-collapse01" class="panel-collapse collapse">
-											
-												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
-												
-												<div class="panel-body">
-												
-
-												<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
-
-													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
-														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">Azure</p>
-														</div><!-- .col-sm-9 -->
-													</div><!-- .form-group -->
-													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
-														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">ss-1234-5678-</p>
-														</div><!-- .col-sm-9 -->
-													</div><!-- .form-group -->
-													<div class="form-group">
-														<label class="col-sm-3 control-label" for="parameter1">jks password</label>
-														<div class="col-sm-9">
-															<p id="parameter1" class="form-control-static">password</p>
-														</div><!-- .col-sm-9 -->
-													</div><!-- .form-group -->
-													
-												</form>
-											</div>
-											</div>
-										</div><!-- .panel -->
-										
-<!-- ............. CREDENTIAL ............................................... -->												
-										
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse02"><i class="fa fa-tag fa-fw"></i> AWS_Cred_02</a></h5>
-											</div>
-											<div id="panel-credential-collapse02" class="panel-collapse collapse">
-
-												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
-
-												<div class="panel-body">
-
-
-													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
-
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">AWS</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">roleAm</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">instance RoleAm</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">arn:aws:iam::755047400000:role/seq-self-cf</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-
-													</form>
-												</div>
-											</div>
-										</div><!-- .panel -->
-										
-<!-- ............. CREDENTIAL ............................................... -->		
-										
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<h5><a href="#panel-credential-collapse03" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse03"><i class="fa fa-tag fa-fw"></i> lalyos' VIP Cred</a></h5>
-											</div>
-											<div id="panel-credential-collapse03" class="panel-collapse collapse">
-
-												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
-
-												<div class="panel-body">
-
-
-													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
-
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">cloud provider</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">lalyosFartCloud</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">subscription ID</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">lalyos-no1</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-														<div class="form-group">
-															<label class="col-sm-3 control-label" for="parameter1">password</label>
-															<div class="col-sm-9">
-																<p id="parameter1" class="form-control-static">password</p>
-															</div><!-- .col-sm-9 -->
-														</div><!-- .form-group -->
-
-													</form>
-												</div>
-											</div>
-										</div><!-- .panel -->
-										
-																																						
-									</div><!-- #credential-list-accordion -->
-									
-								</div><!-- .panel-body -->
-							
-							</div><!-- .panel-collapse -->
-							</div><!-- .panel -->
-							
-						</div><!-- .col- -->
-						
-					</div><!-- .row -->				
 				</div><!-- .container-fluid -->
 			</section>
 			
@@ -1375,12 +1373,12 @@
 				</dl>
 				<div class="mod-LED">
 					<span class="state2-run-blink" title="starting"></span><!-- OPTIONAL HTML:
-						class: 'state0-stop-blink'  text: stopping/stopped - stopping/stopped alert state OR
-						class: 'state3-stop'  text: stopped - stopped state OR
-						class: 'state1-ready-blink'  text: readying/ready - getting ready/ready alert state (v0.2) OR
-						class: 'state4-ready'  text: ready - ready state (v0.2) OR
-						class: 'state2-run-blink'  text: starting/running - starting/running alert state (v0.2) OR								
-						class: 'state5-run'  text: running - running state
+						class: 'state0-stop-blink'  title: stopping/stopped - stopping/stopped alert state OR
+						class: 'state3-stop'  title: stopped - stopped state OR
+						class: 'state1-ready-blink'  title: readying/ready - getting ready/ready alert state (v0.2) OR
+						class: 'state4-ready'  title: ready - ready state (v0.2) OR
+						class: 'state2-run-blink'  title: starting/running - starting/running alert state (v0.2) OR								
+						class: 'state5-run'  title: running - running state
 						-->
 				</div>
 				<a href="#" class="mod-start-stop btn btn-cluster btn-block disabled" role="button" title="stop cluster">
