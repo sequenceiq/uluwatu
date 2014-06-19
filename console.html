@@ -165,6 +165,12 @@
 									<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
 
 										<div class="form-group">
+											<label class="col-sm-3 control-label" for="cloud-provider">cloud provider</label>
+											<div class="col-sm-9">
+												<p id="cloud-provider" class="form-control-static">Azure</p>
+											</div><!-- .col-sm-9 -->
+										</div><!-- .form-group -->
+										<div class="form-group">
 											<label class="col-sm-3 control-label" for="cluster-size">cluster size</label>
 											<div class="col-sm-9">
 												<p id="cluster-size" class="form-control-static">1</p>
@@ -183,7 +189,7 @@
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h5><a href="#cluster-blueprint-collapse01" data-toggle="collapse"><i class="fa fa-th fa-fw"></i> blueprint-c1</a></h5>
+											<h5><a href="#cluster-blueprint-collapse01" data-toggle="collapse"><i class="fa fa-th fa-fw"></i>blueprint-c1</a></h5>
 										</div>
 
 										<div id="cluster-blueprint-collapse01" class="panel-collapse collapse">
@@ -266,8 +272,11 @@
 
 									<div class="panel panel-default">
 										<div class="panel-heading">
-											<h5>stack-0123</h5>
+											<h5><a href="#cluster-stack-collapse01" data-toggle="collapse"><i class="fa fa-align-justify fa-fw"></i>stack-0123</a></h5>
 										</div>
+
+										<div id="cluster-stack-collapse01" class="panel-collapse collapse">
+											
 										<div class="panel-body">
 
 											<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
@@ -345,7 +354,7 @@
 
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<h5><a href="#cluster-template-collapse01" data-toggle="collapse"  data-target="#cluster-template-collapse01"><i class="fa fa-file-o fa-fw"></i> Azure_template_001</a></h5>
+													<h5><a href="#cluster-template-collapse01" data-toggle="collapse"  data-target="#cluster-template-collapse01"><i class="fa fa-file-o fa-fw"></i>Azure_template_001</a></h5>
 												</div>
 												<div id="cluster-template-collapse01" class="panel-collapse collapse">
 
@@ -427,6 +436,8 @@
 
 											
 										</div><!-- .panel-body -->
+											
+										</div><!-- .panel-collapse -->
 
 									</div><!-- .panel -->
 										
@@ -554,9 +565,9 @@
 																<div class="btn-segmented-control" id="providerSelector">
 																	<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
 																		<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
-class: 'btn-info' - selected OR
-class: 'btn-default' - not selected
--->
+																			class: 'btn-info' - selected OR
+																			class: 'btn-default' - not selected
+																		-->
 																		<a href="#" class="btn btn-default" role="button">Azure</a>
 																	</div>
 																	<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
@@ -611,7 +622,7 @@ class: 'btn-default' - not selected
 
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i> Credential_name_20ch</a></h5>
+													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse01"><i class="fa fa-tag fa-fw"></i>Credential_name_20ch</a></h5>
 												</div>
 												<div id="panel-credential-collapse01" class="panel-collapse collapse">
 
@@ -650,7 +661,7 @@ class: 'btn-default' - not selected
 
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse02"><i class="fa fa-tag fa-fw"></i> AWS_Cred_02</a></h5>
+													<h5><a href="#panel-credential-collapse01" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse02"><i class="fa fa-tag fa-fw"></i>AWS_Cred_02</a></h5>
 												</div>
 												<div id="panel-credential-collapse02" class="panel-collapse collapse">
 
@@ -689,7 +700,7 @@ class: 'btn-default' - not selected
 
 											<div class="panel panel-default">
 												<div class="panel-heading">
-													<h5><a href="#panel-credential-collapse03" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse03"><i class="fa fa-tag fa-fw"></i> lalyos' VIP Cred</a></h5>
+													<h5><a href="#panel-credential-collapse03" data-toggle="collapse" data-parent="#credential-list-accordion" data-target="#panel-credential-collapse03"><i class="fa fa-tag fa-fw"></i>lalyos' VIP Cred</a></h5>
 												</div>
 												<div id="panel-credential-collapse03" class="panel-collapse collapse">
 
@@ -913,7 +924,7 @@ class: 'btn-default' - not selected
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-template-collapse01" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse01"><i class="fa fa-file-o fa-fw"></i> Azure_template_001</a></h5>
+												<h5><a href="#panel-template-collapse01" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse01"><i class="fa fa-file-o fa-fw"></i>Azure_template_001</a></h5>
 											</div>
 											<div id="panel-template-collapse01" class="panel-collapse collapse">
 												
@@ -999,7 +1010,7 @@ class: 'btn-default' - not selected
 
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-template-collapse02" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse02"><i class="fa fa-file-o fa-fw"></i> AWS_A</a></h5>
+												<h5><a href="#panel-template-collapse02" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse02"><i class="fa fa-file-o fa-fw"></i>AWS_A</a></h5>
 											</div>
 											<div id="panel-template-collapse02" class="panel-collapse collapse">
 
@@ -1055,7 +1066,7 @@ class: 'btn-default' - not selected
 
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-template-collapse03" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse03"><i class="fa fa-file-o fa-fw"></i> lalyosFartCloud #9</a></h5>
+												<h5><a href="#panel-template-collapse03" data-toggle="collapse" data-parent="#templete-list-accordion" data-target="#panel-template-collapse03"><i class="fa fa-file-o fa-fw"></i>lalyosFartCloud #9</a></h5>
 											</div>
 											<div id="panel-template-collapse03" class="panel-collapse collapse">
 
@@ -1162,7 +1173,7 @@ class: 'btn-default' - not selected
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-blueprint-collapse01" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> blueprint-c1</a></h5>
+												<h5><a href="#panel-blueprint-collapse01" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i>blueprint-c1</a></h5>
 											</div>
 
 											<div id="panel-blueprint-collapse01" class="panel-collapse collapse">
@@ -1247,7 +1258,7 @@ class: 'btn-default' - not selected
 										
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h5><a href="#panel-blueprint-collapse02" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i> multi-node-hdfs-yarn</a></h5>
+												<h5><a href="#panel-blueprint-collapse02" data-toggle="collapse" data-parent="#blueprint-list-accordion"><i class="fa fa-th fa-fw"></i>multi-node-hdfs-yarn</a></h5>
 											</div>
 
 											<div id="panel-blueprint-collapse02" class="panel-collapse collapse">
@@ -1325,7 +1336,6 @@ class: 'btn-default' - not selected
 												</div>
 											</div>
 										</div><!-- .panel -->
-
 
 																			
 									</div><!-- #blueprint-list-accordion -->
