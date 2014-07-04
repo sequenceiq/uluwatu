@@ -38,8 +38,8 @@
 			</div><!-- .container -->
 		</header>
 			
-			<section>
-				<div class="container">
+		<section>
+				<div class="container carousel slide">
 					<div class="row">
 						<div class="col-sm-8 col-sm-offset-2">
 							
@@ -48,47 +48,163 @@
 									<h1 class="panel-title" >cloudbreak</h1>
 								</div>
 								<div class="panel-body">
-									<form role="form" autocomplete="on">
+								
+									<div class="carousel-inner">
 
-									<div class="form-group"><!-- OPTIONAL HTML:
-										class: 'has-feedback' - got validation result AND
-										class: 'has-error' – error OR
-										class: 'has-success' - ok
-										-->
-										<label class="sr-only" for="emailFieldLogin">email</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-											<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
-											<!-- OPTIONAL HTML: (only for textfields)
-											<i class="fa fa-warning form-control-feedback"></i>
-												- validation error OR
-											<i class="fa fa-check form-control-feedback"></i>
-												- validation ok
-											-->
-										</div><!-- .input-group -->
-										<!-- OPTIONAL HTML:
-										<span class="help-block">Invalid email address</span>
-											- inline validation error message
-										-->
-									</div><!-- .form-group -->
-									<div class="form-group">
-										<label class="sr-only" for="passwFieldLogin">jelszó</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-											<input class="form-control" type="password" id="passwFieldLogin" placeholder="password" required>
-										</div><!-- .input-group -->
-										<p class="text-right"><a href="#" id="login-forgot-passw"><i class="fa fa-question-circle fa-fw"></i> forgot my password</a></p>
-									</div><!-- .form-group -->
-									<a href="#" id="login-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-sign-in fa-fw"></i> login</a>
+<!-- ............... SELECTOR ............................................. -->
+																		
+										<div class="item active">
 
-								</form>
+											<p><a href="#" id="select-signup-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-user fa-fw"></i> sign up</a></p>
+											<a href="#" id="select-login-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-sign-in fa-fw"></i> login</a>
+										
+										</div><!-- .item -->
+									
+<!-- ............... LOGIN ................................................ -->
+
+										<div class="item">
+
+											<form role="form" autocomplete="on">
+
+												<div class="form-group"><!-- OPTIONAL HTML:
+													class: 'has-feedback' - got validation result AND
+													class: 'has-error' – error OR
+													class: 'has-success' - ok
+													-->
+													<label class="sr-only" for="emailFieldLogin">email</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+														<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
+														<!-- OPTIONAL HTML: (only for textfields)
+														<i class="fa fa-warning form-control-feedback"></i>
+															- validation error OR
+														<i class="fa fa-check form-control-feedback"></i>
+															- validation ok
+														-->
+													</div><!-- .input-group -->
+													<!-- OPTIONAL HTML:
+													<span class="help-block">Invalid email address</span>
+														- inline validation error message
+													-->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="passwFieldLogin">password</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+														<input class="form-control" type="password" id="passwFieldLogin" placeholder="password" required>
+													</div><!-- .input-group -->
+													<p class="text-right"><a href="#" id="login-forgot-passw"><i class="fa fa-question-circle fa-fw"></i> forgot my password</a></p>
+												</div><!-- .form-group -->
+												<a href="#" id="login-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-sign-in fa-fw"></i> login</a>
+												<a href="#" id="forgot-btn" class="btn btn-info btn-block hidden" role="button"><i class='fa fa-paper-plane fa-fw'></i> get password reset email</a>
+											</form>
+								
+										</div><!-- .item -->
+								
+<!-- ............... SIGN UP .............................................. -->
+
+										<div class="item">
+
+											<form role="form" autocomplete="on">
+
+												<div class="form-group">
+													<label class="sr-only" for="emailFieldLogin">email</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+														<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="passwFieldLogin">password</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+														<input class="form-control" type="password" id="passwFieldLogin" placeholder="password" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="passw2FieldLogin">repeat password</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+														<input class="form-control" type="password" id="passw2FieldLogin" placeholder="repeat password" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="nameFieldLogin">name</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-male fa-fw"></i></span>
+														<input class="form-control" type="password" id="nameFieldLogin" placeholder="name" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="companyFieldLogin">company</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-institution fa-fw"></i></span>
+														<input class="form-control" type="password" id="companyFieldLogin" placeholder="company" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												
+												<a href="#" id="signup-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-user fa-fw"></i> sign up</a>
+
+											</form>
+
+										</div><!-- .item -->
+										
+										<!-- SIGN UP MESSAGE .................................. -->
+										
+										<div class="item">
+										
+											<h5>We've sent a verification email to the <strong>name@company.com</strong> address.</h5>
+										
+										</div><!-- .item -->
+										
+<!-- ............... FORGOTTEN PASSWORD ................................... -->
+										
+										<!-- MESSAGE .......................................... -->
+
+										<div class="item">
+
+											<h5>We've sent a verification/password reset email to the <strong>name@company.com</strong> address.</h5>
+											<p><a href="#" id="fake-reset-email-link">fake email link</a></p>
+
+										</div><!-- .item -->
+										
+										<!-- RESET PASSWORD .................................... -->
+
+										<div class="item">
+
+											<form role="form" autocomplete="on">
+
+												<div class="form-group">
+													<label class="sr-only" for="passwFieldLogin">new password</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+														<input class="form-control" type="password" id="passwFieldLogin" placeholder="new password" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="passw2FieldLogin">repeat password</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+														<input class="form-control" type="password" id="passw2FieldLogin" placeholder="repeat password" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+
+												<a href="#" id="setpassw-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-lock fa-fw"></i> set new password</a>
+
+											</form>
+
+
+										</div><!-- .item -->								
+								
+									</div><!-- .carousel-inner -->
+								
 								</div><!-- .panel-body -->							
 							</div><!-- .panel-transp" -->		
 							
 						</div><!-- .col-sm-8 --> 
 					</div><!-- .row -->
 				</div><!-- .container -->
-			</section>
+		</section>
 
 		
   	
@@ -100,18 +216,40 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function() {
+				// Bootstrap carousel as selector / login / sign up slider
+				// init
+				$('.carousel').carousel('pause');	
+				$('#select-login-btn').click(function () {
+					$('.carousel').carousel(1);
+				});
 				// forgotten login password
-				$( '#login-forgot-passw' ).click(function( event ) {
-    			$( this ).css( "visibility", "hidden" );
-    			$( '#passwFieldLogin' ).prop( "disabled", "true" );
-					// OPTIONAL HTML: password reset button text
-    			$( '#login-btn' ).html( "<i class='fa fa-paper-plane fa-fw'></i> new password to email" );
-    			event.preventDefault();
-    		});
+				$('#login-forgot-passw').click(function (e) {
+					$( this ).css( "visibility", "hidden" );
+					$( '#passwFieldLogin' ).prop( "disabled", "true" );
+					$( '#login-btn' ).addClass('hidden');
+					$( '#forgot-btn' ).removeClass('hidden');
+					$('#forgot-btn').click(function (e) {
+						$('.carousel').carousel(4);
+						e.preventDefault();
+					});
+					e.preventDefault();
+				});
+				$('#setpassw-btn').click(function () {
+					window.location.href = "console.html";
+				});
 				// fake login
-    		$( '#login-btn' ).click(function() {
-    			window.location.href = "console.html";
-    		});
+				$('#login-btn').click(function () {
+					window.location.href = "console.html";
+				});
+				$('#select-signup-btn').click(function () {
+					$('.carousel').carousel(2);
+				});
+				$('#signup-btn').click(function () {
+					$('.carousel').carousel(3);
+				});
+				$('#fake-reset-email-link').click(function () {
+					$('.carousel').carousel(5);
+				});
 			});
 		</script>     
     
