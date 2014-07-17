@@ -66,7 +66,7 @@
 
 											<form role="form" autocomplete="on">
 
-												<div class="form-group"><!-- OPTIONAL HTML:
+												<div class="form-group has-feedback has-error"><!-- OPTIONAL HTML:
 													class: 'has-feedback' - got validation result AND
 													class: 'has-error' – error OR
 													class: 'has-success' - ok
@@ -75,16 +75,17 @@
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 														<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
-														<!-- OPTIONAL HTML: (only for textfields)
+														
 														<i class="fa fa-warning form-control-feedback"></i>
+                                                        <!-- OPTIONAL HTML: (only for textfields)
 															- validation error OR
 														<i class="fa fa-check form-control-feedback"></i>
 															- validation ok
 														-->
 													</div><!-- .input-group -->
-													<!-- OPTIONAL HTML:
+													<!-- OPTIONAL HTML: -->
 													<span class="help-block">Invalid email address</span>
-														- inline validation error message
+													<!--	- inline validation error message
 													-->
 												</div><!-- .form-group -->
 												<div class="form-group">
