@@ -66,7 +66,7 @@
 
 											<form role="form" autocomplete="on">
 
-												<div class="form-group has-feedback has-error"><!-- OPTIONAL HTML:
+												<div class="form-group"><!-- OPTIONAL HTML:
 													class: 'has-feedback' - got validation result AND
 													class: 'has-error' – error OR
 													class: 'has-success' - ok
@@ -75,17 +75,16 @@
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 														<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
-														
+                            <!-- OPTIONAL HTML: (only for textfields)
 														<i class="fa fa-warning form-control-feedback"></i>
-                                                        <!-- OPTIONAL HTML: (only for textfields)
 															- validation error OR
 														<i class="fa fa-check form-control-feedback"></i>
 															- validation ok
 														-->
 													</div><!-- .input-group -->
-													<!-- OPTIONAL HTML: -->
+													<!-- OPTIONAL HTML: 
 													<span class="help-block">Invalid email address</span>
-													<!--	- inline validation error message
+														- inline validation error message
 													-->
 												</div><!-- .form-group -->
 												<div class="form-group">
@@ -98,6 +97,7 @@
 												</div><!-- .form-group -->
 												<a href="#" id="login-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-sign-in fa-fw"></i> login</a>
 												<a href="#" id="forgot-btn" class="btn btn-info btn-block hidden" role="button"><i class='fa fa-paper-plane fa-fw'></i> get password reset email</a>
+												<a href="#" id="login-back-btn" class="btn btn-default btn-block" role="button"><i class="fa fa-angle-left fa-fw"></i> cancel</a>
 											</form>
 								
 										</div><!-- .item -->
@@ -130,21 +130,34 @@
 													</div><!-- .input-group -->
 												</div><!-- .form-group -->
 												<div class="form-group">
-													<label class="sr-only" for="nameFieldLogin">name</label>
+													<label class="sr-only" for="firstNameFieldLogin">first name</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-male fa-fw"></i></span>
-														<input class="form-control" type="password" id="nameFieldLogin" placeholder="name" required>
+														<input class="form-control" type="password" id="firstNameFieldLogin" placeholder="first name" required>
+													</div><!-- .input-group -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="sr-only" for="lastNameFieldLogin">last name</label>
+													<div class="input-group">
+														<span class="input-group-addon"><i class="fa fa-male fa-fw"></i></span>
+														<input class="form-control" type="password" id="lastNameFieldLogin" placeholder="last name" required>
 													</div><!-- .input-group -->
 												</div><!-- .form-group -->
 												<div class="form-group">
 													<label class="sr-only" for="companyFieldLogin">company</label>
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-institution fa-fw"></i></span>
-														<input class="form-control" type="password" id="companyFieldLogin" placeholder="company" required>
+														<input class="form-control" type="text" id="companyFieldLogin" placeholder="company" required>
 													</div><!-- .input-group -->
+													<div class="checkbox checkbox-attached hidden">
+															<label>
+																<input type="checkbox"> I am this company's admin
+															</label>
+														</div>
 												</div><!-- .form-group -->
 												
 												<a href="#" id="signup-btn" class="btn btn-info btn-block" role="button"><i class="fa fa-user fa-fw"></i> sign up</a>
+												<a href="#" id="signup-back-btn" class="btn btn-default btn-block" role="button"><i class="fa fa-angle-left fa-fw"></i> cancel</a>
 
 											</form>
 
@@ -235,6 +248,18 @@
 					});
 					e.preventDefault();
 				});
+				// company admin
+				$('#companyFieldLogin').focus(function () {
+						$(this).parent().parent().find('.checkbox').removeClass('hidden');
+				});
+				$('#companyFieldLogin').blur(function () {
+					if ($(this).val() != "") {
+						$(this).parent().parent().find('.checkbox').removeClass('hidden');
+					} else {
+						$(this).parent().parent().find('.checkbox').addClass('hidden');
+					}
+				});
+				// triggers
 				$('#setpassw-btn').click(function () {
 					window.location.href = "console.html";
 				});
@@ -242,11 +267,17 @@
 				$('#login-btn').click(function () {
 					window.location.href = "console.html";
 				});
+				$('#login-back-btn').click(function () {
+					$('.carousel').carousel(0);
+				});
 				$('#select-signup-btn').click(function () {
 					$('.carousel').carousel(2);
 				});
 				$('#signup-btn').click(function () {
 					$('.carousel').carousel(3);
+				});
+				$('#signup-back-btn').click(function () {
+					$('.carousel').carousel(0);
 				});
 				$('#fake-reset-email-link').click(function () {
 					$('.carousel').carousel(5);
