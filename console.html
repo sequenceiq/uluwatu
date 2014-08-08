@@ -188,6 +188,42 @@
 
 									</form>
 									
+<!-- ............ HISTORY .................................................... -->										
+
+									<div class="panel panel-default panel-cluster-history">
+										<div class="panel-heading">
+											<h5><a href="#cluster-history-collapse01" data-toggle="collapse"><i class="fa fa-clock-o fa-fw"></i>event history</a></h5>
+										</div>
+
+										<div id="cluster-history-collapse01" class="panel-collapse collapse">
+
+											<div class="panel-body">
+
+												<form class="form-horizontal" role="document">
+
+													<div class="form-group">
+														<div class="col-sm-12">
+															<pre class="form-control-static event-history">
+<span class="has-success">07/28/14 09:41 Big-One-AWS is starting</span>
+<span class="has-success">07/28/14 09:43 Big-One-AWS is running</span>
+<span class="has-error">08/05/14 23:57 Big-One-AWS is stopping: fatal hardware error</span>
+<span class="has-error">08/05/14 23:57 Big-One-AWS has stopped</span>
+<span class="has-success">08/06/14 07:05 Big-One-AWS is starting</span>
+<span class="has-success">08/06/14 07:08 Big-One-AWS is running</span>
+<span class="has-warning">08/06/14 21:11 Big-One-AWS is stopping</span>
+<span class="has-warning">08/06/14 21:15 Big-One-AWS is on standby</span>
+<span class="has-success">08:27 Big-One-AWS is starting</span>
+<span class="has-success">08:30 Big-One-AWS is running</span>
+</pre>
+														</div><!-- .col-sm-12  -->
+													</div><!-- .form-group -->
+
+												</form>
+											</div>
+										</div>
+									</div><!-- .panel -->
+
+									
 <!-- ............ BLUEPRINT .................................................. -->										
 
 									<div class="panel panel-default">
@@ -202,8 +238,7 @@
 												<form class="form-horizontal" role="document">
 
 													<div class="form-group">
-														<label class="col-sm-3 control-label" for="source">source</label>
-														<div class="col-sm-9">
+														<div class="col-sm-12">
 															<pre id="source" class="form-control-static blueprint-source">{ "host_groups" : [
     { "name" : "host_group_1",
       "components" : [
@@ -263,7 +298,7 @@
     "blueprint_name" : "blueprint-c1",
     "stack_name" : "HDP",
     "stack_version" : "2.1" } }</pre>
-														</div><!-- .col-sm-9 -->
+														</div><!-- .col-sm-12  -->
 													</div><!-- .form-group -->
 
 												</form>
@@ -782,8 +817,8 @@
 											<form class="form-horizontal" role="form">
 												
 												<div class="form-group">
-													<!-- <label class="col-sm-3 control-label" for="providerSelector">cloud provider</label> -->
-													<div class="col-sm-12">
+													<label class="col-sm-3 control-label" for="providerSelector">cloud provider</label>
+													<div class="col-sm-9 ">
 														<div class="btn-segmented-control" id="providerSelector">
 															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
 																<a href="#" class="btn btn-info" role="button">AWS</a><!-- OPTIONAL HTML: 
@@ -792,13 +827,12 @@
 																	-->
 																<a href="#" class="btn btn-default" role="button">Azure</a>
 															</div>
-															<!--
-															<div class="btn-group btn-group-justified">
-																<a href="#" class="btn btn-default" role="button">lalyosFartCloud</a>
-																<a href="#" class="btn btn-default" role="button">Openstack</a>
-															</div> -->
+															<div class="btn-group btn-group-justified"><!-- 2 buttons per row -->
+																<a href="#" class="btn btn-default" role="button">Google Cloud Compute</a>
+																<a href="#" class="btn btn-default" role="button">Digital Ocean</a>
+															</div>
 														</div><!-- .btn-segmented-control -->
-													</div><!-- .col-sm-12 -->
+													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 
 												<div class="form-group">
@@ -809,27 +843,27 @@
 												</div><!-- .form-group -->
 
 												<div class="form-group has-feedback has-error">
-													<label class="col-sm-3 control-label" for="textfieldwitherror">amild</label>
+													<label class="col-sm-3 control-label" for="textfieldwitherror">AMI</label>
 													<div class="col-sm-9">
 														<!-- no div.inputgroup without add-on -->
-														<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="something bad">
+														<input type="text" class="form-control" id="textfieldwitherror" placeholder="placeholder text" value="ami-25dc">
 														<i class="fa fa-warning form-control-feedback"></i>
 														<!-- no div.inputgroup without add-on -->
-														<span class="help-block">Invalid textfieldwitherror</span>
+														<span class="help-block">Invalid AMI</span>
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="textfield">SSH location</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
+														<input type="text" class="form-control" id="textfield" placeholder="0.0.0.0/0">
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												
 												<div class="form-group">
 													<label class="col-sm-3 control-label" for="textfield">key name</label>
 													<div class="col-sm-9">
-														<input type="text" class="form-control" id="textfield" placeholder="max. 20 char">
+														<input type="text" class="form-control" id="textfield" placeholder="">
 													</div><!-- .col-sm-9 -->
 												</div><!-- .form-group -->
 												

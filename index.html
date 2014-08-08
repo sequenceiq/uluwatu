@@ -75,14 +75,16 @@
 													<div class="input-group">
 														<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 														<input class="form-control" type="email" id="emailFieldLogin" placeholder="email" required>
-                            <!-- OPTIONAL HTML: (only for textfields)
+                           
+														<!-- OPTIONAL HTML: (only for textfields)
 														<i class="fa fa-warning form-control-feedback"></i>
 															- validation error OR
 														<i class="fa fa-check form-control-feedback"></i>
 															- validation ok
 														-->
 													</div><!-- .input-group -->
-													<!-- OPTIONAL HTML: 
+													
+													<!-- OPTIONAL HTML:
 													<span class="help-block">Invalid email address</span>
 														- inline validation error message
 													-->
@@ -239,7 +241,7 @@
 				// forgotten login password
 				$('#login-forgot-passw').click(function (e) {
 					$( this ).css( "visibility", "hidden" );
-					$( '#passwFieldLogin' ).prop( "disabled", "true" );
+					$( '#passwFieldLogin' ).prop( "disabled", true );
 					$( '#login-btn' ).addClass('hidden');
 					$( '#forgot-btn' ).removeClass('hidden');
 					$('#forgot-btn').click(function (e) {
@@ -269,6 +271,10 @@
 				});
 				$('#login-back-btn').click(function () {
 					$('.carousel').carousel(0);
+					$( '#passwFieldLogin' ).prop( "disabled", false );
+					$( '#login-btn' ).removeClass('hidden');
+					$( '#forgot-btn' ).addClass('hidden');
+					
 				});
 				$('#select-signup-btn').click(function () {
 					$('.carousel').carousel(2);

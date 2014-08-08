@@ -111,6 +111,15 @@ $(document).ready(function () {
 
 
 			// panel collapse page scrolling
+			function scrollToPanelTop(panel) {
+				var offset = panel.offset().top;
+				if (offset) {
+					$('html,body').animate({
+						scrollTop: offset - 64	// - height of cluster toolbar
+					}, 500); 
+				}
+			}
+			
 			// solo/accordion panel click
 			$('.panel-heading > h5 > a').click(function (e) {
 				e.preventDefault();
@@ -134,13 +143,8 @@ $(document).ready(function () {
 			// solo panel or in accordion shown
 			$('.panel-collapse').on('shown.bs.collapse', function (e) {
 				e.stopPropagation();
-				var panel = $(this).parent();		// panel
-				var offset = panel.offset().top;
-				if(offset) {
-					$('html,body').animate({
-						scrollTop: offset - 64
-					}, 500); 
-				}
+				// scroll page
+				scrollToPanelTop($(this).parent());
 			});
 			// solo panel or in accordion hidden
 			$('.panel-collapse').on('hidden.bs.collapse', function (e) {
@@ -157,14 +161,8 @@ $(document).ready(function () {
 					.parent().find('span').addClass('hidden');
 					$(this).fadeTo("slow", 1);
 				});
-				// scroll
-				var panel = $(this).parent().prev();	// btn-row-over-panel
-				var offset = panel.offset().top;
-				if(offset) {
-					$('html,body').animate({
-						scrollTop: offset - 64
-					}, 500); 
-				}
+				// scroll page
+				scrollPanel($(this).parent().prev());	// btn-row-over-panel
 			});
 			// create template/blueprint/credential panel hidden
 			$('.panel-under-btn-collapse').on('hidden.bs.collapse', function (e) {
@@ -181,14 +179,8 @@ $(document).ready(function () {
 			$('.panel-btn-in-header-collapse').on('shown.bs.collapse', function (e) {
 				// button switch
 				$(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
-				// scroll
-				var panel = $(this).parent().parent();	// panel
-				var offset = panel.offset().top;
-				if(offset) {
-					$('html,body').animate({
-						scrollTop: offset - 64
-					}, 500); 
-				}
+				// scroll page
+				scrollToPanelTop($(this).parent().parent());	// panel
 			});
 			// management panel hidden
 			$('.panel-btn-in-header-collapse').on('hidden.bs.collapse', function (e) {
@@ -289,7 +281,7 @@ $(document).ready(function () {
 				clusters[clusterIdNumber] = new Cluster;
 				clusters[clusterIdNumber].sync(hadoopClusters[i].name, clusterIdNumber++, 
 																			 hadoopClusters[i].size, hadoopClusters[i].uptime,
-																			 hadoopClusters[i].state);
+																			 hadoopClusters[i].state, hadoopClusters[i].msg );
 			}			
 		}
 
@@ -299,20 +291,20 @@ $(document).ready(function () {
 		// reading existing clusters' data simulator
 		function sim_GETHadoopClustersData() {
 			var HADOOPS = [
-				{ name : 'fuckin-hot-shit',
+				{ name : 'Google-001',
 					size : 3,
 					uptime : '-517h -48m',
-					state : 'Running'
+					state : 'Standby'
 				},
-				{ name : 'big-muthafucka',
+				{ name : 'Big-One-AWS',
 				 size : 99,
-				 uptime : '-0h -00m',
-				 state : 'Stopped'
+				 uptime : '-517h -48m',
+				 state : 'Running'
 				},
-				{ name : 'lalyos-001',
+				{ name : 'lalyos-pet-cluster',
 				 size : 1,
-				 uptime : '-0h -00m',
-				 state : 'Starting'
+				 uptime : '-4h -28m',
+				 state : 'Stopped',
 				}
 			];
 			return HADOOPS;
@@ -377,11 +369,11 @@ $(document).ready(function () {
 					{ name: 'op_FAILED',			from: 'Starting',														to: 'Stopped' },															
 
 					{ name: 'startstop',			from: 'Running',														to: 'Stopping' },
-					{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Stopped' }, // v0.1
-			// 	{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Standby' }, // v0.2
+			//	{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Stopped' }, // v0.1
+					{ name: 'op_COMPLETED',		from: 'Stopping',														to: 'Standby' }, // v0.2
 					
-					{ name: 'startstop',			from: 'Stopped',														to: 'Starting' }, // v0.1
-			//	{ name: 'startstop',			from: 'Standby',														to: 'Starting' }, // v0.2
+			//	{ name: 'startstop',			from: 'Stopped',														to: 'Starting' }, // v0.1
+					{ name: 'startstop',			from: 'Standby',														to: 'Starting' }, // v0.2
 
 					{ name: 'terminate',			from: ['Stopped', 'Standby', 'Running'],		to: 'Terminating' },
 					{ name: 'op_COMPLETED',		from: 'Terminating',												to: 'Terminated' },
@@ -419,31 +411,33 @@ $(document).ready(function () {
 						// update isotope
 						$container.isotope('updateSortData').isotope();
 					},
-					/* v0.2
+					/* v0.2 */
 					onenterStandby: function(e,f,t) {
 						setLED('state4-ready', 'ready'); 
 						setStartStopBtn('fa-play', 'enabled', 'start cluster');
 						notification.send(clusterName, 'has-warning', ' is on standby');
 						// update isotope
 						$container.isotope('updateSortData').isotope();
-					},  */
+					},
 					onenterStopping: function(e,f,t) {
-						setLED('state0-stop-blink', 'stopping'); // v0.1
-				//	setLED('state1-ready-blink', 'stopping'); // v0.2
+				//	setLED('state0-stop-blink', 'stopping'); // v0.1
+						setLED('state1-ready-blink', 'stopping'); // v0.2
 						setStartStopBtn('fa-play', 'disabled', '');
-						notification.send(clusterName, 'has-error', ' is stopping'); // v0.1
-				//	notification.send(clusterName, 'has-warning', ' is stopping'); // v0.2
+				//	notification.send(clusterName, 'has-error', ' is stopping'); // v0.1
+						notification.send(clusterName, 'has-warning', ' is stopping'); // v0.2
 						// update isotope
 						$container.isotope('updateSortData').isotope();
 						// simulated stopping process will trigger Cluster.op_COMPLETED()
 						sim_STOPHadoopCluster(clusterIdNumber);
 					},
 					onenterStopped: function(e,f,t, errormsg) {
+						var msg = "";
 						stopUptimer();
 						setLED('state3-stop', 'stopped'); 
-						setStartStopBtn('fa-play', 'enabled', 'start cluster'); // v0.1
-				//	setStartStopBtn('fa-play', 'disabled'); // v0.2
-						notification.send(clusterName, 'has-error', ' has stopped' + errormsg);
+				//	setStartStopBtn('fa-play', 'enabled', 'start cluster'); // v0.1
+						setStartStopBtn('fa-play', 'disabled'); // v0.2
+						if (errormsg) { msg = errormsg; }
+						notification.send(clusterName, 'has-error', ' has stopped' + msg);
 						// update isotope
 						$container.isotope('updateSortData').isotope();
 					},
