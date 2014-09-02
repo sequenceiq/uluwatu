@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="./img/favicon.ico">
+
+        <title>Uluwatu</title>
+        <link href="./css/sequenceiq.doc.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href=".">Uluwatu</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="disabled">
+                    <a rel="next" >
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li class="disabled">
+                    <a rel="prev" >
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#cloudbreak-ui">Cloudbreak UI</a></li>
+        
+            <li><a href="#manage-credentials">Manage credentials</a></li>
+        
+            <li><a href="#manage-templates">Manage templates</a></li>
+        
+            <li><a href="#manage-blueprints">Manage blueprints</a></li>
+        
+            <li><a href="#create-cluster">Create cluster</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<p><em>Uluwatu is situated at the southern end of Bali and is the island most famous and consistent wave. The spot offers several waves which are working with different swells and tides.</em></p>
+<p><em>Uluwatu is a web UI for Cloudbreak - a cloud agnostic Hadoop as a Service API.</em></p>
+<h2 id="cloudbreak-ui"><a href="https://cloudbreak.sequenceiq.com/">Cloudbreak UI</a></h2>
+<p>When we have started to work on Cloudbreak, our main goal was to create an easy to use, cloud and Hadoop distribution agnostic Hadoop as a Service API. Though we always like to automate everything and approach things with a very DevOps mindset, as a side project we have created a UI for Cloudbreak as well.
+The goal of the UI is to ease to process and allow you to create a Hadoop cluster on your favourite cloud provider in <code>one-click</code>.</p>
+<p>The UI is built on the foundation of the Cloudbreak REST API. You can access the UI <a href="https://cloudbreak.sequenceiq.com/">here</a>.</p>
+<h3 id="manage-credentials">Manage credentials</h3>
+<p>Using manage credentials you can link your cloud account with the Cloudbreak account.</p>
+<p><strong>Amazon AWS</strong></p>
+<p><code>Name:</code> name of your credential</p>
+<p><code>Description:</code> short description of your linked credential</p>
+<p><code>Role ARN:</code> the role string - you can find it at the summary tab of the IAM role</p>
+<p><code>SSH public key:</code> if you specify an SSH public key you can use your private key later to log into your launched instances</p>
+<p><strong>Azure</strong></p>
+<p><code>Name:</code> name of your credential</p>
+<p><code>Description:</code> short description of your linked credential</p>
+<p><code>Subscription Id:</code> your Azure subscription id - see Accounts</p>
+<p><code>File password:</code> your generated JKS file password - see Accounts</p>
+<p><code>SSH public key:</code> if you specify an SSH public key you can use your private key later to log into your launched instances (The key generation process is described in the Configuring the Microsoft Azure account section)</p>
+<h3 id="manage-templates">Manage templates</h3>
+<p>Using manage templates you can create infrastructure templates.</p>
+<p><strong>Amazon AWS</strong></p>
+<p><code>Name:</code> name of your template</p>
+<p><code>Description:</code> short description of your template</p>
+<p><code>AMI:</code> the AMI which contains the Docker containers</p>
+<p><code>SSH location:</code> allowed inbound SSH access. Use 0.0.0.0/0 as default</p>
+<p><code>Region:</code> AWS region where you'd like to launch your cluster</p>
+<p><code>Instance type:</code> the Amazon instance type to be used - we suggest to use at least small or medium instances</p>
+<p><strong>Azure</strong></p>
+<p><code>Name:</code> name of your template</p>
+<p><code>Description:</code> short description of your template</p>
+<p><code>Location:</code> Azure datacenter location where you'd like to launch your cluster</p>
+<p><code>Image name:</code> The Azure base image used</p>
+<p><code>Instance type:</code> the Azure instance type to be used - we suggest to use at least small or medium instances</p>
+<p><code>Password:</code> if you specify a password you can use it later to log into you launched instances</p>
+<h3 id="manage-blueprints">Manage blueprints</h3>
+<p>Blueprints are your declarative definition of a Hadoop cluster.</p>
+<p><code>Name:</code> name of your blueprint</p>
+<p><code>Description:</code> short description of your blueprint</p>
+<p><code>Source URL:</code> you can add a blueprint by pointing to a URL. As an example you can use this <a href="https://raw.githubusercontent.com/sequenceiq/ambari-rest-client/master/src/main/resources/blueprints/multi-node-hdfs-yarn">blueprint</a>.</p>
+<p><code>Manual copy:</code> you can copy paste your blueprint in this text area</p>
+<p><em>Note: Apache Ambari community and SequenceIQ is working on an auto-hostgroup assignment algorithm; in the meantime please follow our conventions and check the default blueprints as examples, or ask us to support you.</em></p>
+<p><em>1. When you are creating a Single node blueprint the name of the default host group has to be <code>master</code>.</em>
+<em>2. When you are creating a Multi node blueprint, all the worker node components (a.k.a. Slaves) will have to be grouped in host groups named <code>slave_*</code>. Replace * with the number of Slave hostgroups.</em></p>
+<p><em>The default rule is that for multi node clusters there must be at least as many hosts as the number of host groups. Each NOT slave host groups (master, gateway, etc) will be launched with a cardinality of 1 (1 node per master, gateway, etc hosts), and all the rest of the nodes are equally distributed among Slave nodes (if there are multiple slave host groups).</em></p>
+<h3 id="create-cluster">Create cluster</h3>
+<p>Using the create cluster functionality you will create a cloud Stack and a Hadoop Cluster. In order to create a cluster you will have to select a credential first.
+<em>Note: Cloudbreak can maintain multiple cloud credentials (even for the same provider).</em></p>
+<p><code>Cluster name:</code> your cluster name</p>
+<p><code>Cluster size:</code> the number of nodes in your Hadoop cluster</p>
+<p><code>Template:</code> your cloud infrastructure template to be used</p>
+<p><code>Blueprint:</code> your Hadoop cluster blueprint</p>
+<p>Once you have launched the cluster creation you can track the progress either on Cloudbreak UI or your cloud provider management UI.</p>
+<p><em>Note: Because Azure does not directly support third party public images we will have to copy the used image from VM Depot into your storage account. The steps below need to be finished once and only once before any stack is created for every affinity group:</em></p>
+<p><em>1. Get the VM image - http://vmdepot.msopentech.com/Vhd/Show?vhdId=42480&amp;version=43564</em></p>
+<p><em>2. Copy the VHD blob from above (community images) into your storage account</em></p>
+<p><em>3. Create a VM image from the copied VHD blob.</em></p>
+<p><em>This process will take 20 minutes so be patient - but this step will have do be done once and only once.</em></p>
+<!--ui.md-->
+
+</div>
+        </div>
+
+        
+
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="./js/bootstrap-3.0.3.min.js"></script>
+        <script src="./js/prettify-1.0.min.js"></script>
+        <script src="./js/base.js"></script>
+    </body>
+</html>
