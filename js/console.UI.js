@@ -9,7 +9,7 @@ $(document).ready(function () {
 		var clusters = new Array;
 		var clusterIdNumber = 0; 
 		var $container;	// Isotope
-		var SIM_DELAY = 20000; // 20s delay
+		var SIM_DELAY = 5000; // 5s delay
 		
 
 		/** ... startup ........................................................ */
@@ -23,14 +23,6 @@ $(document).ready(function () {
 
 			clustersToolbar = new ClustersToolbar();
 			notification = new Notification();
-
-			// copy credential menu selection to menu label, remove alert color and enable create cluster button
-			$("#menu-credential ul li a").click(function () {
-				if (!($(this).hasClass("not-option"))) {
-					$(this).parents("#menu-credential").find('.dropdown-toggle span').text($(this).text()).removeClass('text-danger');
-					clustersToolbar.enableCreateBtn();
-				}
-			});
 			
 			// cluster-block hide/show
 			$('#toggle-cluster-block-btn').click(function () {
@@ -98,6 +90,7 @@ $(document).ready(function () {
 
 						var name = $('.create-cluster form #clusterName').val();
 						var size = $('.create-cluster form #clusterSize').val();
+						if (!size) { size = 2; }
 						var uptime = 0;
 						clusters[clusterIdNumber] = new Cluster;
 						clusters[clusterIdNumber].create(name, clusterIdNumber, size, uptime);
@@ -108,8 +101,7 @@ $(document).ready(function () {
 					}, 500);	// 0.5s VISUAL DELAY				
 				});
 			});
-
-
+			
 			// panel collapse page scrolling
 			function scrollToPanelTop(panel) {
 				var offset = panel.offset().top;
@@ -195,12 +187,34 @@ $(document).ready(function () {
 				var active = 'btn-default';
 				var control = $(this).parent().parent();
 				e.preventDefault();
-				control.find('a').each(function () {
-					$(this).removeClass(selected).addClass(active);
-				});
-				$(this).removeClass(active).addClass(selected);
-
-				// do something...
+				e.stopPropagation();
+				if (!control.hasClass('multiselect')) {
+					control.find('a').each(function () {
+						$(this).removeClass(selected).addClass(active);
+					});
+					$(this).removeClass(active).addClass(selected);
+				} else {
+					if ($(this).hasClass(active)) {
+						$(this).removeClass(active).addClass(selected);
+					} else {
+						$(this).removeClass(selected).addClass(active);
+					}
+				}
+				// show next selector block
+				var nextSelector = control.attr('data-next');
+				if (nextSelector) { 
+					$(nextSelector).collapse('show'); 
+					$(nextSelector).on('shown.bs.collapse', function (e) {
+						e.stopPropagation();
+						// scroll page
+						scrollToPanelTop($(this).parent().prev().prev());
+					});
+				}
+			});
+			
+			// fake shit, all form elements should be checked to enable the create button
+			$('#selectTemplate').change(function (e) {
+				$('#create-cluster-form-btn').removeClass('disabled');
 			});
 
 		}
@@ -635,9 +649,7 @@ $(document).ready(function () {
 				if (toggle) { toggleClusterBtn.removeClass('disabled'); } else { toggleClusterBtn.addClass('disabled'); }
 				filterField.prop('disabled', !filter);
 				if (sort) { sortBtn.removeClass('disabled'); } else { sortBtn.addClass('disabled'); }
-				if (create && !($('#menu-credential .dropdown-toggle span').hasClass('text-danger'))) {
-					createBtn.removeClass('disabled'); } else { createBtn.addClass('disabled');
-				}
+				if (create) { createBtn.removeClass('disabled'); } else { createBtn.addClass('disabled'); }
 			}
 			this.enableCreateBtn = function () {
 				createBtn.removeClass('disabled');

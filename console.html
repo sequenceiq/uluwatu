@@ -55,24 +55,6 @@
 									<li><a href="index.html" data-value="cred-001"><i class="fa fa-sign-out fa-fw"></i> logout</a></li>
 							 	</ul>
         			</li>
-
-<!-- ........ CREDENTIALS DROPDOWN ......................................... -->
-							
-							<li class="dropdown" id="menu-credential">
-          			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<i class="fa fa-tag fa-fw"></i> <span class="text-danger">select a credential</span> <b class="caret"></b><!-- OPTIONAL HTML:
-																										span class: 'text-danger' - before selection
-																																'' - after selection
-								-->
-								</a>
-          			<ul class="dropdown-menu">
-									<li><a href="#" data-value="cred-001">Credential_name_20ch</a></li>
-									<li><a href="#" data-value="cred-002">AWS_Cred_02</a></li>
-									<li><a href="#" data-value="cred-003">lalyos' VIP cred</a></li>
-									<li class="divider"></li>
-            			<li><a href="#" class="not-option" data-toggle="collapse" data-target="#panel-credentials-collapse"><i class="fa fa-edit fa-fw"></i> manage credentials</a></li>
-							 	</ul>
-        			</li>
 						
 						</ul><!-- .navbar-nav -->
 					
@@ -124,7 +106,7 @@
 						</div>
 						
 						<!-- create cluster button -->
-						<div class="col-sm-3 col-xs-2"><a href="#" id="create-cluster-btn" class="btn btn-success btn-block btn-collapse-title disabled" role="button"><i class="fa fa-plus fa-fw"></i><span> create cluster</span></a></div>
+						<div class="col-sm-3 col-xs-2"><a href="#" id="create-cluster-btn" class="btn btn-success btn-block btn-collapse-title" role="button"><i class="fa fa-plus fa-fw"></i><span> create cluster</span></a></div>
 					
 					</div><!-- .row .cluster-bar -->
 					
@@ -159,34 +141,52 @@
 								</div>
 								<div id="cluster-details-panel-collapse" class="panel-collapse collapse">
 								<div class="panel-body">
-
-									<p class="text-right">
-										<!-- <a href="#" id="start-stop-btn" class="btn btn-info" role="button"><i class="fa fa-pause fa-fw"></i><span> stop</span></a> -->
-										<a href="#" id="terminate-btn" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> terminate</span></a>
-									</p>
 									
-									<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+									<ul class="nav nav-pills nav-justified" role="tablist">
+										<li class="active"><a href="#cluster-details-pane" role="tab" data-toggle="tab">details</a></li>
+										<li><a href="#periscope-pane" role="tab" data-toggle="tab">autoscaling SLA policies</a></li>
+										<li><a href="#" role="tab">monitoring</a></li>
+									</ul>
 
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="cloud-provider">cloud provider</label>
-											<div class="col-sm-9">
-												<p id="cloud-provider" class="form-control-static">Azure</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="cluster-size">cluster size</label>
-											<div class="col-sm-9">
-												<p id="cluster-size" class="form-control-static">1</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
-										<div class="form-group">
-											<label class="col-sm-3 control-label" for="cluster-description">description</label>
-											<div class="col-sm-9">
-												<p id="cluster-description" class="form-control-static">a brutal Hadoop cluster</p>
-											</div><!-- .col-sm-9 -->
-										</div><!-- .form-group -->
+									<div class="tab-content">
+										
+<!-- ......... DETAILS ....................................................... -->
+									
+									<section id="cluster-details-pane" class="tab-pane active fade in">
 
-									</form>
+									<div class="panel panel-default">
+										
+										<div class="panel-body">
+										
+											<p class="text-right">
+												<!-- <a href="#" id="start-stop-btn" class="btn btn-info" role="button"><i class="fa fa-pause fa-fw"></i><span> stop</span></a> -->
+												<a href="#" id="terminate-btn" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> terminate</span></a>
+											</p>
+
+											<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="cloud-provider">cloud provider</label>
+													<div class="col-sm-9">
+														<p id="cloud-provider" class="form-control-static">Azure</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="cluster-size">nodes</label>
+													<div class="col-sm-9">
+														<p id="cluster-size" class="form-control-static">1</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="cluster-description">description</label>
+													<div class="col-sm-9">
+														<p id="cluster-description" class="form-control-static">a brutal Hadoop cluster</p>
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+
+											</form>
+										</div>
+										</div>
 									
 <!-- ............ HISTORY .................................................... -->										
 
@@ -478,13 +478,386 @@
 										</div><!-- .panel-collapse -->
 
 									</div><!-- .panel -->
+									
+									</section><!-- #cluster-details-pane -->
+									
+<!-- ......... PERISCOPE ..................................................... -->
+									
+									<section id="periscope-pane" class="tab-pane fade">
+
+<!-- ........... ALARMS ...................................................... -->
+									
+										<div class="panel panel-default">
+										<div class="panel-heading">	
+											<h5><i class="fa fa-bell-o fa-fw"></i> ALARMS</h5>	
+										</div><!-- .panel-heading -->
+										<div class="panel-body">
+											
+											<p class="btn-row-over-panel">
+												<a href="#panel-create-alarm-collapse" class="btn btn-success" role="button" data-toggle="collapse" data-target="#panel-create-alarm-collapse">
+													<i class="fa fa-plus fa-fw"></i><span> create alarm</span>
+												</a>
+											</p>									
+<!-- ......... CREATE ALARM FORM ............................................. -->
+									
+											<div class="panel panel-default">
+												<div id="panel-create-alarm-collapse" class="panel-under-btn-collapse collapse">
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="form">
+
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="alarmName">alarm name</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="alarmName" placeholder="max. 20 char">
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="alarmDesc">description</label>
+															<div class="col-sm-9">
+																<textarea class="form-control" id="alarmDesc" placeholder="" rows="2"></textarea>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="metrics">metrics</label>
+															<div class="col-sm-5">
+																<select class="form-control" id="metrics">
+																	<option>– select metric –</option>
+																	<option>pending_containers</option>
+																	<option>pending_applications</option>
+																	<option>lost_nodes</option>
+																	<option>unhealthy_nodes</option>
+																	<option>global_resources</option>
+																</select>													
+															</div><!-- .col-sm-5 -->
+															<div class="col-sm-2">
+																<select class="form-control logic-ops" id="comparisonOperator">
+																	<option>=</option>
+																	<option>&gt;=</option>
+																	<option>&gt;</option>
+																	<option>&lt;=</option>
+																	<option>&lt;</option>
+																</select>													
+															</div><!-- .col-sm-2 -->
+															<div class="col-sm-2">
+																<input type="number" class="form-control" id="threshold" placeholder="threshold"> 
+															</div><!-- .col-sm-2 -->
+														</div><!-- .form-group -->
+														
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="email">notification email (optional)</label>
+															<div class="col-sm-9">
+																<input type="text" class="form-control" id="email" placeholder="">
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+
+
+														<div class="row btn-row">
+															<div class="col-sm-9 col-sm-offset-3">
+																<a href="#" id="createAlarm" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i> create alarm</a>
+															</div>
+														</div>
+
+													</form>
+												</div>
+												</div>
+											</div><!-- .panel -->
+									
+<!-- ............ ALARM LIST .............................................. -->									
+									
+											<div class="panel-group" id="alarm-list-accordion">
 										
+										
+<!-- .............. ALARM ................................................. -->	
+										
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h5><a href="#panel-alarm-collapse01" data-toggle="collapse" data-parent="#alarm-list-accordion" data-target="#panel-alarm-collapse01"><i class="fa fa-bell fa-fw"></i>pendingContainerHigh</a></h5>
+													</div>
+													<div id="panel-alarm-collapse01" class="panel-collapse collapse">
+
+													<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+													<div class="panel-body">
+
+														<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="description01">description</label>
+																<div class="col-sm-9">
+																	<p id="description01" class="form-control-static">Number of pending containers is high</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="period01">period</label>
+																<div class="col-sm-9">
+																	<p id="period01" class="form-control-static">1 minute(s)</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="metrics01">metrics</label>
+																<div class="col-sm-9">
+																	<p id="metrics01" class="form-control-static">pending_containers &gt; 10</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+															
+															<div class="form-group">
+																<label class="col-sm-3 control-label" for="email01">notification email</label>
+																<div class="col-sm-9">
+																	<p id="email01" class="form-control-static">n/a</p>
+																</div><!-- .col-sm-9 -->
+															</div><!-- .form-group -->
+
+														</form>
+													</div>
+													</div>
+												</div><!-- .panel -->
+										
+<!-- .............. ALARM ................................................. -->	
+
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-alarm-collapse02" data-toggle="collapse" data-parent="#alarm-list-accordion" data-target="#panel-alarm-collapse02"><i class="fa fa-bell fa-fw"></i>freeGlobalResourcesRateLow</a></h5>
+											</div>
+											<div id="panel-alarm-collapse02" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="description01">description</label>
+															<div class="col-sm-9">
+																<p id="description01" class="form-control-static">Low free global resource rate</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														
+														<div class="form-group">
+																<label class="col-sm-3 control-label" for="period01">period</label>
+																<div class="col-sm-9">
+																	<p id="period01" class="form-control-static">1 minute(s)</p>
+																</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="metric01">metric</label>
+															<div class="col-sm-9">
+																<p id="metric01" class="form-control-static">global_resources = 1</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+														
+														<div class="form-group">
+															<label class="col-sm-3 control-label" for="email01">notification email</label>
+															<div class="col-sm-9">
+																<p id="email01" class="form-control-static">krisztian.horvath@sequenceiq.com</p>
+															</div><!-- .col-sm-9 -->
+														</div><!-- .form-group -->
+
+														</form>
+													</div>
+												</div>
+											</div><!-- .panel -->
+										
+
+										
+											</div><!-- #alarm-list-accordion -->
+										
+										</div><!-- .panel-body -->
+									</div><!-- .panel -->
+									
+										
+										
+<!-- ........... SCALING ACTIONS ............................................. -->
+									
+										<div class="panel panel-default">
+										<div class="panel-heading">		
+											<h5><i class="fa fa-expand fa-fw"></i> SCALING ACTIONS</h5>	
+										</div><!-- .panel-heading -->
+										<div class="panel-body">
+											
+											<form class="form-horizontal" role="form">
+
+												<div class="form-group">
+													<label class="col-sm-3 col-xs-12 control-label" for="cooldownTime">cooldown time</label>
+													<div class="col-sm-2 col-xs-4">
+														<input type="number" class="form-control text-right" id="cooldownTime" placeholder=""> 
+													</div><!-- .col-sm-2 -->
+													<div class="col-sm-1 col-xs-4">
+														<p class="form-control-static">minute(s)</p> 
+													</div><!-- .col-sm-1 -->
+												</div><!-- .form-group -->
+
+												<div class="form-group">
+													<label class="col-sm-3 col-xs-12 control-label" for="clustersizeMin">cluster size min.</label>
+													<div class="col-sm-2 col-xs-4">
+														<input type="number" class="form-control text-right" id="clustersizeMin" placeholder=""> 
+													</div><!-- .col-sm-2 -->
+												</div><!-- .form-group -->
+
+												<div class="form-group">
+													<label class="col-sm-3 col-xs-12 control-label" for="clustersizeMax">cluster size max.</label>
+													<div class="col-sm-2 col-xs-4">
+														<input type="number" class="form-control text-right" id="clustersizeMax" placeholder=""> 
+													</div><!-- .col-sm-2 -->
+												</div><!-- .form-group -->
+
+											</form>
+
+
+											<p class="btn-row-over-panel">
+												<a href="#panel-create-scaling-collapse" class="btn btn-success" role="button" data-toggle="collapse" data-target="#panel-create-scaling-collapse">
+													<i class="fa fa-plus fa-fw"></i><span> create policy</span>
+												</a>
+											</p>
+									
+									
+<!-- ......... CREATE SCALING ACTION FORM ............................................. -->
+									
+											<div class="panel panel-default">
+										<div id="panel-create-scaling-collapse" class="panel-under-btn-collapse collapse">
+										<div class="panel-body">
+
+											<form class="form-horizontal" role="form">
+												
+									
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="policyName">policy name</label>
+													<div class="col-sm-9">
+														<input type="text" class="form-control" id="policyName" placeholder="max. 20 char">
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 col-xs-12 control-label" for="scalingAdjustment">scaling adjustment</label>
+													<div class="col-sm-4 col-xs-4">
+														<input type="text" class="form-control text-right" id="scalingAdjustment" placeholder=""> 
+													</div><!-- .col-sm-3 -->
+													<div class="col-sm-5 col-xs-8">
+														<select class="form-control" id="scalingAdjustmentType">
+															<option>– select adj. type –</option>
+															<option>node number</option>
+															<option>%</option>
+														</select>												
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="alarm">alarm</label>
+													<div class="col-sm-9">
+														<select class="form-control" id="alarm">
+															<option>– select alarm –</option>
+															<option>pendingContainerHigh</option>
+															<option>freeGlobalResourcesRateLow</option>
+														</select>													
+													</div><!-- .col-sm-9 -->
+												</div><!-- .form-group -->
+												
+												
+												
+												<div class="row btn-row">
+													<div class="col-sm-9 col-sm-offset-3">
+														<a href="#" id="createPolicy" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i> create policy</a>
+													</div>
+												</div>
+
+											</form>
+										</div>
+										</div>
+									</div><!-- .panel -->
+									
+<!-- ............ SCALING ACTION POLICY LIST ........................................... -->									
+									
+											<div class="panel-group" id="scaling-list-accordion">
+										
+										
+<!-- .............. SCALING ACTION POLICY .............................................. -->	
+										
+												<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-scaling-collapse01" data-toggle="collapse" data-parent="#scaling-list-accordion" data-target="#panel-scaling-collapse01"><i class="fa fa-expand fa-fw"></i>downScaleWhenHighResource</a></h5>
+											</div>
+											<div id="panel-scaling-collapse01" class="panel-collapse collapse">
+												
+											<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+											<div class="panel-body">
+												
+												<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="scalingAdjustment01">scaling adjustment</label>
+														<div class="col-sm-9">
+															<p id="scalingAdjustment01" class="form-control-static">2 node(s)</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="alarm01">alarm</label>
+														<div class="col-sm-9">
+															<p id="alarm01" class="form-control-static">freeGlobalResourcesRateLow</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->													
+												</form>
+											</div>
+											</div>
+										</div><!-- .panel -->
+										
+<!-- .............. SCALING ACTION POLICY .............................................. -->	
+
+												<div class="panel panel-default">
+											<div class="panel-heading">
+												<h5><a href="#panel-scaling-collapse02" data-toggle="collapse" data-parent="#scaling-list-accordion" data-target="#panel-scaling-collapse02"><i class="fa fa-expand fa-fw"></i>upScaleWhenHighPendingContainers</a></h5>
+											</div>
+											<div id="panel-scaling-collapse02" class="panel-collapse collapse">
+
+												<p class="btn-row-over-panel"><a href="#" class="btn btn-danger" role="button"><i class="fa fa-times fa-fw"></i><span> delete</span></a></p>
+
+												<div class="panel-body">
+
+													<form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
+
+														<div class="form-group">
+														<label class="col-sm-3 control-label" for="scalingAdjustment02">scaling adjustment</label>
+														<div class="col-sm-9">
+															<p id="scalingAdjustment02" class="form-control-static">40 %</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->
+													<div class="form-group">
+														<label class="col-sm-3 control-label" for="alarm02">alarm</label>
+														<div class="col-sm-9">
+															<p id="alarm02" class="form-control-static">pendingContainerHigh</p>
+														</div><!-- .col-sm-9 -->
+													</div><!-- .form-group -->			
+
+													</form>
+												</div>
+											</div>
+										</div><!-- .panel -->
+										
+
+										
+											</div><!-- #scaling-list-accordion -->	
+										
+										</div><!-- .panel-body -->
+									</div><!-- .panel -->
+										
+									</section><!-- #periscope-pane -->	
 																			
+									</div><!-- .tab-content -->
+									
 								</div><!-- .panel-body -->
 								</div><!-- .panel-collapse -->
 							</div><!-- .panel -->
-														
-						</div>
+							
+							
+						</div><!-- .col-sm-11 -->
 					</div><!-- .cluster-details -->
 					
 					</div><!-- .item -->
@@ -509,46 +882,163 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label" for="clusterName">cluster name</label>
 											<div class="col-sm-9">
-												<input type="text" class="form-control" id="clusterName" placeholder="[A-Za-z0-9-]{3,20}">
+												<input type="text" class="form-control" id="clusterName">
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="clusterSize">cluster size</label>
+											<label class="col-sm-3 control-label" for="clusterSize">nodes</label>
 											<div class="col-sm-9">
 												<input type="number" class="form-control" id="clusterSize" placeholder="2–99">
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
+										
+										<hr class="form-group-separator">
+										
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="clusterDescription">description</label>
-											<div class="col-sm-9">
-												<textarea rows="3" class="form-control" id="clusterDescription"></textarea>
+											<label class="col-sm-3 control-label" for="selectHadoopDistro">select Hadoop distro <i class="fa fa-check fa-fw hidden"></i></label>
+											<div class="col-sm-9 ">
+												<div class="btn-segmented-control" id="selectHadoopDistro" data-next="#selectRuntime">
+													<div class="btn-group btn-group-justified"><!-- 3 buttons per row -->
+														<a href="#" class="btn btn-default" role="button">HDP</a><!-- OPTIONAL HTML: 
+															class: 'btn-info' - selected OR
+															class: 'btn-default' - not selected
+														-->
+														<a href="#" class="btn btn-default" role="button">CDH</a>
+														<a href="#" class="btn btn-default" role="button">AH</a>														
+													</div>
+												</div><!-- .btn-segmented-control -->
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
+										
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="selectTemplate">template</label>
-											<div class="col-sm-9">
-												<select class="form-control" id="selectTemplate">
-													<option>– select a template –</option>
-													<option>Azure_template_001</option>
-													<option>AWS_A</option>
-													<option>lalyosCloud 9</option>
-												</select>
+											<label class="col-sm-3 control-label" for="selectRuntime">select runtime <i class="fa fa-check fa-fw hidden"></i></label>
+											<div class="col-sm-offset-1 col-sm-8 collapse" id="selectRuntime">
+												<div class="btn-segmented-control" data-next="#selectServiceBlock">
+													<div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+														<a href="#" class="btn btn-default" role="button">MR2</a><!-- OPTIONAL HTML: 
+															class: 'btn-info' - selected OR
+															class: 'btn-default' - not selected
+														-->
+														<a href="#" class="btn btn-default" role="button">Tez</a>
+														<a href="#" class="btn btn-default" role="button">Spark</a>														
+													</div>
+												</div><!-- .btn-segmented-control -->
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
+										
+										
 										<div class="form-group">
-											<label class="col-sm-3 control-label" for="selectBlueprint">blueprint</label>
+											<label class="col-sm-3 control-label" for="selectService">select services <i class="fa fa-check fa-fw hidden"></i></label>
+											
+											<div class="col-sm-offset-2 col-sm-7 collapse" id="selectServiceBlock">
+													
+												<div class="row"><div class="col-sm-12">
+
+													<ul class="nav nav-pills nav-pills-sm nav-justified" role="tablist">
+														<li class="active"><a href="#servicePane" role="tab" data-toggle="tab">manually</a></li>
+														<li><a href="#blueprintPane" role="tab" data-toggle="tab">from blueprint</a></li>
+													</ul>
+
+												</div></div>
+
+
+												<div class="tab-content">
+
+													<div class="tab-pane active fade in" id="servicePane"><!-- service buttons -->
+
+														<div class="btn-segmented-control multiselect" id="selectService">
+															<div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+																<a href="#" class="btn btn-info btn-mandatory disabled" role="button">HDFS</a><!-- OPTIONAL HTML: 
+																	class: 'btn-info' - selected OR
+																	class: 'btn-info btn-mandatory disabled' - cannot be deselected OR
+																	class: 'btn-default' - not selected OR
+																	class: 'btn-default disabled' - cannot be selected
+																-->
+																<a href="#" class="btn btn-info btn-mandatory disabled" role="button">YARN</a>
+																<a href="#" class="btn btn-default" role="button">HBase</a>
+															</div>
+															<div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+																<a href="#" class="btn btn-default" role="button">Hive</a>
+																<a href="#" class="btn btn-default" role="button">ZooKeeper</a>
+																<a href="#" class="btn btn-default" role="button">HCat</a>														
+															</div>
+															<div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+																<a href="#" class="btn btn-default" role="button">Ganglia</a>
+																<a href="#" class="btn btn-default" role="button">Pig</a>
+																<a href="#" class="btn btn-default" role="button">Nagios</a>														
+															</div>
+															<div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+																<a href="#" class="btn btn-default" role="button">Sqoop</a>
+																<a href="#" class="btn btn-default disabled" role="button">MySQL</a>
+																<a href="#" class="btn btn-default" role="button">Spark</a>														
+															</div>
+														</div><!-- .btn-segmented-control -->
+
+													</div><!-- .tab-pane -->
+
+													<div class="tab-pane fade" id="blueprintPane"><!-- blueprint select -->
+
+														<select class="form-control input-sm" id="selectBlueprint">
+															<option>– select a blueprint –</option>
+															<option>blueprint-c1</option>
+															<option>single-node-hdfs-yarn</option>
+														</select>
+
+													</div><!-- .tab-pane -->
+												</div><!-- .tab-content -->
+													
+											</div><!-- .col-sm-9 -->
+											
+										</div><!-- .form-group -->
+			
+										<hr class="form-group-separator">
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label" for="selectCloud">select cloud provider <i class="fa fa-check fa-fw hidden"></i></label>
 											<div class="col-sm-9">
-												<select class="form-control" id="selectBlueprint">
-													<option>– select a blueprint –</option>
-													<option>blueprint-c1</option>
-													<option>single-node-hdfs-yarn</option>
+												<div class="btn-segmented-control" id="selectCloud" data-next=".selectCredentialNTemplate">
+													<div class="btn-group btn-group-justified"><!-- 3 buttons per row -->
+														<a href="#" class="btn btn-default" role="button">AWS</a>
+														<a href="#" class="btn btn-default" role="button">Azure</a>
+													</div>
+													<div class="btn-group btn-group-justified"><!-- 3 buttons per row -->
+														<a href="#" class="btn btn-default" role="button">Google Cloud</a>		
+														<a href="#" class="btn btn-default" role="button">Digital Ocean</a>								
+													</div>
+												</div><!-- .btn-segmented-control -->
+											</div><!-- .col-sm-9 -->
+										</div><!-- .form-group -->
+										
+										
+										
+										<div class="form-group">
+											<label class="col-sm-3 control-label" for="selectCredential">select credential <i class="fa fa-check fa-fw hidden"></i></label>
+											<div class="col-sm-offset-1 col-sm-8 selectCredentialNTemplate collapse">
+												<select class="form-control input-sm" id="selectCredential">
+													<option>– select a credential –</option>
+													<option>AWS_credential_001</option>
+													<option>AWS_cred_02</option>
+													<option>AWS3</option>
 												</select>
 											</div><!-- .col-sm-9 -->
 										</div><!-- .form-group -->
 										
+										<div class="form-group">
+											<label class="col-sm-3 control-label" for="selectTemplate">select template <i class="fa fa-check fa-fw hidden"></i></label>
+											<div class="col-sm-offset-1 col-sm-8 selectCredentialNTemplate collapse">
+												<select class="form-control input-sm" id="selectTemplate">
+													<option>– select a template –</option>
+													<option>AWS_template_001</option>
+													<option>AWS_A</option>
+													<option>AWS2</option>
+												</select>
+											</div><!-- .col-sm-9 -->
+										</div><!-- .form-group -->
+										
+										
 										<div class="row btn-row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<a href="#" id="create-cluster-form-btn" class="btn btn-success btn-block" role="button"><i class="fa fa-plus fa-fw"></i>create and start cluster</a>
+												<a href="#" id="create-cluster-form-btn" class="btn btn-success btn-block disabled" role="button"><i class="fa fa-plus fa-fw "></i>create and start cluster</a>
 											</div>
 										</div>
 										
