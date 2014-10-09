@@ -216,7 +216,13 @@ $(document).ready(function () {
 			$('#selectTemplate').change(function (e) {
 				$('#create-cluster-form-btn').removeClass('disabled');
 			});
-
+			
+			
+			// refresh button
+			$('#btnRefresh').click(function (e) {
+				e.preventDefault();
+				$(this).find('i').addClass('fa-spin');
+			});
 		}
 
 
