@@ -155,18 +155,18 @@ The goal of the UI is to ease to process and allow you to create a Hadoop cluste
 <ul>
 <li>provides an HTTP server that serves the static HTML/JS/CSS content</li>
 <li>proxies every request coming from the Angular side to Cloudbreak therefore eliminating the need for <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a></li>
-<li>obtains an OAuth2 token to Cloudbreak by handling the authorization code flow</li>
+<li>obtains an OAuth2 token from an identity server to Cloudbreak by handling the authorization code flow</li>
 </ul>
 <h3 id="running-uluwatu-locally">Running Uluwatu locally</h3>
 <p>If you'd like to run Uluwatu on your local machine, you should have npm and node.js installed. After checking out the git repository, run <code>npm install</code> in Uluwatu's directory and set these environment variables:</p>
 <ul>
-<li>ULU_CLOUDBREAK_ADDRESS: the address of the Cloudbreak backend (format: <code>http[s]://[host]:[port]</code>)</li>
-<li>ULU_IDENTITY_ADDRESS: the address of the identity server - you'll either need to <a href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/">run your own</a> UAA server properly configured, or you can use our own identity server deployed to our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
-<li>ULU_OAUTH_CLIENT_ID: the <code>client_id</code> of the Uluwatu app configured in the UAA server</li>
-<li>ULU_OAUTH_CLIENT_SECRET: the <code>client_secret</code> of the Uluwatu app configured in the UAA server</li>
-<li>ULU_OAUTH_REDIRECT_URI: the <code>redirect_url</code> of the Uluwatu app configured in the UAA server - when running Uluwatu locally in a dev environment it should be something like <code>http://localhost:3000/authorize</code></li>
-<li>ULU_SULTANS_ADDRESS: <a href="https://github.com/sequenceiq/sultans">Sultans</a> is SequenceIQ's registration, user management and custom login service. If you'd like to have registration and custom login features you should deploy your own Sultans application and provide its base address here or you can use our deployed version on our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
-<li>ULU_SERVER_PORT: (optional, default: 3000) - if you'd like to run Uluwatu on a port different than the default</li>
+<li><code>ULU_CLOUDBREAK_ADDRESS</code>: the address of the Cloudbreak backend (format: <code>http[s]://[host]:[port]</code>)</li>
+<li><code>ULU_IDENTITY_ADDRESS</code>: the address of the identity server - you'll either need to <a href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/">run your own</a> UAA server properly configured, or you can use our own identity server deployed to our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
+<li><code>ULU_OAUTH_CLIENT_ID</code>: the <code>client_id</code> of the Uluwatu app configured in the UAA server</li>
+<li><code>ULU_OAUTH_CLIENT_SECRET</code>: the <code>client_secret</code> of the Uluwatu app configured in the UAA server</li>
+<li><code>ULU_OAUTH_REDIRECT_URI</code>: the <code>redirect_url</code> of the Uluwatu app configured in the UAA server - when running Uluwatu locally in a dev environment it should be something like <code>http://localhost:3000/authorize</code></li>
+<li><code>ULU_SULTANS_ADDRESS</code>: <a href="https://github.com/sequenceiq/sultans">Sultans</a> is SequenceIQ's registration, user management and custom login service. If you'd like to have registration and custom login features you should deploy your own Sultans application and provide its base address here or you can use our deployed version on our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
+<li><code>ULU_SERVER_PORT</code>: (optional, default: 3000) - if you'd like to run Uluwatu on a port different than the default</li>
 </ul>
 <p>If the environment variables are set, simply run <code>node server.js</code></p>
 <h3 id="running-uluwatu-in-docker">Running Uluwatu in Docker</h3>
