@@ -264,6 +264,17 @@ ng\:form {
 .ng-hide-add-active, .ng-hide-remove {
   display: block!important;
 }
+
+h1, h2, h3, h4, h5 {"Cabin", "Helvetica Neue", Arial, Helvetica, "Lucida Grande", sans-serif !important;}
+body {font-family:"Helvetica Neue", Helvetica, Arial, "Open Sans", "Lucida Grande", sans-serif !important;}
+.btn-info {background-color: #69be28!important; border-color: #69be28!important; color: #fff; !important}
+.btn-success {background-color: #3db5e6 !important; border-color: #3db5e6 !important; color: #fff; !important}
+a {color: #fff !important}
+.btn-default {background-color: transparent !important; color: #69be28 !important}
+.public-account-info, .lalel-info, .navbar a, .btn-default a, h5 a {color: #69be28 !important;}
+.text-danger {color:#e17000 !important;}
+
+
 .host-group-table{padding-left: 13px}
 .host-group {font-size: 15px !important; word-wrap: break-word !important;}
 .host-group-body {font-size: 13px !important;}
