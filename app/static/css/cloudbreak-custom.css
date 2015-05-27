@@ -272,7 +272,8 @@ body {font-family:"Helvetica Neue", Helvetica, Arial, "Open Sans", "Lucida Grand
 a {color: #fff !important}
 .cluster .fa-stop, .cluster .fa-start, .cluster .fa-pause, .cluster .fa-refresh {color: #3db5e6 !important}
 .btn-default {background-color: transparent !important; color: #69be28 !important}
-.public-account-info, .lalel-info, .navbar a, .btn-default a, h5 a, .pagination a, #myTab a, #ambari-address a {color: #69be28 !important;}
+.public-account-info, .navbar a, .btn-default a, h5 a, .pagination a, #myTab a, #ambari-address a {color: #69be28 !important;}
+.label-info {background-color: #69be28 !important; color: #fff !important;}
 #active-cluster-panel li:not(.active) a {background-color: transparent !important;  color: #69be28 !important}
 #active-cluster-panel li a {background-color: #69be28 !important;  color: #fff !important}
 .text-danger {color:#e17000 !important;}
