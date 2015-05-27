@@ -58,14 +58,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="selectClusterNetwork">{{msg.cluster_form_network_label}}</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="selectClusterNetwork" ng-model="cluster.networkId" required>
-                                <option ng-repeat="network in $root.networks | filter:{cloudPlatform: activeCredential.cloudPlatform} | orderBy:'name'" value="{{network.id}}">{{network.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-3 control-label" for="select-cluster-securitygroup">{{msg.cluster_form_securitygroup_label}}</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="select-cluster-securitygroup" ng-model="cluster.securityGroupId" required>
@@ -86,15 +78,6 @@
                       </div>
                     </div>
                     <div class="form-group" ng-show="showAdvancedOptionForm">
-                        <label class="col-sm-3 control-label" for="onFailureConfig">{{msg.cluster_form_onfailure_label}}</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" id="onFailureConfig" ng-model="cluster.onFailureAction">
-                                <option value="DO_NOTHING">{{msg.cluster_form_onfailure_donothing}}</option>
-                                <option value="ROLLBACK">{{msg.cluster_form_onfailure_rollback}}</option>
-                            </select>
-                        </div>
-                     </div>
-                    <div class="form-group" ng-show="showAdvancedOptionForm">
                       <label class="col-sm-3 control-label" for="selectAdjustment">{{msg.cluster_form_adjustment_min_label}}</label>
                       <div class="col-sm-3">
                         <select class="form-control" id="bestEffort" ng-model="cluster.bestEffort" ng-change="selectedAdjustmentChange()" ng-disabled="activeCredential.cloudPlatform == 'AWS' || activeCredential.cloudPlatform == 'OPENSTACK'">
@@ -102,7 +85,6 @@
                           <option value="BEST_EFFORT">{{msg.cluster_form_adjustment_best_effort_label}}</option>
                         </select>
                       </div>
-
                       <div class="col-sm-6">
                         <div class="col-sm-6">
                           <div class="input-group col-sm-12" ng-show="cluster.bestEffort != 'BEST_EFFORT'">

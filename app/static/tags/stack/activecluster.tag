@@ -231,35 +231,6 @@
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h5><a href="" data-toggle="collapse" data-target='#panel-collapsetmp-securitygroup-{{$root.activeCluster.securityGroupId}}'><i class="fa fa-lock fa-fw"></i>{{msg.active_cluster_securitygroup_label}}: {{activeClusterSecurityGroup.name}}</a></h5>
-                            </div>
-                                <div id="panel-collapsetmp-securitygroup-{{$root.activeCluster.securityGroupId}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <div ng-include="'tags/securitygroup/securitygrouplist.tag'" ng-repeat="securitygroup in [activeClusterSecurityGroup]"></div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h5><a href="" data-toggle="collapse" data-target='#panel-collapsetmp-network-{{$root.activeCluster.networkId}}'><i class="fa fa-sitemap fa-fw"></i>{{msg.active_cluster_network_label}} {{activeClusterNetwork.name}}</a></h5>
-                            </div>
-                                <div id="panel-collapsetmp-network-{{$root.activeCluster.networkId}}" class="panel-collapse collapse">
-                                    <div class="panel-body" ng-if="$root.activeCluster.cloudPlatform == 'AWS' ">
-                                        <div ng-include="'tags/network/awsnetworklist.tag'" ng-repeat="network in [activeClusterNetwork]"></div>
-                                    </div>
-                                    <div class="panel-body" ng-if="$root.activeCluster.cloudPlatform == 'AZURE' ">
-                                        <div ng-include="'tags/network/azurenetworklist.tag'" ng-repeat="network in [activeClusterNetwork]"></div>
-                                    </div>
-                                    <div class="panel-body" ng-if="$root.activeCluster.cloudPlatform == 'GCP' ">
-                                        <div ng-include="'tags/network/gcpnetworklist.tag'" ng-repeat="network in [activeClusterNetwork]"></div>
-                                    </div>
-                                    <div class="panel-body" ng-if="$root.activeCluster.cloudPlatform == 'OPENSTACK' ">
-                                        <div ng-include="'tags/network/openstacknetworklist.tag'" ng-repeat="network in [activeClusterNetwork]"></div>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
                                 <h5><a href="" data-toggle="collapse" data-target="#panel-collapse02"><i class="fa fa-th fa-fw"></i>{{msg.active_cluster_blueprint_label}} {{activeClusterBlueprint.name}}</a></h5>
                             </div>
                             <div id="panel-collapse02" class="panel-collapse collapse">

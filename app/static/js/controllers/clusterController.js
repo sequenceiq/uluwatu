@@ -43,8 +43,8 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             "UPDATE_FAILED": "fa-play",
             "STOP_FAILED": "fa-play"
         }
-
         $rootScope.activeCluster = {};
+        $rootScope.networks = AccountNetwork.query();
 
         $scope.detailsShow = true;
         $scope.periscopeShow = false;
@@ -146,6 +146,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $scope.cluster.ambariStackDetails = null;
             }
             $scope.cluster.credentialId = $rootScope.activeCredential.id;
+            $scope.cluster.networkId = getNetworkId($rootScope.activeCredential.cloudPlatform)
             $scope.prepareParameters($scope.cluster);
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
@@ -244,8 +245,8 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $rootScope.activeClusterBlueprint = $filter('filter')($rootScope.blueprints, { id: $rootScope.activeCluster.blueprintId})[0];
             $rootScope.activeClusterCredential = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCluster.credentialId}, true)[0];
             $rootScope.activeClusterNetwork = $filter('filter')($rootScope.networks, {id: $rootScope.activeCluster.networkId})[0];
-            $rootScope.activeClusterSecurityGroup = $filter('filter')($rootScope.securitygroups, {id: $rootScope.activeCluster.securityGroupId})[0];
             $rootScope.activeCluster.cloudPlatform =  $rootScope.activeClusterCredential.cloudPlatform;
+            $rootScope.activeClusterNetwork = getNetworkId($rootScope.activeCluster.cloudPlatform)
             $rootScope.activeCluster.metadata = [];
             $scope.newCredential.newUserName = $rootScope.activeCluster.cluster.userName;
             $rootScope.reinstallClusterObject = {
@@ -270,6 +271,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                     $rootScope.activeCluster.metadata = metadata
                 }
             );
+        }
+
+        function getNetworkId(cloudPlatform) {
+            return $filter('filter')($filter('orderBy')($rootScope.networks, "id"), {cloudPlatform: cloudPlatform})[0];
         }
 
         $scope.$watch('pagination.currentPage + pagination.itemsPerPage', function(){
