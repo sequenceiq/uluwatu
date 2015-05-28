@@ -68,6 +68,10 @@
 <div class="row btn-row">
     <div class="col-sm-9 col-sm-offset-3">
         <a id="createAzureTemplate" ng-disabled="azureTemplateForm.$invalid" class="btn btn-success btn-block" ng-click="createAzureTemplate()" role="button"><i
+<<<<<<< HEAD
                 class="fa fa-plus fa-fw"></i> {{msg.template_form_create}}</a>
+=======
+                class="fa fa-plus fa-fw"></i> create resource</a>
+>>>>>>> CLOUD-800 renamed templates to resources
     </div>
 </div>
