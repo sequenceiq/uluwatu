@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="btn-group btn-group-justified">
                                       <a id="gcpTemplateChange" class="btn btn-default" role="button" ng-click="createGcpTemplateRequest()">{{msg.gcp_label}}</a>
-                                      <a id="openstackTemplateChange" class="btn btn-default" role="button" ng-click="createOpenstackTemplateRequest()">{{msg.openstack_label}}</a>
+                                      <a id="openstackTemplateChange" class="btn btn-default disabled" role="button" ng-click="createOpenstackTemplateRequest()">{{msg.openstack_label}}</a>
                                     </div>
                                 </div>
                             </div>

@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="btn-group btn-group-justified">
                                       <a id="gcpChange" type="button" class="btn btn-default" ng-click="createGcpCredentialRequest()">{{msg.gcp_label}}</a>
-                                      <a id="openstackChange" type="button" class="btn btn-default" ng-click="createOpenstackCredentialRequest()">{{msg.openstack_label}}</a>
+                                      <a id="openstackChange" type="button" class="btn btn-default disabled" ng-click="createOpenstackCredentialRequest()">{{msg.openstack_label}}</a>
                                     </div>
                                 </div>
                             </div>
