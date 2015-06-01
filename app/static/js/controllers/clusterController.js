@@ -146,7 +146,8 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $scope.cluster.ambariStackDetails = null;
             }
             $scope.cluster.credentialId = $rootScope.activeCredential.id;
-            $scope.cluster.networkId = getNetworkId($rootScope.activeCredential.cloudPlatform)
+            var network = getNetwork($rootScope.activeCredential.cloudPlatform)
+            $scope.cluster.networkId = network.id
             $scope.prepareParameters($scope.cluster);
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
@@ -246,7 +247,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $rootScope.activeClusterCredential = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCluster.credentialId}, true)[0];
             $rootScope.activeClusterNetwork = $filter('filter')($rootScope.networks, {id: $rootScope.activeCluster.networkId})[0];
             $rootScope.activeCluster.cloudPlatform =  $rootScope.activeClusterCredential.cloudPlatform;
-            $rootScope.activeClusterNetwork = getNetworkId($rootScope.activeCluster.cloudPlatform)
+            $rootScope.activeClusterNetwork = getNetwork($rootScope.activeCluster.cloudPlatform)
             $rootScope.activeCluster.metadata = [];
             $scope.newCredential.newUserName = $rootScope.activeCluster.cluster.userName;
             $rootScope.reinstallClusterObject = {
@@ -273,7 +274,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             );
         }
 
-        function getNetworkId(cloudPlatform) {
+        function getNetwork(cloudPlatform) {
             return $filter('filter')($filter('orderBy')($rootScope.networks, "id"), {cloudPlatform: cloudPlatform})[0];
         }
 
