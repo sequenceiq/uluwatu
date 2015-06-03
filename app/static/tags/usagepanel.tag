@@ -18,7 +18,7 @@
             <label for="startDate">{{msg.usage_form_start_date_label}}</label>
             <div ng-class="{ 'has-error': usageFilterForm.startDate.$invalid }">
               <div class="input-group date" id="datePickerStart" data-date-format="YYYY-MM-DD">
-                <input type="date" class="form-control input-sm datepickerclass" id="startDate" ng-model="usageFilter.startDate" name="startDate" startdatevalidation="endDate">
+                <input type="date" class="form-control input-sm datepickerclass usage-input" id="startDate" ng-model="usageFilter.startDate" name="startDate" startdatevalidation="endDate">
                 <span class="input-group-btn">
                     <button class="btn btn-default btn-sm" type="button">
                         <i class="fa fa-calendar"></i>
@@ -35,7 +35,7 @@
             <label for="endDate">{{msg.usage_form_end_date_label}}</label>
             <div ng-class="{ 'has-error': usageFilterForm.endDate.$invalid }">
               <div class="input-group date" id="datePickerEnd" data-date-format="YYYY-MM-DD">
-                <input type="date" class="form-control input-sm datepickerclass" id="endDate" ng-model="usageFilter.endDate" name="endDate" enddatevalidation>
+                <input type="date" class="form-control input-sm datepickerclass usage-input" id="endDate" ng-model="usageFilter.endDate" name="endDate" enddatevalidation>
                 <span class="input-group-btn">
                     <button class="btn btn-default btn-sm" type="button">
                       <i class="fa fa-calendar"></i>
@@ -52,7 +52,7 @@
             <label for="user">{{msg.usage_events_form_user_label}}</label>
             <div>
               <div class="input-group">
-                <select class="form-control input-sm" id="cloudProvider" ng-model="usageFilter.user">
+                <select class="form-control input-sm usage-input" id="cloudProvider" ng-model="usageFilter.user">
                   <option default value="all">{{msg.usage_events_form_all_label}}</option>
                   <option ng-repeat="u in $root.accountUsers" value="{{u.id}}">{{u.username}}</option>
                 </select>
@@ -64,7 +64,7 @@
             <label for="cloudProvider">{{msg.usage_events_form_provider_label}}</label>
 
             <div>
-              <select class="form-control input-sm" id="cloudProvider" ng-model="usageFilter.provider" ng-change="selectRegionsByProvider()">
+              <select class="form-control input-sm usage-input" id="cloudProvider" ng-model="usageFilter.provider" ng-change="selectRegionsByProvider()">
                 <option>{{msg.usage_events_form_all_label}}</option>
                 <option value="AWS">{{msg.usage_events_form_provider_amazon_label}}</option>
                 <option value="AZURE">{{msg.usage_events_form_provider_microsoft_label}}</option>
@@ -76,7 +76,7 @@
           <div class="col-xs-6 col-sm-4 col-md-2">
             <label for="region">{{msg.usage_form_region_label}}</label>
             <div>
-              <select class="form-control input-sm" id="region" ng-model="usageFilter.region" ng-change="selectProviderByRegion()">
+              <select class="form-control input-sm usage-input" id="region" ng-model="usageFilter.region" ng-change="selectProviderByRegion()">
                 <option value="all">{{msg.usage_events_form_all_label}}</option>
                 <option ng-repeat="region in regions" value="{{region.key}}">{{region.value}}</option>
               </select>
