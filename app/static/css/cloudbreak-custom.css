@@ -284,6 +284,8 @@ a {color: #fff !important}
 .nav-justified > li:hover {
     background: #c7c7c7 !important;
 }
+.host-group {font-size: 15px !important; word-wrap: break-word !important;}
+.host-group-body {font-size: 13px !important;}
 .btn-default:hover {background: #c7c7c7 !important;}
 .text-danger {color:#e17000 !important;}
 
