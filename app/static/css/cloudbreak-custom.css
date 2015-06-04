@@ -284,13 +284,9 @@ a {color: #fff !important}
 .nav-justified > li:hover {
     background: #c7c7c7 !important;
 }
+.host-group-table{padding-left: 13px}
 .host-group {font-size: 15px !important; word-wrap: break-word !important;}
 .host-group-body {font-size: 13px !important;}
 .usage-input {font-size: 12px !important;}
 .btn-default:hover {background: #c7c7c7 !important;}
 .text-danger {color:#e17000 !important;}
-
-
-.host-group-table{padding-left: 13px}
-.host-group {font-size: 15px !important; word-wrap: break-word !important;}
-.host-group-body {font-size: 13px !important;}
