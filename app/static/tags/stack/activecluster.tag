@@ -31,7 +31,7 @@
                         </p>
                         <form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
                             <div class="form-group">
-                                <div class="col-sm-9" id="ambari-address">
+                                <div class="col-sm-9 service-address" id="ambari-address">
                                 <label class="col-sm-3 control-label" for="sl_ambariServerIp">{{msg.active_cluster_ambari_address_label}}</label>
                                     <p id="sl_ambariServerIp" class="form-control-static">
                                         <div ng-if="activeCluster.cluster.ambariServerIp != null">
@@ -118,7 +118,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr ng-repeat="(key, value) in activeCluster.cluster.serviceEndPoints">
+                                                            <tr class="service-address" ng-repeat="(key, value) in activeCluster.cluster.serviceEndPoints">
                                                                 <td data-title="'servicename'" class="col-md-4">{{key}}</td>
                                                                 <td data-title="'address'" class="col-md-3"><a target="_blank" href="http://{{value}}">{{value}}</a></td>
                                                             </tr>
