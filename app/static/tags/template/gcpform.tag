@@ -59,10 +59,6 @@
 <div class="row btn-row">
     <div class="col-sm-9 col-sm-offset-3">
         <a id="createGcpTemplate" ng-disabled="gcpTemplateForm.$invalid" class="btn btn-success btn-block" ng-click="createGcpTemplate()" role="button"><i class="fa fa-plus fa-fw"></i>
-<<<<<<< HEAD
             {{msg.template_form_create}}</a>
-=======
-            create resource</a>
->>>>>>> CLOUD-800 renamed templates to resources
     </div>
 </div>

@@ -31,8 +31,8 @@
                         </p>
                         <form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
                             <div class="form-group">
-                                <div class="col-sm-9 service-address" id="ambari-address">
                                 <label class="col-sm-3 control-label" for="sl_ambariServerIp">{{msg.active_cluster_ambari_address_label}}</label>
+                                <div class="col-sm-9 service-address" id="ambari-address">
                                     <p id="sl_ambariServerIp" class="form-control-static">
                                         <div ng-if="activeCluster.cluster.ambariServerIp != null">
                                             <a ng-show="activeCluster.cluster.ambariServerIp != null" target="_blank" href="http://{{activeCluster.cluster.ambariServerIp}}:8080">http://{{activeCluster.cluster.ambariServerIp}}:8080</a>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="panel panel-default" ng-repeat="group in $root.activeCluster.instanceGroups">
                             <div class="panel-heading">
-                                <h5><a href="" data-toggle="collapse" data-target='#panel-collapsetmp-{{$index}}-{{group.templateId}}'><span class="badge pull-right ng-binding">{{group.group}}: {{group.nodeCount}} {{msg.active_cluster_instance_group_node_label}}</span><i class="fa fa-file-o fa-fw"></i>Template: {{getSelectedTemplate(group.templateId).name}}</a></h5>
+                                <h5><a href="" data-toggle="collapse" data-target='#panel-collapsetmp-{{$index}}-{{group.templateId}}'><span class="badge pull-right ng-binding">{{group.group}}: {{group.nodeCount}} {{msg.active_cluster_instance_group_node_label}}</span><i class="fa fa-file-o fa-fw"></i>{{msg.active_cluster_instance_group_template_label}} {{getSelectedTemplate(group.templateId).name}}</a></h5>
                             </div>
                             <div id="panel-collapsetmp-{{$index}}-{{group.templateId}}" class="panel-collapse collapse">
                                 <div class="panel-body" ng-if="$root.activeCluster.cloudPlatform == 'AWS' ">

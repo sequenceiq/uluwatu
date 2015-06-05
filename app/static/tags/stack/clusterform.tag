@@ -131,11 +131,7 @@
                                       </div>
                                     </div>
                                     <div class="form-group" >
-<<<<<<< HEAD
                                       <label class="col-sm-3 control-label" for="templateName{{$index}}">{{msg.cluster_form_hostgroup_template_label}}</label>
-=======
-                                      <label class="col-sm-3 control-label" for="templateName{{$index}}">Resource</label>
->>>>>>> CLOUD-800 renamed templates to resources
                                       <div class="col-sm-9">
                                         <select class="form-control" id="template-name-{{$index}}" name="template-name-{{$index}}" ng-model="instanceGroup.templateId"
                                           ng-options="template.id as template.name for template in $root.templates | filter: {'cloudPlatform': activeCredential.cloudPlatform} | orderBy:'name'" required>

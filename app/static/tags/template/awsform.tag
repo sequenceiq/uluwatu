@@ -109,10 +109,6 @@
     <div class="row btn-row">
         <div class="col-sm-9 col-sm-offset-3">
             <a id="createAwsTemplate" ng-disabled="awsTemplateForm.$invalid" class="btn btn-success btn-block" ng-click="createAwsTemplate()" role="button"><i class="fa fa-plus fa-fw"></i>
-<<<<<<< HEAD
                 {{msg.template_form_create}}</a>
-=======
-                create resource</a>
->>>>>>> CLOUD-800 renamed templates to resources
         </div>
     </div>
