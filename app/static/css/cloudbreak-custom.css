@@ -274,7 +274,7 @@ body {font-family:"Helvetica Neue", Helvetica, Arial, "Open Sans", "Lucida Grand
 .btn-info {background-color: #69be28!important; border-color: #69be28!important; color: #fff; !important}
 .btn-success {background-color: #3db5e6 !important; border-color: #3db5e6 !important; color: #fff; !important}
 a {color: #fff !important}
-.cluster .fa-stop, .cluster .fa-start, cluster .fa-play, .cluster .fa-pause, .cluster .fa-refresh {color: #3db5e6 !important}
+.cluster .fa-stop, .cluster .fa-start, .cluster .fa-play, .cluster .fa-pause, .cluster .fa-refresh {color: #3db5e6 !important}
 .btn-default {background-color: transparent !important; color: #69be28 !important}
 .public-account-info, .navbar a, .btn-default a, h5 a, .pagination a, #myTab a, .service-address a {color: #69be28 !important;}
 .label-info {background-color: #69be28 !important; color: #fff !important;}
