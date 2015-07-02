@@ -197,7 +197,7 @@
                                                     <div ng-if="instance.state === 'UNHEALTHY' || instance.instanceStatus === 'DECOMMISSIONED'">
                                                         <a ng-init="instance.unhealthyMessage=msg.active_cluster_stack_description_hostgroup_unhealthy_label" title="{{msg.active_cluster_stack_description_hostgroup_terminate_tooltip}}" href="" class="btn label label-block label-danger fa fa-trash-o fa-fw"
                                                         ng-mouseover="activeCluster.instanceId=instance.instanceId; instance.unhealthyMessage=msg.active_cluster_stack_description_hostgroup_terminate_label" ng-mouseleave="instance.unhealthyMessage=msg.active_cluster_stack_description_hostgroup_unhealthy_label"
-                                                        role="button" style="font-size: 12px; width: 100px; display: inline-block; !important" data-toggle="modal" data-target="#modal-terminate-instance">
+                                                        role="button" style="font-size: 12px; color: white !important; width: 100px; display: inline-block; !important" data-toggle="modal" data-target="#modal-terminate-instance">
                                                         {{instance.unhealthyMessage}}</a>
                                                     </div>
                                                     <span ng-if="instance.state !== 'UNHEALTHY' && instance.instanceStatus !== 'DECOMMISSIONED'" title="{{msg.active_cluster_stack_description_hostgroup_state_tooltip}}" class="label label-info" style="font-size: 12px;">{{msg.active_cluster_stack_description_hostgroup_healthy_label}}</span>

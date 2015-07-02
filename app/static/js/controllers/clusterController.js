@@ -3,8 +3,8 @@
 var log = log4javascript.getLogger("clusterController-logger");
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', '$interval', 'UserEvents', 'PeriscopeCluster',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, $interval, UserEvents, PeriscopeCluster) {
+angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'PeriscopeCluster',
+    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, PeriscopeCluster) {
 
         $rootScope.ledStyles = {
             "REQUESTED": "state2-run-blink",
@@ -45,12 +45,12 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         }
         $rootScope.activeCluster = {};
         $rootScope.networks = AccountNetwork.query();
+        $rootScope.securityGroups = AccountSecurityGroup.query()
 
         $scope.detailsShow = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
         $scope.showAdvancedOptionForm = false;
-        $scope.newCredential = {};
         getUluwatuClusters();
         initCluster();
 
@@ -147,7 +147,9 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             }
             $scope.cluster.credentialId = $rootScope.activeCredential.id;
             var network = getNetwork($rootScope.activeCredential.cloudPlatform)
+            var securityGroup = getSecurityGroup()
             $scope.cluster.networkId = network.id
+            $scope.cluster.securityGroupId = securityGroup.id
             $scope.prepareParameters($scope.cluster);
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
@@ -200,36 +202,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             });
         }
 
-        $scope.changeClusterCredential = function (activeCluster) {
-             var userNamePasswordJson = {
-                "userNamePasswordJson": {
-                    "userName": $scope.newCredential.newUserName,
-                    "password": $scope.newCredential.newPassword,
-                    "oldPassword": $scope.newCredential.oldPassword
-                }
-             };
-             Cluster.update({id: activeCluster.id}, userNamePasswordJson, function(success){
-                $rootScope.activeCluster.cluster.userName = $scope.newCredential.newUserName;
-                $rootScope.activeCluster.cluster.password = $scope.newCredential.newPassword;
-                var periCluster = $filter('filter')($rootScope.periscopeClusters, function(value, index) { return value.host === activeCluster.cluster.ambariServerIp; }, true)[0];
-                if (periCluster != undefined) {
-                    var ambariJson = {
-                        'host': activeCluster.cluster.ambariServerIp,
-                        'port': '443',
-                        'user': $scope.newCredential.newUserName,
-                        'pass': $scope.newCredential.newPassword
-                    };
-                    PeriscopeCluster.update({id: periCluster.id}, ambariJson, function(success) {
-                        $scope.showMessage($rootScope.msg.alarm_creation_failed + ": " + error.data.message);
-                    }, function(error) {
-                        $scope.showError(error, $rootScope.msg.cluster_credential_update_failed);
-                    });
-                }
-             }, function(error) {
-                $scope.showError(error, $rootScope.msg.cluster_credential_update_failed);
-             });
-        }
-
         $scope.deleteCluster = function (cluster) {
             UluwatuCluster.delete(cluster, function (result) {
                 var actCluster = $filter('filter')($rootScope.clusters, { id: cluster.id }, true)[0];
@@ -241,7 +213,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         }
 
         $scope.changeActiveCluster = function (clusterId) {
-            $scope.newCredential = {};
             $rootScope.activeCluster = $filter('filter')($rootScope.clusters, { id: clusterId })[0];
             $rootScope.activeClusterBlueprint = $filter('filter')($rootScope.blueprints, { id: $rootScope.activeCluster.blueprintId})[0];
             $rootScope.activeClusterCredential = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCluster.credentialId}, true)[0];
@@ -249,7 +220,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $rootScope.activeCluster.cloudPlatform =  $rootScope.activeClusterCredential.cloudPlatform;
             $rootScope.activeClusterNetwork = getNetwork($rootScope.activeCluster.cloudPlatform)
             $rootScope.activeCluster.metadata = [];
-            $scope.newCredential.newUserName = $rootScope.activeCluster.cluster.userName;
             $rootScope.reinstallClusterObject = {
               validateBlueprint: true,
               blueprintId: $rootScope.activeClusterBlueprint.id,
@@ -272,6 +242,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                     $rootScope.activeCluster.metadata = metadata
                 }
             );
+        }
+
+        function getSecurityGroup() {
+            return $filter('orderBy')($rootScope.securityGroups, "id")[1];
         }
 
         function getNetwork(cloudPlatform) {
@@ -353,21 +327,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             }, function(error) {
               $scope.showError(error, $rootScope.msg.cluster_stop_failed);
             });
-        }
-
-        $scope.isEphemeralCluster = function (activeCluster) {
-            var isEphemeral = false;
-            if (activeCluster.cloudPlatform === 'AWS') {
-                angular.forEach(activeCluster.instanceGroups, function(item) {
-                    var actualTemplate = $filter('filter')($rootScope.templates, { id: item.templateId});
-                    if (actualTemplate.length > 0) {
-                        if (actualTemplate[0].parameters.volumeType === $rootScope.config.AWS.volumeTypes[2].value.toString()) {
-                            isEphemeral = true;
-                        }
-                    }
-                });
-            }
-            return isEphemeral;
         }
 
         $scope.reinstallCluster = function (activeCluster) {
