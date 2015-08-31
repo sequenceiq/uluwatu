@@ -108,9 +108,6 @@ The goal of the UI is to ease to process and allow you to create a Hadoop cluste
 <p>Using manage credentials you can link your cloud account with the Cloudbreak account and define the keys for accessing to the created resources.</p>
 <h3 id="manage-blueprints">Manage blueprints</h3>
 <p>Blueprints are your declarative definition of a Hadoop cluster.</p>
-<p><em>Note: Apache Ambari community is working on an auto-hostgroup assignment algorithm; in the meantime please follow our conventions and check the default blueprints as examples, or ask us to support you.</em></p>
-<p><em>When you are creating a Multi node blueprint, all the worker node components (a.k.a. Slaves) will have to be grouped in host groups named <code>slave_*</code>. Replace * with the number of Slave hostgroups.</em></p>
-<p><em>The default rule is that for multi node clusters there must be at least as many hosts as the number of host groups. Each NOT slave host groups (master, gateway, etc) will be launched with a cardinality of 1 (1 node per master, gateway, etc hosts), and all the rest of the nodes are equally distributed among Slave nodes (if there are multiple slave host groups).</em></p>
 <h3 id="manage-resources">Manage resources</h3>
 <p>Using manage resources you can create custom templates for provider specific instances.</p>
 <h3 id="manage-networks">Manage networks</h3>
