@@ -53,7 +53,7 @@ cloudbreakApp.directive('file', function(){
 
 cloudbreakApp.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
-        templateUrl: 'partials/dashboard.html',
+        templateUrl: 'partials/launch.html',
         controller: 'uluwatuController'
     }) .otherwise({
         redirectTo : '/'

@@ -1,0 +1,64 @@
+<div ng-controller="mainController">
+   <div id="black-bar"></div>
+      <header>
+         <div class="container">
+            <div class="row ">
+               <div class="col-md-6"><a href="http://hortonworks.com" target="_blank"><img src="images/splash/hortonworks-logo-wht.png" alt="" class="logo"></a></div>
+               <div class="col-md-2 header-top"></div>
+               <div class="col-md-2 header-text header-top">Trial Time Remaining:</div>
+               <div class="col-md-1 header-top"><button class="btn btn-hdp "> <a href="splash.html">23:12:12</a></button></div>
+               <div class="col-md-1  header-top">
+                 <button class="btn btn-default" data-toggle="dropdown"> <a href=""> {{user.email}} <b class="caret"></b></a></button>
+                 <ul class="pull right dropdown-menu">
+                     <li class="pull right"><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> {{msg.dashboard_logout_label}}</a></li>
+                 </ul>
+               </div>
+            </div>
+         </div>
+      </header>
+      <div id="green-bar"></div>
+      <div id="body">
+         <div class="container">
+            <div class="row">
+               <div class="tabs">
+                  <!-- the tab navigations --> 
+                  <nav>
+                     <ul>
+                        <li>
+                           <a href="javascript:switchTab('tab_1', 'getStartedContent');" id="tab_1" class="tabmenu active">
+                           <span class="circle-num">1</span> get started</a>
+                        </li>
+                        <li>
+                           <a href="javascript:switchTab('tab_2', 'tryContent');" id="tab_2" class="tabmenu">
+                           <span class="circle-num">2</span> try</a>
+                        </li>
+                        <li>
+                           <a href="javascript:switchTab('tab_3', 'whatsNewContent');" id="tab_3" class="tabmenu">
+                           <span class="circle-num">3</span> what's new</a>
+                        </li>
+                     </ul>
+                  </nav>
+                  <!-- the tab content -->
+                  <div class="content-wrap">
+                     <div id="getStartedContent" class="tabcontent">
+                        <div ng-include src="'tags/launch/getstartedcontent.tag'"></div>
+                     </div>
+                     <!--end wrapper-->
+                     <div id="tryContent" class="tabcontent" style="display: none;">
+                        <div ng-include src="'tags/launch/trycontent.tag'"></div>
+                     </div>
+                     <div id="whatsNewContent" class="tabcontent capabilities" style="display: none;">
+                        <div ng-include src="'tags/launch/whatsnewcontent.tag'"></div>
+                     </div>
+                  </div>
+               </div>
+               <!-- end .tabs -->
+            </div>
+            <div class="row">
+               <div ng-include src="'tags/launch/socialbox.tag'"></div>
+            </div>
+         </div>
+         <!-- end .container -->
+      </div>
+      <!-- end #body -->
+</div>

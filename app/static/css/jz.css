@@ -1,0 +1,143 @@
+@import url(http://fonts.googleapis.com/css?family=Cabin:400,500,700);
+	
+	* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	
+	
+	html,
+	button,
+	input,
+	select,
+	textarea 				{ color: #555;  }
+	body 					{ font-size: 0.9em; line-height: 1.5;  font-family:"Helvetica Neue", Helvetica, Arial, "Open Sans", "Lucida Grande", sans-serif;; font-weight:300; }
+	
+	/* Remove text-shadow in selection highlight: h5bp.com/i */
+	::-moz-selection 		{ background: #b3d4fc; text-shadow: none;  }
+	::selection 			{ background: #b3d4fc; text-shadow: none; }
+	
+	a,
+	a:visited				{ color:#598ba6 }
+	a:hover					{ color:#e17000; }
+	
+	/* A better looking default horizontal rule */
+	hr 						{ display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+	
+	/* Remove the gap between images and the bottom of their containers: h5bp.com/i/440  */
+	img 					{ vertical-align: middle }
+	img.shadowed            {
+	    -webkit-filter: drop-shadow(0px 0px 8px rgba(0,0,0,0.5));
+	    filter: url(/wp-content/themes/hortonworks/css/v3/shadow.svg#drop-shadow);
+	    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#777')";
+	    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#777')";
+	}
+	
+	/*  Remove default fieldset styles. */
+	fieldset 				{ border: 0; margin: 0; padding: 0; }
+	input,
+	select,
+	textarea                { border: 1px solid #cccccc; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); color: rgba(0, 0, 0, 0.75); font-size: 14px; margin: 0 0 10px 0; padding: 6px; -webkit-transition: all 0.15s linear; -moz-transition: all 0.15s linear; -o-transition: all 0.15s linear; transition: all 0.15s linear; }
+	textarea                { height:100px; width:300px;}
+	
+	input[type="button"],
+	input[type="submit"]    { color:#69be28; font-weight:bold; background-color:#f6f6f6;
+	    background: -moz-linear-gradient(top,  rgba(246,247,247,1) 0%, rgba(231,232,233,1) 100%); /* FF3.6+ */
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,247,247,1)), color-stop(100%,rgba(231,232,233,1))); /* Chrome,Safari4+ */
+	    background: -webkit-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* Chrome10+,Safari5.1+ */
+	    background: -o-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* Opera 11.10+ */
+	    background: -ms-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* IE10+ */
+	    background: linear-gradient(to bottom,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* W3C */
+	    border:1px solid #DCDCDC;  }
+	
+	input.oversize,
+	textarea.oversize       { font-size: 17px; padding: 4px 6px; }
+	
+	input[type="text"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="time"]:focus, input[type="url"]:focus,
+	textarea:focus          { background: #fafafa; outline: none !important; border-color: #b3b3b3; }
+	
+	input[disabled],
+	textarea[disabled]      { background-color: #ddd; }
+	
+	/*  Allow only vertical resizing of textareas. */
+	textarea 				{ resize: vertical  }
+	
+	/* Tables, unloved because of their former promiscuity in the layout game, still deserve some respect and they got some class too! */
+	table.fixed,
+	table.fixed tbody		{ table-layout:fixed; }
+	td                      { vertical-align:top; }
+	
+	/* We don't need padding around a UL if it's the only content in a table */
+	td>ul:first-child       { margin-top:0px; margin-bottom:0px;}
+	
+	/* This is usually used inside repeating elements. We'll let the title/header determine the spacing. The <p> element should have a benign margin */
+	.content p:first-of-type { margin-top:0px; }
+	.content p:last-of-type  { margin-top:0px; }
+
+
+	h1						{ font-size:380%; font-weight:300; margin:0px 0px 20px; font-family:"Cabin", "Helvetica Neue", Arial, Helvetica,  "Lucida Grande", sans-serif;; }
+	h1 a                    { text-decoration:none; }
+    h1                      { text-align:center; border-bottom:8px solid #000; margin:0px; font-size:150%; background-color:#69be28; padding:0px 10px; }
+    h1 img                  { width:100%; max-width:856px;}
+
+	h2						{ font-size:200%; font-weight:300; margin:10px 0px 15px; overflow:auto; font-family:"Cabin", "Helvetica Neue", Arial, Helvetica,  "Lucida Grande", sans-serif;; }
+	h2 a                    { text-decoration:none; }
+	
+	h3						{ font-size:145%; margin:20px 0 10px; overflow:auto; font-family:"Cabin", "Helvetica Neue", Arial, Helvetica,  "Lucida Grande", sans-serif;; font-weight:300; }
+	h3+p					{ margin-top:0px; }
+	h3 a                    { text-decoration:none; }
+	
+	h4						{ margin:0px; }
+	h4+p					{ margin-top:0px; }
+	
+	h5						{ }
+	h6						{ }
+	
+	div>p:first-child       { margin-top:0px; }  /* Avoids funky spacing at the top of a column that starts with a paragraph */
+
+
+    .mainbody               { padding:0px 10px; max-width:870px; margin:0px auto;}
+
+    .footer                 { background-color:#000; color:#fff; text-align:center; padding:10px; font-size:90%; border-top:4px solid #e17000; margin-top:50px;}
+    .footer a               { color:#fff; }
+
+
+	.btn                    { display:inline-block; padding:5px 10px; text-decoration:none; text-align:center; border-radius:3px; color:#69be28; background-color:#f6f6f6; font-weight:bold; border:1px solid #DCDCDC; margin-right:5px; margin-bottom:5px;
+	    background: -moz-linear-gradient(top,  rgba(246,247,247,1) 0%, rgba(231,232,233,1) 100%); /* FF3.6+ */
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,247,247,1)), color-stop(100%,rgba(231,232,233,1))); /* Chrome,Safari4+ */
+	    background: -webkit-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* Chrome10+,Safari5.1+ */
+	    background: -o-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* Opera 11.10+ */
+	    background: -ms-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* IE10+ */
+	    background: linear-gradient(to bottom,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* W3C */
+	}
+	.btn:active             { position:relative; top:1px; }
+	.btn:visited            { color:#69be28; }
+	.btn:focus              {  }
+	.btn.full				{ width:100%; display:block; }
+	.btn:hover              { color:#69be28;
+	    background-color:$background-grey;
+	    background: -moz-linear-gradient(top, rgba(231,232,233,1) 0%, rgba(246,247,247,1) 100%); /* FF3.6+ */
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(00%,rgba(231,232,233,1)), color-stop(100%,rgba(246,247,247,1))); /* Chrome,Safari4+ */
+	    background: -webkit-linear-gradient(top, rgba(231,232,233,1) 0%,  rgba(246,247,247,1)  100%); /* Chrome10+,Safari5.1+ */
+	    background: -o-linear-gradient(top,  rgba(246,247,247,1) 0%,rgba(231,232,233,1) 100%); /* Opera 11.10+ */
+	    background: -ms-linear-gradient(top,  rgba(231,232,233,1) 0%,rgba(246,247,247,1) 100%); /* IE10+ */
+	    background: linear-gradient(to bottom, rgba(231,232,233,1) 0% ,rgba(246,247,247,1)100%); /* W3C */
+	    border:1px solid #DCDCDC;
+	}
+
+
+   /* Hitters are little callout boxes... we'll try and make this a pattern throughout the site... can be made with divs or lis */
+	.hitters						{ margin-right:0px; list-style-type:none; padding-left:0px; white-space: nowrap; letter-spacing: 20px; text-align:center; overflow:hidden;}
+	.hitters>div,
+    .hitters>li                     { border-right:10px solid transparent; display:inline-block; padding-right:20px; padding-bottom:10px; margin-bottom:15px; vertical-align:top; overflow:auto; white-space:normal; letter-spacing:normal; text-align:left;}
+	.hitters>div:last-of-type		{ }
+
+    .two.hitters>div,
+    .two.hitters>li                 { width:49.5%; }  /* Reduced somewhat because WP inserts a space between the div's, and that gets included when it's an inline-block. */
+    .three.hitters>div,
+    .three.hitters>li               { width:32%;}
+    .four.hitters>div,
+    .four.hitters>li                { width:24.5%; }
+    .five.hitters>div,
+    .five.hitters>li                { width:19.5%; }
+
+    .center.hitters>div             { text-align:center; }
+    
+    code					{ font-size:90%; color:#44697d; background-color:#f6f6f6; padding:2px 5px; border-radius:3px;  }

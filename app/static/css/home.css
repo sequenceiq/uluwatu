@@ -1,0 +1,505 @@
+
+h2
+{
+    font-size: 18px;
+    margin: 10px 5px 15px 5px;
+}
+
+.idTable
+{
+    border-right: 1px solid #FFFFFF;
+    float: left;
+    list-style: none outside none;
+    margin-left: -20px;
+    padding: 3px;
+    width: 45px;            
+}
+
+.tutorial
+{
+    margin: 10px 10px 0;
+    font-size: 16px;
+    color: #000000;
+    
+}
+
+.category
+{
+    clear: both;
+    font-size: 12px;
+    margin: 5px 10px;
+}
+
+.category span
+{
+   font-size: 16px;
+   color: #44697d;
+   text-transform: uppercase;
+}
+
+.clear
+{
+    float: left;
+    height: 100%;
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+#closeBox
+{
+    float: right;
+    display: block;
+    margin: 0px 0px 0px 10px;
+}
+
+#container
+{
+    font-size: 13px;
+    clear: both;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+#clipboardDiv
+{
+    float: left;
+    margin: 10px 15px 10px 0;
+}   
+    
+    
+#clipboardDiv img
+{
+    float: left;
+    margin-right: 10px;
+}   
+
+
+#clipboardDiv p
+{
+    float: left;
+    width: 165px;
+}
+
+#elephantDiv
+{
+    float: left;
+    margin: 10px 15px 10px 0;
+}
+
+#elephantDiv img
+{
+    float: left;
+    margin-right: 10px;
+}
+
+#elephantDiv p
+{
+    float: left;
+    width: 165px;
+}
+
+.even{ background: #c3cfd6; }
+
+#filters
+{
+    margin: 10px;
+    padding: 0px;
+}
+
+
+
+.greenPlay
+{
+    display: block;
+    float: left;
+    margin-left: -25px;
+    margin-right: 0;            
+}
+
+.headerMiddle
+{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+#headerLinks
+{
+    margin-left: 15px;
+}
+
+.headerPane a
+{
+    color: #000000;
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+#learnHadoop{ padding-bottom: 10px; }
+
+.odd{ background: #f1f4f6; }
+
+.main{
+    display: block;
+    width: 100%;
+}
+
+.mainResources
+{
+    float: left;
+    display: inline-block;
+    width: 42%;
+    background: #e3e9ec;
+    border-radius: 10px;
+    padding: 10px 15px;
+    height: 100%;
+    margin: 8px;
+}
+
+.mainHelpandFeedback
+{
+    float: left;
+    display: inline-block;
+    width: 42%;
+    background: #e3e9ec;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 8px;
+    height: 100%;
+}
+
+.mainTutorials
+{
+    margin: 8px;
+    display: inline-block;
+    background: #e3e9ec;
+    border-radius: 10px;
+    padding: 10px 15px;
+    float: left;
+    clear: both;
+    width: 93%;
+    height: 100%;
+}
+
+.openButton
+{
+    float: right !important;
+    margin: 15px;
+    height: 100%;
+    display: inline-block;
+    
+}
+
+.openButton a
+{
+    color: #ffffff;
+    background: #69bf28;
+    margin-top: -15px;
+    height: 15px;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+p{
+    color: #696969;
+    font-size: 14px;
+    margin: 7px 0 0;
+    padding: 0;
+}
+
+p a{
+    color: #62b125;
+}
+
+.row
+{
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+.row div
+{
+    float: left;
+}        
+
+#sandBoxLogo
+{
+    margin: 10px;
+    float: left;
+    display: block;
+}
+
+.start_here{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #edeeee;
+    margin-bottom: 10px;
+}
+
+.start_here div{
+    display: inline-block;
+    height: 100%;
+    float: left;
+    margin: 10px;
+    width: 45%;
+}
+.start_herefirst-child {
+    margin: 10px 10px 10px 20px;
+}
+.start_here h2
+{
+    margin-top: 5px;
+    font-size: 14px;
+}
+       
+.start_here span,.start_here a{
+    clear: both;
+    display: inline-block;
+}
+
+#socialMedia
+{
+    margin: 10px;
+    float: right;
+    display: block;
+}
+
+.tableHead
+{
+    background: #44697c;
+    height: 5px;
+    border-bottom: 1px solid #FFFFFF;
+    color: #fff;
+    padding: 5px 8px;
+    clear: both;
+}
+
+
+
+.header_font
+{
+    border-bottom: 2px solid #a6b4a7;
+}
+
+.home
+{
+    display: block;
+    float: left;
+    width: 75px;
+    border-right: 1px solid #ffffff;
+}
+
+.home:hover
+{
+    background: #44697d;            
+}
+
+.home a
+{
+    color: #FFFFFF;
+    display: block;
+    margin: 5px 20px;
+    text-decoration: none;
+}
+
+#hortonworksVideo
+{
+    display: inline-block;
+    float: left;
+    margin: 2px 2px 10px 25px;
+}
+
+.closeTutorialPane
+{
+    display: block;
+    float: right;
+}
+
+.closeTutorialPane a
+{
+    display: block;
+    margin: 6px 5px 0px 0px;
+    float: left;
+}
+
+.closeTutorialPane span
+{
+    color: #FFFFFF;
+    display: block;
+    margin: 6px 0px;
+    text-decoration: none;
+    float: left;
+}
+
+#elephant_logo
+{
+    float: right;
+    margin: 20px;
+}
+
+.tutorialTable
+{
+    float: left;
+    list-style: none outside none;
+    margin: 3px 0 3px 15px;
+    width: 75px;            
+}
+
+.item {
+  float: left;
+}
+
+.item.next {
+  width: 60px;
+  height: 60px;
+  border: 5px solid black;
+  border-radius: 35px;
+}
+
+.welcomeDiv {
+    font-size: 16px;
+    color: #696969;
+    padding: 10px;
+    clear: both;
+}
+
+.welcomeDiv h3,.welcomeDiv p{
+    padding: 0px;
+    margin: 5px 0px;
+}
+
+.cat{
+    display: inline-block;
+    float: left;
+    width: 45%;
+    margin: 10px;
+}
+
+.cat label{
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 10px;
+    
+}
+.subcat {
+    font-weight: normal;
+    margin: 5px 10px;
+    clear: both;
+    
+}
+.subcat label {
+    font-size: 12px;
+}
+
+/****************************************/
+/*          Check Boxes CSS             */
+/****************************************/
+
+
+html:not(.ie8) label {
+    display: inline;
+}
+
+html:not(.lt-ie9) .regular-checkbox {
+    display:none;
+}
+
+html:not(.lt-ie9) .regular-checkbox + label {
+background-color: #FFFFFF;
+border: 1px solid #000000;
+box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+padding: 8px;
+display: inline-block;
+position: relative;
+float: left;
+margin-right: 5px;
+}
+
+html:not(.lt-ie9) .regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+html:not(.lt-ie9) .regular-checkbox:checked + label {
+background-color: #FFFFFF;
+border: 1px solid #000000;
+box-shadow: 2px 2px 5px #999999, inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+color: #99a1a7;
+}
+
+html:not(.lt-ie9) .regular-checkbox:checked + label:after {
+content: '\2714';
+font-size: 14px;
+position: absolute;
+top: 0px;
+left: 3px;
+color: #000000;
+}
+
+v:not(.lt-ie9) .big-checkbox + label {
+padding: 18px;
+}
+
+html:not(.lt-ie9) .big-checkbox:checked + label:after {
+font-size: 28px;
+left: 6px;
+}
+
+html:not(.lt-ie9) .subTag
+{
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+html:not(.lt-ie9) .tag {
+    width: 75%;
+    position: relative;
+    display: inline-block;
+    float: left;
+    top: 0px;
+    left: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    float: left;
+    color: #507184;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+        
+html.lt-ie9 label {
+    display:none;
+}
+
+html.lt-ie9 input[type="checkbox"]{
+    display: inline-block;
+    float: left;
+}
+
+html.lt-ie9 .subTag {
+    width: 80%;
+    display: inline-block;
+    float: left;
+    margin-left: 5px;
+    
+}
+
+html.lt-ie9 .tag {
+    width: 75%;
+    display: inline-block;
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    color: #507184;
+    font-size: 14px;
+    margin-left: 5px;
+}
