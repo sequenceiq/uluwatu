@@ -268,3 +268,7 @@ function addDatePickerPanelJQueryEventListeners() {
       angular.element($jq("#datePickerEnd")).scope().setEndDate(e.date._d.toString());
     });
 }
+
+function addClusterListListeners() {
+    
+}

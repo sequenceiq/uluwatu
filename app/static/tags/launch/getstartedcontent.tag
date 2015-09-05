@@ -1,3 +1,6 @@
+<div ng-controller="launchController">
+
+<div id="getStartedPanel" ng-show="showGetStarted">
 <h2>Select Cluster Configuration</h2>
 <div class="wrapper">
    <div id="track-container">
@@ -24,40 +27,14 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Developer Cluster</h6>
-                     <div class="col-md-12 green-border">
-                        <div class="col-md-4"><span class="blue">Blueprint Name</span> : launch-datadeveloper</div>
-                        <div class="col-md-4"><span class="blue">Stack Name</span> : HDP</div>
-                        <div class="col-md-4"><span class="blue">Stack Version</span> : 2.3</div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Master</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Slave</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'multi-node-hdfs-yarn'}:true">
+                        <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
                   </div>
                </div>
                <div class="modal-footer">
-                  <h6><a class="orangelink pull-left" href="splash.html">&laquo; Back to Cluster Configurations</a></h6>
+                  <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button class="btn btn-hdp pull-right">
                   <a href="splash2.html">Confirm Cluster Configuration &raquo;</a>
                   </button>
@@ -89,40 +66,14 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Hadoop Operator Cluster</h6>
-                     <div class="col-md-12 green-border">
-                        <div class="col-md-4"><span class="blue">Blueprint Name</span> : launch-operator</div>
-                        <div class="col-md-4"><span class="blue">Stack Name</span> : HDP</div>
-                        <div class="col-md-4"><span class="blue">Stack Version</span> : 2.2</div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Master</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Slave</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'multi-node-hdfs-yarn-incorrect'}:true">
+                        <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
                   </div>
                </div>
                <div class="modal-footer">
-                  <h6><a class="orangelink pull-left" href="splash.html">&laquo; Back to Cluster Configurations</a></h6>
+                  <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button class="btn btn-hdp pull-right">
                   <a>Confirm Cluster Configuration &raquo;</a>
                   </button>
@@ -154,40 +105,14 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Stream Processing Cluster</h6>
-                     <div class="col-md-12 green-border">
-                        <div class="col-md-4"><span class="blue">Blueprint Name</span> : launch-streaming</div>
-                        <div class="col-md-4"><span class="blue">Stack Name</span> : HDP</div>
-                        <div class="col-md-4"><span class="blue">Stack Version</span> : 2.3</div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Master</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Slave</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-spark-cluster'}:true">
+                        <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
                   </div>
                </div>
                <div class="modal-footer">
-                  <h6><a class="orangelink pull-left" href="splash.html">&laquo; Back to Cluster Configurations</a></h6>
+                  <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button class="btn btn-hdp pull-right">
                   <a href="splash2.html">Confirm Cluster Configuration &raquo;</a>
                   </button>
@@ -219,41 +144,14 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Analysis Cluster</h6>
-                     <br/>   <br/>
-                     <div class="col-md-12 green-border">
-                        <div class="col-md-4"><span class="blue">Blueprint Name</span> : launch-datascientist</div>
-                        <div class="col-md-4"><span class="blue">Stack Name</span> : HDP</div>
-                        <div class="col-md-4"><span class="blue">Stack Version</span> : 2.2</div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Master</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
-                        <div class="col-md-4">
-                           <ul class="services-list">
-                              <br/>
-                              <span class="blue">Slave</span>
-                              <li>Link 1</li>
-                              <li>Link 2</li>
-                              <li>Link 3</li>
-                              <li>Link 4</li>
-                              <li>Link 5</li>
-                           </ul>
-                        </div>
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-multinode-default'}:true">
+                        <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
                   </div>
                </div>
                <div class="modal-footer">
-                  <h6><a class="orangelink pull-left" href="splash2.html">&laquo; Back to Cluster Configurations</a></h6>
+                  <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button id="confirm-action" class="btn btn-hdp pull-right" data-toggle="modal" data-target="#myModal">
                   <a href="">Confirm Cluster Configuration &raquo;</a>
                   </button>
@@ -277,19 +175,23 @@
             </div>
          </div>
       </div>
+   </div>
+</div>
+</div>
 
 
 
 
 
-      <div>
+
+<div ng-show="!showGetStarted">
          <h2> Clusters </h2>
-         <button class="btn btn-hdp pull-right"> <a href="splash.html">&#43; Create Cluster</a></button>
+         <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
          <div class="panel-group" id="accordion" aria-multiselectable="false">
             <div class="panel panel-default">
-               <div class="panel-heading activeacc">
+               <div class="panel-heading">
                   <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
                      employee_analysis_231  [ 4 nodes ]
                      </a>
                      <div class="pull-right"><input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
@@ -342,7 +244,7 @@
             <div class="panel panel-default">
                <div class="panel-heading">
                   <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseTwo">
                      sales_analysis_details  [ 12 nodes ]
                      </a>
                      <div class="pull-right"><input type="checkbox" data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
@@ -395,7 +297,7 @@
             <div class="panel panel-default">
                <div class="panel-heading">
                   <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseThree">
                      products_analysis_details  [ 7 nodes ]
                      </a>
                      <div class="pull-right"><input type="checkbox" data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
@@ -448,14 +350,6 @@
          </div>
          <!--end wrapper-->
          <!--end wrapper-->
-         <script>
-         jQuery('.panel-heading a').click(function() {
-             jQuery('.panel-heading').removeClass('activeacc');
-             jQuery(this).parents('.panel-heading').addClass('activeacc');
-         });
-               
-      </script>
       </div>
 
-   </div>
 </div>
