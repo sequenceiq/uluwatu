@@ -2,6 +2,7 @@
 
 <div id="getStartedPanel" ng-show="showGetStarted">
 <h2>Select Cluster Configuration</h2>
+<button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()" ng-show="clusters.length != 0"> <a href="">Show Clusters</a></button>
 <div class="wrapper">
    <div id="track-container">
       <div class="one-track col-md-3 col-sm-6 col-xs-6">
@@ -36,7 +37,7 @@
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button class="btn btn-hdp pull-right">
-                  <a href="splash2.html">Confirm Cluster Configuration &raquo;</a>
+                     <a href="" ng-click="createCluster('multi-node-hdfs-yarn')">Confirm Cluster Configuration &raquo;</a>
                   </button>
                </div>
             </div>
@@ -74,9 +75,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right">
-                  <a>Confirm Cluster Configuration &raquo;</a>
-                  </button>
+                  <button class="btn btn-hdp pull-right"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -113,9 +112,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right">
-                  <a href="splash2.html">Confirm Cluster Configuration &raquo;</a>
-                  </button>
+                  <button class="btn btn-hdp pull-right"><a href="splash2.html">Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -185,171 +182,67 @@
 
 
 <div ng-show="!showGetStarted">
-         <h2> Clusters </h2>
-         <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
-         <div class="panel-group" id="accordion" aria-multiselectable="false">
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
-                     employee_analysis_231  [ 4 nodes ]
-                     </a>
-                     <div class="pull-right"><input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
-                  </h4>
-               </div>
-               <div id="collapseOne" class="panel-collapse collapse in">
-                  <div class="panel-body">
-                     <div class="col-md-6">
-                        <h5>Login Details</h5>
-                        <div class="col-md-6 col-sm-12 nopadding">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
+   <h2> Clusters </h2>
+   <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
+   <div class="panel-group" id="accordion" aria-multiselectable="false">   
+      <div ng-repeat="cluster in clusters">
+      
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h4 class="panel-title">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
+                  {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
+                  </a>
+                  <div class="pull-right"><input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
+               </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+               <div class="panel-body">
+                  <div class="col-md-6">
+                     <h5>Login Details</h5>
+                     <div class="col-md-6 col-sm-12 nopadding">
+                        <h6>Apache Ambari</h6>
+                        <br/>
+                        <h7>url:</h7>
+                        <a href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{activeCluster.cluster.ambariServerIp}}:8080</a>
+                        <br/>
+                        <h7>username:</h7>
+                        {{cluster.cluster.userName}}
+                        <br/>
+                        <h7>password:</h7>
+                        {{cluster.cluster.password}}
+                        <br/>
                      </div>
-                     <div class="col-md-6">
-                        <div class="col-md-12 col-sm-12">
-                           <ul class="services-list">
-                              <h5>Services</h5>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                           </ul>
+                     <div class="col-md-6 col-sm-12">
+                        <h6>Virtual machines</h6>
+                        <br/>
+                        <h7>SSH username:</h7>
+                        {{cluster.userName}}
+                        <br/>
+                        <h7>SSH password:</h7>
+                        {{cluster.password}}
+                        <br/>
+                        <br/>
+                        <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
+                           <h7>{{instanceGroup.group}}</h7>
+                           <div ng-repeat="metadata in instanceGroup.metadata"><a target="_blank">{{metadata.publicIp}}</a><br/></div>
                         </div>
                      </div>
                   </div>
-               </div>
-            </div>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseTwo">
-                     sales_analysis_details  [ 12 nodes ]
-                     </a>
-                     <div class="pull-right"><input type="checkbox" data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
-                  </h4>
-               </div>
-               <div id="collapseTwo" class="panel-collapse collapse">
-                  <div class="panel-body">
-                     <div class="col-md-6">
-                        <h5>Login Details</h5>
-                        <div class="col-md-6 col-sm-12 nopadding">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="col-md-12 col-sm-12">
-                           <ul class="services-list">
-                              <h5>Services</h5>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="panel panel-default">
-               <div class="panel-heading">
-                  <h4 class="panel-title">
-                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseThree">
-                     products_analysis_details  [ 7 nodes ]
-                     </a>
-                     <div class="pull-right"><input type="checkbox" data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
-                  </h4>
-               </div>
-               <div id="collapseThree" class="panel-collapse collapse">
-                  <div class="panel-body">
-                     <div class="col-md-6">
-                        <h5>Login Details</h5>
-                        <div class="col-md-6 col-sm-12 nopadding">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                           <h6>Apache Ambari</h6>
-                           <br/>
-                           <h7>url:</h7>
-                           <a href="http://127.0.0.1:8000" target="_blank">http://127.0.0.1:8000</a>
-                           <h7>username:</h7>
-                           user
-                           <br/>
-                           <h7>password:</h7>
-                           password
-                           <br/>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="col-md-12 col-sm-12">
-                           <ul class="services-list">
-                              <h5>Services</h5>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                              <li>Link 1: <a>http://127.0.0.1:5463</a></li>
-                           </ul>
-                        </div>
+                  <div class="col-md-6">
+                     <div class="col-md-12 col-sm-12">
+                        <ul class="services-list">
+                           <h5>Services</h5>
+                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints">{{key}}: <a>http://{{value}}</a></li>
+                        </ul>
                      </div>
                   </div>
                </div>
             </div>
          </div>
          <!--end wrapper-->
-         <!--end wrapper-->
+
       </div>
+   </div>
 
 </div>

@@ -2,20 +2,30 @@
 
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'PeriscopeCluster', 'AccountBlueprint',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, PeriscopeCluster, AccountBlueprint) {
+angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'PeriscopeCluster', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
+    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, PeriscopeCluster, AccountBlueprint, AccountCredential, AccountTemplate) {
+
+        var azureRegions = [
+                    {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},
+                    {key: 'BRAZIL_SOUTH', value: 'Brazil South', cloud: 'AZURE'},
+                    {key: 'EAST_US', value: 'East US', cloud: 'AZURE'},
+                    {key: 'CENTRAL_US', value: 'Central US', cloud: 'AZURE'},
+                    {key: 'SOUTH_CENTRAL_US', value: 'South Central US'},
+                    {key: 'NORTH_CENTRAL_US', value: 'North Central US', cloud: 'AZURE'},
+                    {key: 'EAST_US_2', value: 'East US 2', cloud: 'AZURE'}
+                ];
 
         $rootScope.activeCluster = {};
-        $rootScope.networks = AccountNetwork.query();
-        $rootScope.securityGroups = AccountSecurityGroup.query()
-
-        $scope.showGetStarted = false;
+        $scope.showGetStarted = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
-        $scope.showAdvancedOptionForm = false;
+
+        $scope.securityGroups = AccountSecurityGroup.query()
+        $scope.networks = AccountNetwork.query();
         $scope.blueprints = AccountBlueprint.query();
+        $scope.credentials = AccountCredential.query();
+        $scope.templates = AccountTemplate.query();
         getUluwatuClusters();
-        initCluster();
 
         $scope.changeShowGetStarted = function() {
             $scope.showGetStarted = !$scope.showGetStarted;
@@ -25,8 +35,10 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             return angular.isUndefined(variable) || variable === null;
         }
 
-        $scope.createCluster = function () {
-            var blueprint = $filter('filter')($scope.blueprints, {id: $scope.cluster.blueprintId}, true)[0];
+        $scope.createCluster = function (blueprintName) {
+            var blueprint = $filter('filter')($scope.blueprints, {name: blueprintName}, true)[0];
+            $scope.cluster = initCluster(blueprint);
+            $scope.cluster.ambariStackDetails = null;
 
             if (blueprint.hostGroupCount > $scope.cluster.nodeCount) {
                 $scope.showErrorMessage($rootScope.msg.hostgroup_invalid_node_count);
@@ -36,44 +48,14 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 $scope.showErrorMessage($rootScope.msg.hostgroup_single_invalid);
                 return;
             }
-            if (!$scope.isUndefined($scope.cluster.ambariStackDetails)) {
-                 for (var item in $scope.cluster.ambariStackDetails) {
-                    if ($scope.cluster.ambariStackDetails[item] === "" || $scope.cluster.ambariStackDetails[item] === undefined) {
-                        delete $scope.cluster.ambariStackDetails[item];
-                    }
-                 }
-            }
-            if (!$scope.isUndefined($scope.cluster.ambariStackDetails) && Object.keys($scope.cluster.ambariStackDetails).length !== 0) {
-                if ($scope.isUndefined($scope.cluster.ambariStackDetails.stack) ||
-                    $scope.isUndefined($scope.cluster.ambariStackDetails.version) ||
-                    $scope.isUndefined($scope.cluster.ambariStackDetails.stackRepoId) ||
-                    $scope.isUndefined($scope.cluster.ambariStackDetails.stackBaseURL) ||
-                    $scope.isUndefined($scope.cluster.ambariStackDetails.utilsRepoId) ||
-                    $scope.isUndefined($scope.cluster.ambariStackDetails.utilsBaseURL)) {
-                    $scope.showErrorMessage($rootScope.msg.ambari_repository_config_error);
-                    return;
-                } else {
-                    $scope.cluster.ambariStackDetails.os = "redhat6";
-                    if ($scope.isUndefined($scope.cluster.ambariStackDetails.verify)) {
-                        $scope.cluster.ambariStackDetails.verify = false;
-                    }
-                }
-            } else {
-                $scope.cluster.ambariStackDetails = null;
-            }
-            $scope.cluster.credentialId = $rootScope.activeCredential.id;
-            var network = getNetwork($rootScope.activeCredential.cloudPlatform)
-            var securityGroup = getSecurityGroup()
-            $scope.cluster.networkId = network.id
-            $scope.cluster.securityGroupId = securityGroup.id
-            $scope.prepareParameters($scope.cluster);
+
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
                 angular.forEach(result.instanceGroups, function(group) {
                   nodeCount += group.nodeCount;
                 });
                 result.nodeCount = nodeCount;
-                result.cloudPlatform = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCredential.id}, true)[0].cloudPlatform;
+                result.cloudPlatform = 'AZURE_RM';
                 result.public = $scope.cluster.public;
                 angular.forEach(result.instanceGroups, function(item) {
                   item.templateId = parseFloat(item.templateId);
@@ -85,36 +67,9 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                     existingCluster = result;
                 } else {
                     $rootScope.clusters.push(result);
-                    $jq('.carousel').carousel(0);
-                    // enable toolbar buttons
-                    $jq('#toggle-cluster-block-btn').removeClass('disabled');
-                    $jq('#sort-clusters-btn').removeClass('disabled');
-                    $jq('#create-cluster-btn').removeClass('disabled');
-                    $jq("#notification-n-filtering").prop("disabled", false);
-                    $scope.clusterCreationForm.$setPristine();
-                    initCluster();
                 }
             }, function(failure) {
                 $scope.showError(failure, $rootScope.msg.cluster_failed);
-            });
-        }
-
-        $scope.prepareParameters = function (cluster) {
-            if (cluster.consulServerCount === null || cluster.consulServerCount === undefined) {
-              delete cluster.consulServerCount;
-            }
-            for (var item in cluster.parameters) {
-                if (cluster.parameters[item] === "" || cluster.parameters[item] === undefined) {
-                  delete cluster.parameters[item];
-                }
-            }
-        }
-
-        $scope.deleteStackInstance = function (stackId, instanceId) {
-            GlobalStackInstance.delete({ stackid: stackId, instanceid: instanceId }, null, function (result) {
-
-            }, function(failure){
-                $scope.showError(failure, $rootScope.msg.stack_instance_delete_failed);
             });
         }
 
@@ -128,58 +83,9 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             });
         }
 
-        $scope.changeActiveCluster = function (clusterId) {
-            $rootScope.activeCluster = $filter('filter')($rootScope.clusters, { id: clusterId })[0];
-            $rootScope.activeClusterBlueprint = $filter('filter')($scope.blueprints, { id: $rootScope.activeCluster.blueprintId})[0];
-            $rootScope.activeClusterCredential = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCluster.credentialId}, true)[0];
-            $rootScope.activeClusterNetwork = $filter('filter')($rootScope.networks, {id: $rootScope.activeCluster.networkId})[0];
-            $rootScope.activeCluster.cloudPlatform =  $rootScope.activeClusterCredential.cloudPlatform;
-            $rootScope.activeClusterNetwork = getNetwork($rootScope.activeCluster.cloudPlatform)
-            $rootScope.activeCluster.metadata = [];
-            $rootScope.reinstallClusterObject = {
-              validateBlueprint: true,
-              blueprintId: $rootScope.activeClusterBlueprint.id,
-              hostgroups: $rootScope.activeCluster.cluster != undefined ? $rootScope.activeCluster.cluster.hostGroups : [],
-              ambariStackDetails: $rootScope.activeCluster.cluster != undefined ? $rootScope.activeCluster.cluster.ambariStackDetails : '',
-              fullBp: $rootScope.activeClusterBlueprint,
-            };
-            GlobalStack.get({ id: clusterId }, function(success) {
-                    var metadata = []
-                    angular.forEach(success.instanceGroups, function(item) {
-                      angular.forEach(item.metadata, function(item1) {
-                        metadata.push(item1)
-                      });
-                    });
-                    $scope.pagination = {
-                                currentPage: 1,
-                                itemsPerPage: 10,
-                                totalItems: $rootScope.activeCluster.metadata.length
-                    }
-                    $rootScope.activeCluster.metadata = metadata
-                }
-            );
-        }
-
-        function getSecurityGroup() {
-            return $filter('orderBy')($rootScope.securityGroups, "id")[1];
-        }
-
-        function getNetwork(cloudPlatform) {
-            return $filter('filter')($filter('orderBy')($rootScope.networks, "id"), {cloudPlatform: cloudPlatform})[0];
-        }
-
         $scope.$watch('pagination.currentPage + pagination.itemsPerPage', function(){
             if ($rootScope.activeCluster.metadata != null) {
                 paginateMetadata();
-            }
-        });
-
-        $rootScope.$watch('activeCredential', function() {
-            if ($rootScope.activeCredential != null) {
-                $scope.cluster.bestEffort = "BEST_EFFORT";
-                $scope.cluster.failurePolicy.adjustmentType = "BEST_EFFORT";
-                $scope.cluster.failurePolicy.threshold = null;
-                $scope.cluster.parameters = {};
             }
         });
 
@@ -215,10 +121,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             return filteredData;
         }
 
-        $scope.getSelectedTemplate = function (templateId) {
-            return $filter('filter')($rootScope.templates, { id: templateId}, true)[0];
-        }
-
         $rootScope.events = [];
 
         $scope.loadEvents = function () {
@@ -242,46 +144,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
             }, function(error) {
               $scope.showError(error, $rootScope.msg.cluster_stop_failed);
-            });
-        }
-
-        $scope.reinstallCluster = function (activeCluster) {
-            if (!$scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails)) {
-                for (var item in $rootScope.reinstallClusterObject.ambariStackDetails) {
-                    if ($rootScope.reinstallClusterObject.ambariStackDetails[item] === "" || $rootScope.reinstallClusterObject.ambariStackDetails[item] === undefined) {
-                        delete $rootScope.reinstallClusterObject.ambariStackDetails[item];
-                    }
-                }
-            }
-            if (!$scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails) && Object.keys($rootScope.reinstallClusterObject.ambariStackDetails).length !== 0) {
-                if ($scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.stack) ||
-                    $scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.version) ||
-                    $scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.stackRepoId) ||
-                    $scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.stackBaseURL) ||
-                    $scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.utilsRepoId) ||
-                    $scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.utilsBaseURL)) {
-                    $scope.showErrorMessage($rootScope.msg.ambari_repository_config_error);
-                    return;
-                } else {
-                    $rootScope.reinstallClusterObject.ambariStackDetails.os = "redhat6";
-                    if ($scope.isUndefined($rootScope.reinstallClusterObject.ambariStackDetails.verify)) {
-                        $rootScope.reinstallClusterObject.ambariStackDetails.verify = false;
-                    }
-                }
-            } else {
-                $rootScope.reinstallClusterObject.ambariStackDetails = null;
-            }
-            var newInstall = {
-                "blueprintId": $rootScope.reinstallClusterObject.blueprintId,
-                "hostgroups": $rootScope.reinstallClusterObject.hostgroups,
-                "validateBlueprint": $rootScope.reinstallClusterObject.validateBlueprint,
-                "ambariStackDetails": $rootScope.reinstallClusterObject.ambariStackDetails
-            };
-            Cluster.update({id: activeCluster.id}, newInstall, function(success){
-                  $rootScope.activeCluster.blueprintId = $rootScope.reinstallClusterObject.blueprintId;
-                  $rootScope.activeCluster.cluster.status = 'REQUESTED';
-            }, function(error) {
-              $scope.showError(error, $rootScope.msg.cluster_reinstall_failed);
             });
         }
 
@@ -333,8 +195,17 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
           });
         }
 
-        function initCluster(){
-            $scope.cluster = {
+        $scope.selectCluster = function(cluster) {
+            $scope.selectedCluster = cluster
+        }
+
+        function initCluster(blueprint){
+            var credential = $filter('filter')($scope.credentials, {name: 'launcharmazure', cloudPlatform: 'AZURE_RM'}, true)[0];
+            var network = $filter('filter')($scope.networks, {name: 'default-azure-network', cloudPlatform: 'AZURE'}, true)[0];
+            var securityGroup = $filter('filter')($scope.securityGroups, {name: 'all-services-port'}, true)[0];
+            var template = $filter('filter')($scope.templates, {name: 'd3forlaunch', cloudPlatform: 'AZURE'}, true)[0];
+            var cluster = {
+                name: blueprint.name,
                 password: "admin",
                 userName: "admin",
                 onFailureAction: "DO_NOTHING",
@@ -344,12 +215,37 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 parameters: {},
                 failurePolicy: {
                   adjustmentType: "BEST_EFFORT",
-                }
+                },
+                credentialId: credential.id,
+                networkId: network.id,
+                securityGroupId: securityGroup.id,
+                blueprintId: blueprint.id,
+                region: azureRegions[0].key
             };
+            
+            var instanceGroups = [];
+            var hostGroups = [];
+            instanceGroups.push({templateId: template.id, group: "cbgateway", nodeCount: 1, type: "GATEWAY"});
+            blueprint.ambariBlueprint.host_groups.forEach(function(k){
+            instanceGroups.push({templateId: template.id, group: k.name, nodeCount: 1, type: "CORE"});
+                hostGroups.push({name: k.name, instanceGroupName: k.name})
+            });
+            cluster.instanceGroups = instanceGroups;
+            cluster.hostGroups = hostGroups;
+
+            prepareParameters(cluster);
+            return cluster;
         }
 
-        $scope.selectCluster = function(cluster) {
-            $scope.selectedCluster = cluster
+        function prepareParameters (cluster) {
+            if (cluster.consulServerCount === null || cluster.consulServerCount === undefined) {
+              delete cluster.consulServerCount;
+            }
+            for (var item in cluster.parameters) {
+                if (cluster.parameters[item] === "" || cluster.parameters[item] === undefined) {
+                  delete cluster.parameters[item];
+                }
+            }
         }
 
     }]);
