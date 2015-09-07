@@ -2,8 +2,8 @@
 
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'PeriscopeCluster', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, PeriscopeCluster, AccountBlueprint, AccountCredential, AccountTemplate) {
+angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
+    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, AccountBlueprint, AccountCredential, AccountTemplate) {
 
         var azureRegions = [
                     {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},

@@ -204,7 +204,7 @@
                         <h6>Apache Ambari</h6>
                         <br/>
                         <h7>url:</h7>
-                        <a href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{activeCluster.cluster.ambariServerIp}}:8080</a>
+                        <a href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}
