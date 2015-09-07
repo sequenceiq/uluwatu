@@ -1,5 +1,6 @@
 var express  = require('express');
 var app = express();
+var connectSid = 'uluwatu.sid';
 var uid = require('uid2');
 var sessionSecret = uid(30);
 var server = require('http').Server(app);
@@ -8,7 +9,7 @@ var session = require('express-session');
 var sessionStore = new session.MemoryStore();
 var cookieParser = require('cookie-parser')(sessionSecret)
 var sessionSocketIo = require('session.socket.io');
-var sessionSockets = new sessionSocketIo(io, sessionStore, cookieParser);
+var sessionSockets = new sessionSocketIo(io, sessionStore, cookieParser, connectSid);
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -25,6 +26,7 @@ app.set('view engine', 'html')
 app.use(express.static(path.join(__dirname, 'app/static')));
 app.use(cookieParser);
 app.use(session({
+  name: connectSid,
   genid: function(req) {
     return uid(30);
   },
@@ -195,7 +197,7 @@ app.get('/logout', function(req, res){
     var sourceUrl = req.protocol + '://' + req.headers.host;
     var source = new Buffer(sourceUrl).toString('base64')
     req.session.destroy(function() {
-        res.clearCookie('connect.sid', { path: '/' });
+        res.clearCookie(connectSid, { path: '/' });
         res.clearCookie('JSESSIONID', { path: '/' });
         res.clearCookie('uaa_cookie', { path: '/' });
         res.redirect(sultansAddress + '?logout=true&source=' + source)
@@ -326,12 +328,29 @@ app.put('*', function(req,res){
 
 // proxy =======================================================================
 
+function eliminateConfidentialParametersFromResponse(req, data) {
+  if (req.url.indexOf('/credentials') > -1) {
+      if( Object.prototype.toString.call( data ) === '[object Array]' ) {
+          data.forEach(function(el) {
+            if (el.parameters !== undefined) {
+              delete el.parameters;
+            }
+          });
+      } else {
+        if (data.parameters !== undefined) {
+          delete data.parameters;
+        }
+      }
+    };
+}
+
 function proxyCloudbreakRequest(req, res, method){
   if (req.body){
     cbRequestArgs.data = req.body;
   }
   cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
   method(cloudbreakAddress + req.url, cbRequestArgs, function(data,response){
+    eliminateConfidentialParametersFromResponse(req, data);
     res.status(response.statusCode).send(data);
   }).on('error', function(err){
     res.status(500).send("Uluwatu could not connect to Cloudbreak.");
