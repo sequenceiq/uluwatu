@@ -67,7 +67,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Hadoop Operator Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'multi-node-hdfs-yarn-incorrect'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-small-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -75,7 +75,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" ng-click="createCluster('hdp-small-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
