@@ -203,8 +203,8 @@
                      <div class="col-md-6 col-sm-12 nopadding">
                         <h6>Apache Ambari</h6>
                         <br/>
-                        <h7>url:</h7>
-                        <a href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
+                        <h7 ng-if="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null">url:</h7>
+                        <a  ng-if="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}
@@ -217,14 +217,14 @@
                         <h6>Virtual machines</h6>
                         <br/>
                         <h7>SSH username:</h7>
-                        {{cluster.userName}}
+                        {{cluster.stackCredential.loginUserName}}
                         <br/>
                         <h7>SSH password:</h7>
-                        {{cluster.password}}
+                        {{cluster.stackCredential.publicKey.replace('Basic:', '')}}
                         <br/>
                         <br/>
                         <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
-                           <h7>{{instanceGroup.group}}</h7>
+                           <h7 ng-if="instanceGroup.metadata && instanceGroup.metadata.length != 0">{{instanceGroup.group}}</h7>
                            <div ng-repeat="metadata in instanceGroup.metadata"><a target="_blank">{{metadata.publicIp}}</a><br/></div>
                         </div>
                      </div>
@@ -233,7 +233,7 @@
                      <div class="col-md-12 col-sm-12">
                         <ul class="services-list">
                            <h5>Services</h5>
-                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints">{{key}}: <a>http://{{value}}</a></li>
+                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints">{{key}}: <a href="http://{{value}}">http://{{value}}</a></li>
                         </ul>
                      </div>
                   </div>

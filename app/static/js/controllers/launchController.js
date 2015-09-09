@@ -16,6 +16,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 ];
 
         $rootScope.activeCluster = {};
+        $rootScope.activeCredential = {};
         $scope.showGetStarted = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
@@ -48,7 +49,9 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 $scope.showErrorMessage($rootScope.msg.hostgroup_single_invalid);
                 return;
             }
-
+            $scope.cluster.name = $scope.cluster.name + getHash();
+            $scope.cluster.password = $rootScope.activeCredential.publicKey.replace("Basic:", "").replace(" ", "");
+            $scope.cluster.userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
                 angular.forEach(result.instanceGroups, function(group) {
@@ -61,7 +64,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                   item.templateId = parseFloat(item.templateId);
                 });
                 result.blueprintId = parseFloat(result.blueprintId);
-
+                result.stackCredential = $rootScope.activeCredential;
                 var existingCluster = $filter('filter')($rootScope.clusters, {id: result.id}, true)[0];
                 if (existingCluster != undefined) {
                     existingCluster = result;
@@ -186,6 +189,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
               $rootScope.clusters = clusters;
               angular.forEach($rootScope.clusters, function(item) {
                    var nodeCount = 0;
+                   var credential = $filter('filter')($scope.credentials, {id: item.credentialId, cloudPlatform: 'AZURE_RM'}, true)[0];
+                   item.stackCredential= credential;
                    angular.forEach(item.instanceGroups, function(group) {
                        nodeCount += group.nodeCount;
                    });
@@ -204,6 +209,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             var network = $filter('filter')($scope.networks, {name: 'default-azure-network', cloudPlatform: 'AZURE'}, true)[0];
             var securityGroup = $filter('filter')($scope.securityGroups, {name: 'all-services-port'}, true)[0];
             var template = $filter('filter')($scope.templates, {name: 'd3forlaunch', cloudPlatform: 'AZURE'}, true)[0];
+            $rootScope.activeCredential = credential;
             var cluster = {
                 name: blueprint.name,
                 password: "admin",
@@ -246,6 +252,34 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                   delete cluster.parameters[item];
                 }
             }
+        }
+
+        function generatePassword() {
+            var letters = ['a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+            var BigLetters = ['A','B','C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+            var numbers = [0,1,2,3,4,5,6,7,8,9];
+            var randomstring = '';
+
+            for(var i=0;i<5;i++){
+                var rlet = Math.floor(Math.random()*letters.length);
+                randomstring += letters[rlet];
+            }
+            for(var i=0;i<3;i++){
+                var rlet = Math.floor(Math.random()*BigLetters.length);
+                randomstring += BigLetters[rlet];
+            }
+            for(var i=0;i<3;i++){
+                var rnum = Math.floor(Math.random()*numbers.length);
+                randomstring += numbers[rnum];
+            }
+            return randomstring += '!?';
+        }
+
+        function getHash() {
+            var current_date = (new Date()).valueOf().toString();
+            var random = Math.random().toString();
+            var result = (random+current_date).split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+            return result.toString().substring(result.toString().length - 4, result.toString().length);
         }
 
     }]);
