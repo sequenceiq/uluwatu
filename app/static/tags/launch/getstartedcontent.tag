@@ -28,7 +28,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Developer Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'multi-node-hdfs-yarn'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'datadev-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -37,7 +37,7 @@
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
                   <button class="btn btn-hdp pull-right">
-                     <a href="" ng-click="createCluster('multi-node-hdfs-yarn')">Confirm Cluster Configuration &raquo;</a>
+                     <a href="" ng-click="createCluster('datadev-default')">Confirm Cluster Configuration &raquo;</a>
                   </button>
                </div>
             </div>
@@ -67,7 +67,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Hadoop Operator Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-small-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'operations-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -75,7 +75,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" ng-click="createCluster('hdp-small-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" ng-click="createCluster('operations-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -104,7 +104,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Stream Processing Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-spark-cluster'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'streaming-dafult'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -141,7 +141,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Analysis Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'hdp-multinode-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'datascientist-zp-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
