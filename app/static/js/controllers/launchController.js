@@ -7,7 +7,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
         var azureRegions = [
                     {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},
-                    {key: 'BRAZIL_SOUTH', value: 'Brazil South', cloud: 'AZURE'},
                     {key: 'EAST_US', value: 'East US', cloud: 'AZURE'},
                     {key: 'CENTRAL_US', value: 'Central US', cloud: 'AZURE'},
                     {key: 'SOUTH_CENTRAL_US', value: 'South Central US'},
@@ -50,8 +49,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 return;
             }
             $scope.cluster.name = $scope.cluster.name + getHash();
-            $scope.cluster.password = $rootScope.activeCredential.publicKey.replace("Basic:", "").replace(" ", "");
             $scope.cluster.userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
+            $scope.cluster.password = generatePassword();
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
                 angular.forEach(result.instanceGroups, function(group) {
@@ -205,11 +204,9 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         }
 
         function initCluster(blueprint){
-            var credential = $filter('filter')($scope.credentials, {name: 'launcharmazure', cloudPlatform: 'AZURE_RM'}, true)[0];
             var network = $filter('filter')($scope.networks, {name: 'default-azure-network', cloudPlatform: 'AZURE'}, true)[0];
             var securityGroup = $filter('filter')($scope.securityGroups, {name: 'all-services-port'}, true)[0];
             var template = $filter('filter')($scope.templates, {name: 'd3forlaunch', cloudPlatform: 'AZURE'}, true)[0];
-            $rootScope.activeCredential = credential;
             var cluster = {
                 name: blueprint.name,
                 password: "admin",
@@ -222,11 +219,12 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 failurePolicy: {
                   adjustmentType: "BEST_EFFORT",
                 },
-                credentialId: credential.id,
                 networkId: network.id,
                 securityGroupId: securityGroup.id,
                 blueprintId: blueprint.id,
-                region: azureRegions[0].key
+                region: azureRegions[0].key,
+                validateBlueprint: false,
+                "public": false
             };
             
             var instanceGroups = [];

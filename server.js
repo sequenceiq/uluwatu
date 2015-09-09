@@ -327,6 +327,43 @@ app.put('*', function(req,res){
 });
 
 // proxy =======================================================================
+function createLaunchStack(req, res, method) {
+  //get admin credential
+  cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
+  proxyRestClient.get(cloudbreakAddress + '/account/credentials/launcharmadmincredential', cbRequestArgs, function(cred, response) {
+    //create credential for user
+    var pkey = 'Basic: ' + req.body.launchCredPassword;
+    var newCred = {
+        "name": req.body.name,
+        "cloudPlatform": cred.cloudPlatform,
+        "parameters": cred.parameters,
+        "description": cred.description,
+        "loginUserName": req.body.launchCredUsername,
+        "publicKey": new Buffer(pkey).toString('base64')
+      };
+    cbRequestArgs.data = newCred;
+    proxyRestClient.post(cloudbreakAddress + '/user/credentials', cbRequestArgs, function(credId, response) {
+      //add credential to stack request and post
+      req.body.credentialId = credId.id;
+      delete req.body.launchCredUsername;
+      delete req.body.launchCredPassword;
+      cbRequestArgs.data = req.body;
+      method(cloudbreakAddress + req.url, cbRequestArgs, function(data,response){
+        res.status(response.statusCode).send(data);
+      }).on('error', function(err){
+        console.log(err);
+        res.status(500).send("Uluwatu could not connect to Cloudbreak. Failed to create stack.");
+      });
+    }).on('error', function(err){
+      console.log(err);
+      res.status(500).send("Uluwatu could not connect to Cloudbreak. Failed to create temporary credential for stack.");
+    });
+  }).on('error', function(err){
+    console.log(err);
+    res.status(500).send("Uluwatu could not connect to Cloudbreak. Failed to get admin credential.");
+  });
+}
+
 
 function eliminateConfidentialParametersFromResponse(req, data) {
   if (req.url.indexOf('/credentials') > -1) {
@@ -345,16 +382,21 @@ function eliminateConfidentialParametersFromResponse(req, data) {
 }
 
 function proxyCloudbreakRequest(req, res, method){
-  if (req.body){
-    cbRequestArgs.data = req.body;
+  if (req.method === 'POST' && req.url.indexOf('/user/stack') > -1 && req.body && req.body.launchCredUsername && req.body.launchCredPassword) {
+    createLaunchStack(req, res, method);
+  } else {
+    if (req.body){
+      cbRequestArgs.data = req.body;
+    }
+
+    cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
+    method(cloudbreakAddress + req.url, cbRequestArgs, function(data,response){
+      eliminateConfidentialParametersFromResponse(req, data);
+      res.status(response.statusCode).send(data);
+    }).on('error', function(err){
+      res.status(500).send("Uluwatu could not connect to Cloudbreak.");
+    });
   }
-  cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
-  method(cloudbreakAddress + req.url, cbRequestArgs, function(data,response){
-    eliminateConfidentialParametersFromResponse(req, data);
-    res.status(response.statusCode).send(data);
-  }).on('error', function(err){
-    res.status(500).send("Uluwatu could not connect to Cloudbreak.");
-  });
 }
 
 function proxySultansRequest(req, res, method){
