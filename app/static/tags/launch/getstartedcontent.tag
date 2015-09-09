@@ -203,8 +203,8 @@
                      <div class="col-md-6 col-sm-12 nopadding">
                         <h6>Apache Ambari</h6>
                         <br/>
-                        <h7 ng-if="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null">url:</h7>
-                        <a  ng-if="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
+                        <h7 ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null">url:</h7>
+                        <a  ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}
@@ -224,7 +224,7 @@
                         <br/>
                         <br/>
                         <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
-                           <h7 ng-if="instanceGroup.metadata && instanceGroup.metadata.length != 0">{{instanceGroup.group}}</h7>
+                           <h7 ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0">{{instanceGroup.group}}</h7>
                            <div ng-repeat="metadata in instanceGroup.metadata"><a target="_blank">{{metadata.publicIp}}</a><br/></div>
                         </div>
                      </div>
