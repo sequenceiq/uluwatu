@@ -200,8 +200,10 @@
                      <div class="col-md-6 col-sm-12 nopadding">
                         <h6>Apache Ambari</h6>
                         <br/>
-                        <h7 ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null">url:</h7>
-                        <a  ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariServerIp!=null" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
+                        {{cluster.cluster.ambariServerIp}}
+                        <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> creating...</h7>
+                        <h7 ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null">url:</h7>
+                        <a  ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null" href="http://{{cluster.cluster.ambariIp}}:8080" target="_blank">http://{{cluster.cluster.ambariIp}}:8080</a>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}
@@ -214,14 +216,14 @@
                         <h6>Virtual machines</h6>
                         <br/>
                         <h7>SSH username:</h7>
-                        {{cluster.stackCredential.loginUserName}}
+                        {{cluster.cluster.userName}}
                         <br/>
                         <h7>SSH password:</h7>
-                        {{cluster.stackCredential.publicKey.replace('Basic:', '')}}
+                        {{cluster.cluster.password}}
                         <br/>
                         <br/>
                         <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
-                           <h7 ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0">{{instanceGroup.group}}</h7>
+                           <h7 ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0 && instanceGroup.metadata[0].publicIp!=null">{{instanceGroup.group}}</h7>
                            <div ng-repeat="metadata in instanceGroup.metadata"><a target="_blank">{{metadata.publicIp}}</a><br/></div>
                         </div>
                      </div>
@@ -230,7 +232,7 @@
                      <div class="col-md-12 col-sm-12">
                         <ul class="services-list">
                            <h5>Services</h5>
-                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints">{{key}}: <a href="http://{{value}}">http://{{value}}</a></li>
+                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}">http://{{value}}</a></li>
                         </ul>
                      </div>
                   </div>

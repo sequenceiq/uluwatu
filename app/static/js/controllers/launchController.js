@@ -85,6 +85,16 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             });
         }
 
+        $scope.deleteCluster = function (cluster) {
+            UluwatuCluster.delete(cluster, function (result) {
+                var actCluster = $filter('filter')($rootScope.clusters, { id: cluster.id }, true)[0];
+                actCluster.status = "DELETE_IN_PROGRESS";
+                $scope.$broadcast('DELETE_PERISCOPE_CLUSTER', cluster.id);
+            }, function (failure){
+                $scope.showError(failure, $rootScope.msg.cluster_delete_failed);
+            });
+        }
+
         $scope.$watch('pagination.currentPage + pagination.itemsPerPage', function(){
             if ($rootScope.activeCluster.metadata != null) {
                 paginateMetadata();
