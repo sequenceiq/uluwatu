@@ -525,7 +525,7 @@ div .bigbutton a{
 
 
 .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
-  .toggle.ios .toggle-handle { border-radius: 20px; }
+.toggle.ios .toggle-handle { border-radius: 20px; }
 
 .blue {color: #538AA5;}
 .m80 {margin-top: 80px;}

@@ -117,29 +117,16 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
             $scope.popup(message.toString(), 'alert-success');
         }
 
-        $scope.addPanelJQueryEventListeners = function(panel) {
-          addPanelJQueryEventListeners(panel);
-        }
-
-        $scope.addClusterFormJQEventListeners = function() {
-          addClusterFormJQEventListeners();
-        }
-
-        $scope.addActiveClusterJQEventListeners = function() {
-          addActiveClusterJQEventListeners();
-        }
-
-        $scope.addClusterListPanelJQEventListeners = function() {
-           addClusterListPanelJQEventListeners();
-        }
-
-        $scope.addDatePickerPanelJQueryEventListeners = function() {
-            addDatePickerPanelJQueryEventListeners();
-        }
 
         $scope.addCrudControls = function() {
           addCrudControls();
         }
+
+        $rootScope.$watch('showGetStarted', function() {
+            if ($rootScope.showGetStarted != null && $rootScope.showGetStarted == false) {
+                $scope.addCrudControls();
+            }
+        });
 
         $scope.order = function(predicate, reverse) {
           $scope.lastOrderPredicate = predicate;

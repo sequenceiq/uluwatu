@@ -1,4 +1,4 @@
-<div ng-controller="launchController">
+<div ng-controller="launchController" >
 
 <div id="getStartedPanel" ng-show="showGetStarted">
 <h2>Select Cluster Configuration</h2>
@@ -176,11 +176,6 @@
 </div>
 </div>
 
-
-
-
-
-
 <div ng-show="!showGetStarted">
    <h2> Clusters </h2>
    <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
@@ -190,13 +185,15 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                <h4 class="panel-title">
-                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
+                  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne{{cluster.id}}">
                   {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
                   </a>
-                  <div class="pull-right"><input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini"></div>
+                  <div class="pull-right">
+                    <input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini">
+                  </div>
                </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in">
+            <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                <div class="panel-body">
                   <div class="col-md-6">
                      <h5>Login Details</h5>

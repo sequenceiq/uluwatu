@@ -1,4 +1,4 @@
-<div ng-controller="mainController">
+<div ng-controller="mainController" jquery-event-listener-registrar >
    <div id="black-bar"></div>
       <header>
          <div class="container">
@@ -41,7 +41,7 @@
                   <!-- the tab content -->
                   <div class="content-wrap">
                      <div id="getStartedContent" class="tabcontent">
-                        <div ng-include src="'tags/launch/getstartedcontent.tag'"></div>
+                        <div ng-include onload="addCrudControls()" src="'tags/launch/getstartedcontent.tag'"></div>
                      </div>
                      <!--end wrapper-->
                      <div id="tryContent" class="tabcontent" style="display: none;">

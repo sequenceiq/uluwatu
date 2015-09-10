@@ -16,7 +16,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
         $rootScope.activeCluster = {};
         $rootScope.activeCredential = {};
-        $scope.showGetStarted = true;
+        $rootScope.showGetStarted = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
 
@@ -28,7 +28,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         getUluwatuClusters();
 
         $scope.changeShowGetStarted = function() {
-            $scope.showGetStarted = !$scope.showGetStarted;
+            $rootScope.showGetStarted = !$scope.showGetStarted;
         }
 
         $scope.isUndefined = function (variable) {
