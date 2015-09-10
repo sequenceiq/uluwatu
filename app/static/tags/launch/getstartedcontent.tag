@@ -203,7 +203,7 @@
                         {{cluster.cluster.ambariServerIp}}
                         <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> creating...</h7>
                         <h7 ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null">url:</h7>
-                        <a  ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null" href="http://{{cluster.cluster.ambariIp}}:8080" target="_blank">http://{{cluster.cluster.ambariIp}}:8080</a>
+                        <a ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null" href="http://{{cluster.cluster.ambariIp}}:8080" target="_blank">http://{{cluster.cluster.ambariIp}}:8080</a><br/>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}
@@ -223,8 +223,8 @@
                         <br/>
                         <br/>
                         <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
-                           <h7 ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0 && instanceGroup.metadata[0].publicIp!=null">{{instanceGroup.group}}</h7>
-                           <div ng-repeat="metadata in instanceGroup.metadata"><a target="_blank">{{metadata.publicIp}}</a><br/></div>
+                           <h7 ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0 && instanceGroup.metadata[0].publicIp!=null">{{instanceGroup.group}}: </h7><a target="_blank">{{instanceGroup.metadata[0].publicIp}} <span style="padding-left: 10px;" role="button" data-toggle="modal" data-target="#modal-start-cluster" ng-click="selectMetadata(instanceGroup.metadata[0], cluster.cluster.userName)" class="glyphicon glyphicon-link" aria-hidden="true" ng-show="instanceGroup.metadata && instanceGroup.metadata.length != 0 && instanceGroup.metadata[0].publicIp!=null"></span></a><br/>
+
                         </div>
                      </div>
                   </div>
@@ -242,6 +242,21 @@
          <!--end wrapper-->
 
       </div>
+   </div>
+   <div class="modal fade" id="modal-start-cluster" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
+           <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   <h4 class="modal-title">SSH details</h4>
+               </div>
+               <div class="modal-body">
+               <div class="well well-sm">
+                   <p>ssh {{activeUsername}}@{{activeMetadata.publicIp}}</p>
+                   </div>
+               </div>
+            </div>
+          </div>
    </div>
 
 </div>

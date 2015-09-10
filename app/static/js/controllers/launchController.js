@@ -19,6 +19,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         $rootScope.showGetStarted = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
+        $scope.activeMetadata = {};
 
         $scope.securityGroups = AccountSecurityGroup.query()
         $scope.networks = AccountNetwork.query();
@@ -83,6 +84,11 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             }, function (failure){
                 $scope.showError(failure, $rootScope.msg.cluster_delete_failed);
             });
+        }
+
+        $scope.selectMetadata = function (metadata, userName) {
+            $scope.activeMetadata = metadata;
+            $scope.activeUsername = userName;
         }
 
         $scope.deleteCluster = function (cluster) {
