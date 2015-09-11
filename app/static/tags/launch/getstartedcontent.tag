@@ -104,7 +104,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Stream Processing Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'streaming-dafult'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'streaming-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -141,7 +141,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Analysis Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'datascientist-zp-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'datascientist-default'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
