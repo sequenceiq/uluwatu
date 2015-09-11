@@ -57,7 +57,8 @@ var clientScopes = 'openid' +
     '+cloudbreak.blueprints' +
     '+cloudbreak.stacks' +
     '+periscope.cluster' +
-    '+cloudbreak.events+cloudbreak.usages.account+cloudbreak.usages.user';
+    '+cloudbreak.events+cloudbreak.usages.account+cloudbreak.usages.user' +
+    '+cloudbreak.blueprints.read+cloudbreak.templates.read+cloudbreak.credentials.read+cloudbreak.recipes.read+cloudbreak.networks.read+cloudbreak.securitygroups.read+cloudbreak.stacks.read';
 
 
 var periscopeAddress = process.env.ULU_PERISCOPE_ADDRESS;
