@@ -24,8 +24,8 @@ uluwatuControllers.filter("format", function () {
     };
 });
 
-uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '$rootScope', '$filter', 'UserPermission', 'ErrorHandler', 'notify',
-    function ($scope, $http, User, $rootScope, $filter, UserPermission, ErrorHandler, notify) {
+uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '$rootScope', '$filter', 'UserPermission', 'ErrorHandler', 'AccountDetails', 'notify',
+    function ($scope, $http, User, $rootScope, $filter, UserPermission, ErrorHandler, AccountDetails, notify) {
         var orderBy = $filter('orderBy');
         $scope.user = User.get();
 
@@ -157,6 +157,27 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
         function getUserPermission(){
           UserPermission.get(function(success){
             $scope.user.admin = success.admin;
+          });
+          AccountDetails.get(function(success){
+            var created = new Date(success.meta.created);
+            var end = new Date(success.meta.created);
+            var actual = new Date();
+            end.setDate(end.getDate() + 7);
+            $scope.user.expire = end;
+            var timeDiff = Math.ceil(end.getTime() - actual.getTime());
+            var diffHour = Math.ceil(timeDiff / (1000 * 3600));
+            timeDiff = timeDiff - (diffHour * 1000 * 3600);
+            var diffMinute = Math.ceil(timeDiff / (1000 * 60));
+            timeDiff = timeDiff - (diffMinute * 1000 * 60);
+            var diffSec = Math.ceil(timeDiff / (1000));
+            $scope.user.expired = {
+                hour: diffHour,
+                hourString: diffHour,
+                minute: diffMinute,
+                minuteString: diffMinute,
+                second: diffSec,
+                secondString: diffSec
+            }
           });
         }
     }

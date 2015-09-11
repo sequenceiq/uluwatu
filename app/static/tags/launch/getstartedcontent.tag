@@ -189,7 +189,7 @@
                   {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
                   </a>
                   <div class="pull-right">
-                    <input type="checkbox" checked data-toggle="toggle" data-style="ios" data-onstyle="success" data-size="mini">
+                    <button class="btn btn-xs btn-hdp pull-right" ng-click="deleteCluster(cluster)"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
                   </div>
                </h4>
             </div>

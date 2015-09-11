@@ -2,8 +2,8 @@
 
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, AccountBlueprint, AccountCredential, AccountTemplate) {
+angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', '$timeout', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
+    function ($scope, $rootScope, $filter, $timeout, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, AccountBlueprint, AccountCredential, AccountTemplate) {
 
         var azureRegions = [
                     {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},
@@ -73,16 +73,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 }
             }, function(failure) {
                 $scope.showError(failure, $rootScope.msg.cluster_failed);
-            });
-        }
-
-        $scope.deleteCluster = function (cluster) {
-            UluwatuCluster.delete(cluster, function (result) {
-                var actCluster = $filter('filter')($rootScope.clusters, { id: cluster.id }, true)[0];
-                actCluster.status = "DELETE_IN_PROGRESS";
-                $scope.$broadcast('DELETE_PERISCOPE_CLUSTER', cluster.id);
-            }, function (failure){
-                $scope.showError(failure, $rootScope.msg.cluster_delete_failed);
             });
         }
 
@@ -295,5 +285,33 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             var result = (random+current_date).split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
             return result.toString().substring(result.toString().length - 4, result.toString().length);
         }
+
+        $scope.onTimeout = function(){
+                $scope.user.expired.second = $scope.user.expired.second - 1;
+                $scope.user.expired.secondString = $scope.user.expired.second;
+                if ($scope.user.expired.second <= 0) {
+                    $scope.user.expired.minute = $scope.user.expired.minute - 1;
+                     $scope.user.expired.second = 59;
+                     $scope.user.expired.secondString = $scope.user.expired.second;
+                }
+                if ($scope.user.expired.minute <= 0) {
+                    $scope.user.expired.hour = $scope.user.expired.hour - 1;
+                    $scope.user.expired.minute = 59;
+                    $scope.user.expired.minuteString = $scope.user.expired.minute;
+                }
+                if ($scope.user.expired.minute < 10) {
+                    $scope.user.expired.minuteString = '0' + $scope.user.expired.minute;
+                }
+                if ($scope.user.expired.second < 10) {
+                    $scope.user.expired.secondString = '0' + $scope.user.expired.second;
+                }
+                if ($scope.user.expired.hour < 10 && $scope.user.expired.hour > -1) {
+                    $scope.user.expired.hourString = '0' + $scope.user.expired.hour;
+                } else {
+                    $scope.user.expired.hourString = $scope.user.expired.hour;
+                }
+                mytimeout = $timeout($scope.onTimeout,1000);
+            }
+        var mytimeout = $timeout($scope.onTimeout,1000);
 
     }]);
