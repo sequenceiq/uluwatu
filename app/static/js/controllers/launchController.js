@@ -52,6 +52,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             $scope.cluster.name = $scope.cluster.name + getHash();
             $scope.cluster.userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
             $scope.cluster.password = generatePassword();
+            var regionNumber = new Date().getTime() % azureRegions.length;
+            $scope.cluster.region = azureRegions[regionNumber].key;
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
                 angular.forEach(result.instanceGroups, function(group) {
