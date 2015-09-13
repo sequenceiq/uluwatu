@@ -36,9 +36,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right">
-                     <a href="" ng-click="createCluster('datadev-default')">Confirm Cluster Configuration &raquo;</a>
-                  </button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datadev-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -75,7 +73,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" ng-click="createCluster('operations-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('operations-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -112,7 +110,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right"><a href="splash2.html">Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('streaming-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -149,9 +147,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button id="confirm-action" class="btn btn-hdp pull-right" data-toggle="modal" data-target="#myModal">
-                  <a href="">Confirm Cluster Configuration &raquo;</a>
-                  </button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datascientist-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -189,12 +185,18 @@
                   {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
                   </a>
                   <div class="pull-right">
+
                     <button class="btn btn-xs btn-hdp pull-right" ng-click="deleteCluster(cluster)"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
                   </div>
                </h4>
             </div>
             <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                <div class="panel-body">
+                   <div class="progress">
+                     <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
+                       {{errorMessageTransformer(cluster)}}
+                     </div>
+                   </div>
                   <div class="col-md-6">
                      <h5>Login Details</h5>
                      <div class="col-md-6 col-sm-12 nopadding">

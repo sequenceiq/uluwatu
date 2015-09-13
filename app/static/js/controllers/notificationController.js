@@ -49,8 +49,34 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
             break;
         }
       }
-
       $scope.$apply();
+    }
+
+    function setProgressForStatus(actCluster){
+        if (actCluster.status == 'AVAILABLE') {
+            if (actCluster.cluster != undefined && actCluster.cluster.status != 'REQUESTED') {
+                if (actCluster.cluster.status == 'AVAILABLE') {
+                    return 100;
+                } else if (endsWith(actCluster.status, 'FAILED')){
+
+                    return 100;
+                } else if ('UPDATE_IN_PROGRESS') {
+                    return 75;
+                }
+            }
+            return 50;
+        } else if (endsWith(actCluster.status, 'FAILED')){
+            return 100;
+        } else if ('UPDATE_IN_PROGRESS') {
+            return 50;
+        } else if ('CREATE_IN_PROGRESS') {
+            return 50;
+        }
+        return 0;
+    }
+
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
 
     function handleStatusChange(notification){
@@ -70,6 +96,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       }
       refreshMetadata(notification)
       actCluster.status = notification.eventType;
+      actCluster.progress = setProgressForStatus(actCluster);
       $scope.showSuccess(msg, actCluster.name);
       addNotificationToGlobalEvents(notification);
       $rootScope.$broadcast('START_PERISCOPE_CLUSTER', actCluster, msg);
@@ -97,7 +124,9 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
           actCluster.cluster = {};
         }
         actCluster.cluster.ambariServerIp = msg.split(':')[1];
+        actCluster.progress = 50;
       }
+      actCluster.progress = setProgressForStatus(actCluster);
       $scope.showSuccess(notification.eventMessage, notification.stackName);
       handleStatusChange(notification);
     }

@@ -202,9 +202,57 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                        nodeCount += group.nodeCount;
                    });
                    item.nodeCount = nodeCount;
+                   item.progress = $scope.setProgressForStatus(item);
               });
               $scope.$parent.orderClusters();
           });
+        }
+
+        $scope.setProgressForStatus = function(actCluster){
+            if (actCluster.status == 'AVAILABLE') {
+                if (actCluster.cluster != undefined && actCluster.cluster.status != 'REQUESTED') {
+                    if (actCluster.cluster.status == 'AVAILABLE') {
+                        return 100;
+                    } else if ($scope.endsWith(actCluster.cluster.status, 'FAILED')){
+                        return 100;
+                    } else if ('UPDATE_IN_PROGRESS') {
+                        return 75;
+                    }
+                }
+                return 50;
+            } else if ($scope.endsWith(actCluster.status, 'FAILED')){
+                return 100;
+            } else if ('UPDATE_IN_PROGRESS') {
+                return 25;
+            } else if ('CREATE_IN_PROGRESS') {
+                return 25;
+            }
+            return 0;
+        }
+
+        $scope.endsWith = function(str, suffix) {
+            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+        }
+
+        $scope.isFailedCluster = function(cluster) {
+            if ($scope.endsWith(cluster.status, 'FAILED')) {
+                return true;
+            } else if(cluster.cluster != undefined) {
+                if($scope.endsWith(cluster.cluster.status, 'FAILED')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        $scope.errorMessageTransformer = function(cluster){
+            if (cluster.statusReason != undefined) {
+                return cluster.statusReason.replace(new RegExp("^.+Exception: "), "").replace(new RegExp("^.+due to: "), "");
+            }
+            return "";
         }
 
         $scope.selectCluster = function(cluster) {
@@ -224,6 +272,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 validateBlueprint: true,
                 consulServerCount: 3,
                 parameters: {},
+                progress: 0,
                 failurePolicy: {
                   adjustmentType: "BEST_EFFORT",
                 },
