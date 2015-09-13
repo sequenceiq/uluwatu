@@ -88,6 +88,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 var actCluster = $filter('filter')($rootScope.clusters, { id: cluster.id }, true)[0];
                 actCluster.status = "DELETE_IN_PROGRESS";
                 $scope.$broadcast('DELETE_PERISCOPE_CLUSTER', cluster.id);
+                $scope.setProgressForStatus(actCluster);
             }, function (failure){
                 $scope.showError(failure, $rootScope.msg.cluster_delete_failed);
             });
@@ -215,29 +216,44 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                         return 100;
                     } else if ($scope.endsWith(actCluster.cluster.status, 'FAILED')){
                         return 100;
-                    } else if ('UPDATE_IN_PROGRESS') {
+                    } else if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
                         return 75;
                     }
                 }
                 return 50;
             } else if ($scope.endsWith(actCluster.status, 'FAILED')){
                 return 100;
-            } else if ('UPDATE_IN_PROGRESS') {
+            } else if (actCluster.status == 'UPDATE_IN_PROGRESS') {
+                if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
+                    return 75;
+                }
                 return 25;
-            } else if ('CREATE_IN_PROGRESS') {
+            } else if (actCluster.status == 'CREATE_IN_PROGRESS') {
                 return 25;
+            } else if (actCluster.status == 'DELETE_IN_PROGRESS') {
+                return 100;
             }
             return 0;
         }
 
         $scope.endsWith = function(str, suffix) {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+            if (str != undefined) {
+                return str.indexOf(suffix, str.length - suffix.length) !== -1;
+            } else {
+                return false;
+            }
+        }
+
+        $scope.startWith = function(str, suffix) {
+            return str.indexOf(suffix) === 0;
         }
 
         $scope.isFailedCluster = function(cluster) {
             if ($scope.endsWith(cluster.status, 'FAILED')) {
                 return true;
-            } else if(cluster.cluster != undefined) {
+            } else if ($scope.startWith(cluster.status, 'DELETE_')) {
+                return true;
+            } else if (cluster.cluster != undefined) {
                 if($scope.endsWith(cluster.cluster.status, 'FAILED')) {
                     return true;
                 } else {

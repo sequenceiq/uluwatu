@@ -60,17 +60,22 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
                 } else if (endsWith(actCluster.status, 'FAILED')){
 
                     return 100;
-                } else if ('UPDATE_IN_PROGRESS') {
+                } else if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
                     return 75;
                 }
             }
             return 50;
         } else if (endsWith(actCluster.status, 'FAILED')){
             return 100;
-        } else if ('UPDATE_IN_PROGRESS') {
+        } else if (actCluster.status == 'UPDATE_IN_PROGRESS') {
+            if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
+                return 75;
+            }
             return 50;
-        } else if ('CREATE_IN_PROGRESS') {
+        } else if (actCluster.status == 'CREATE_IN_PROGRESS') {
             return 50;
+        } else if (actCluster.status == 'DELETE_IN_PROGRESS') {
+            return 100;
         }
         return 0;
     }
@@ -85,6 +90,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
         actCluster.status = notification.eventType;
         addNotificationToGlobalEvents(notification);
       }
+      actCluster.progress = setProgressForStatus(actCluster);
     }
 
     function handleAvailableNotification(notification) {
@@ -96,9 +102,9 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       }
       refreshMetadata(notification)
       actCluster.status = notification.eventType;
-      actCluster.progress = setProgressForStatus(actCluster);
       $scope.showSuccess(msg, actCluster.name);
       addNotificationToGlobalEvents(notification);
+      actCluster.progress = setProgressForStatus(actCluster);
       $rootScope.$broadcast('START_PERISCOPE_CLUSTER', actCluster, msg);
     }
 
@@ -124,9 +130,8 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
           actCluster.cluster = {};
         }
         actCluster.cluster.ambariServerIp = msg.split(':')[1];
-        actCluster.progress = 50;
+        actCluster.progress = 75;
       }
-      actCluster.progress = setProgressForStatus(actCluster);
       $scope.showSuccess(notification.eventMessage, notification.stackName);
       handleStatusChange(notification);
     }
