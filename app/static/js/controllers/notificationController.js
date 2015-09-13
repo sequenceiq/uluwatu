@@ -52,45 +52,13 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       $scope.$apply();
     }
 
-    function setProgressForStatus(actCluster){
-        if (actCluster.status == 'AVAILABLE') {
-            if (actCluster.cluster != undefined && actCluster.cluster.status != 'REQUESTED') {
-                if (actCluster.cluster.status == 'AVAILABLE') {
-                    return 100;
-                } else if (endsWith(actCluster.status, 'FAILED')){
-
-                    return 100;
-                } else if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
-                    return 75;
-                }
-            }
-            return 50;
-        } else if (endsWith(actCluster.status, 'FAILED')){
-            return 100;
-        } else if (actCluster.status == 'UPDATE_IN_PROGRESS') {
-            if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
-                return 75;
-            }
-            return 50;
-        } else if (actCluster.status == 'CREATE_IN_PROGRESS') {
-            return 50;
-        } else if (actCluster.status == 'DELETE_IN_PROGRESS') {
-            return 100;
-        }
-        return 0;
-    }
-
-    function endsWith(str, suffix) {
-        return str.indexOf(suffix, str.length - suffix.length) !== -1;
-    }
-
     function handleStatusChange(notification){
       var actCluster = $filter('filter')($rootScope.clusters, { id: notification.stackId })[0];
       if (actCluster != undefined) {
         actCluster.status = notification.eventType;
         addNotificationToGlobalEvents(notification);
       }
-      actCluster.progress = setProgressForStatus(actCluster);
+      actCluster.progress = $rootScope.setProgressForStatus(actCluster);
     }
 
     function handleAvailableNotification(notification) {
@@ -104,7 +72,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       actCluster.status = notification.eventType;
       $scope.showSuccess(msg, actCluster.name);
       addNotificationToGlobalEvents(notification);
-      actCluster.progress = setProgressForStatus(actCluster);
+      actCluster.progress = $rootScope.setProgressForStatus(actCluster);
       $rootScope.$broadcast('START_PERISCOPE_CLUSTER', actCluster, msg);
     }
 

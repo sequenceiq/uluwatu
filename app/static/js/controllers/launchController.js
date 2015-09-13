@@ -209,7 +209,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
           });
         }
 
-        $scope.setProgressForStatus = function(actCluster){
+        $rootScope.setProgressForStatus = function(actCluster){
             if (actCluster.status == 'AVAILABLE') {
                 if (actCluster.cluster != undefined && actCluster.cluster.status != 'REQUESTED') {
                     if (actCluster.cluster.status == 'AVAILABLE') {
@@ -236,7 +236,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             return 0;
         }
 
-        $scope.endsWith = function(str, suffix) {
+        $rootScope.endsWith = function(str, suffix) {
             if (str != undefined) {
                 return str.indexOf(suffix, str.length - suffix.length) !== -1;
             } else {
@@ -244,8 +244,12 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             }
         }
 
-        $scope.startWith = function(str, suffix) {
-            return str.indexOf(suffix) === 0;
+        $rootScope.startWith = function(str, suffix) {
+            if (str === undefined) {
+                return false;
+            } else {
+                return str.indexOf(suffix) === 0;
+            }
         }
 
         $scope.isFailedCluster = function(cluster) {
