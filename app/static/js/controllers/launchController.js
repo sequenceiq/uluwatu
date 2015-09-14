@@ -358,12 +358,13 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         }
 
         $scope.onTimeout = function(){
+            if($scope.user.expired != null && $scope.user.expired != undefined) {
                 $scope.user.expired.second = $scope.user.expired.second - 1;
                 $scope.user.expired.secondString = $scope.user.expired.second;
                 if ($scope.user.expired.second <= 0) {
                     $scope.user.expired.minute = $scope.user.expired.minute - 1;
-                     $scope.user.expired.second = 59;
-                     $scope.user.expired.secondString = $scope.user.expired.second;
+                    $scope.user.expired.second = 59;
+                    $scope.user.expired.secondString = $scope.user.expired.second;
                 }
                 if ($scope.user.expired.minute <= 0) {
                     $scope.user.expired.hour = $scope.user.expired.hour - 1;
@@ -383,6 +384,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 }
                 mytimeout = $timeout($scope.onTimeout,1000);
             }
+        }
         var mytimeout = $timeout($scope.onTimeout,1000);
 
     }]);
