@@ -54,6 +54,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             $scope.cluster.password = generatePassword();
             var regionNumber = new Date().getTime() % azureRegions.length;
             $scope.cluster.region = azureRegions[regionNumber].key;
+            $scope.cluster.storageAccountRegion = azureRegions[regionNumber].value;
             UluwatuCluster.save($scope.cluster, function (result) {
                 var nodeCount = 0;
                 angular.forEach(result.instanceGroups, function(group) {
@@ -382,8 +383,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 } else {
                     $scope.user.expired.hourString = $scope.user.expired.hour;
                 }
-                mytimeout = $timeout($scope.onTimeout,1000);
             }
+            mytimeout = $timeout($scope.onTimeout,1000);
         }
         var mytimeout = $timeout($scope.onTimeout,1000);
 

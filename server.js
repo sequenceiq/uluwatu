@@ -365,6 +365,38 @@ function createLaunchStack(req, res, method) {
   });
 }
 
+function createLaunchClusterWithWASB(req, res, method) {
+  cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
+  proxyRestClient.get(cloudbreakAddress + '/account/credentials/launcharmadmincredential', cbRequestArgs, function(cred, response) {
+    req.body.fileSystem = {
+      name: req.body.name,
+      type: 'WASB_INTEGRATED',
+      defaultFs: true,
+      properties: {
+        tenantId: cred.parameters.tenantId,
+        subscriptionId: cred.parameters.subscriptionId,
+        appId: cred.parameters.accesKey,
+        appPassword: cred.parameters.secretKey,
+        region: req.body.region,
+        storageName: (req.body.name + 'sa').replace("-","")
+      }
+    };
+    delete req.body.region;
+    cbRequestArgs.data = req.body;
+    
+    console.log(req.body)
+
+    method(cloudbreakAddress + req.url, cbRequestArgs, function(data,response){
+      res.status(response.statusCode).send(data);
+    }).on('error', function(err){
+      console.log(err);
+      res.status(500).send("Uluwatu could not connect to Cloudbreak. Failed to create cluster.");
+    });
+  }).on('error', function(err) {
+    console.log(err);
+    res.status(500).send("Uluwatu could not connect to Cloudbreak. Failed to get admin credential.");
+  });
+}
 
 function eliminateConfidentialParametersFromResponse(req, data) {
   if (req.url.indexOf('/credentials') > -1) {
@@ -383,8 +415,14 @@ function eliminateConfidentialParametersFromResponse(req, data) {
 }
 
 function proxyCloudbreakRequest(req, res, method){
+  var clusterURLRegex = /\/stacks\/\d+\/cluster/;
+  var requestToCluster = req.url.match(clusterURLRegex);
+
   if (req.method === 'POST' && req.url.indexOf('/user/stack') > -1 && req.body && req.body.launchCredUsername && req.body.launchCredPassword) {
     createLaunchStack(req, res, method);
+  } else if (req.method === 'POST' && requestToCluster && requestToCluster.length > 0) {
+    console.log(req.url)
+    createLaunchClusterWithWASB(req, res, method);
   } else {
     if (req.body){
       cbRequestArgs.data = req.body;
