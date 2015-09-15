@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="one-track col-md-3 col-sm-6 col-xs-6">
-        <img src="images/splash/data.png" class="track-img">
+        <img src="images/splash/spark-ready-config-icon.png" class="track-img">
         <div class="track-text">
             <h5>Data Scientist</h5> Learn analyzing data with Hadoop &amp; Spark
         </div>

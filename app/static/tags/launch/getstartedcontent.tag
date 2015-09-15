@@ -28,7 +28,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Developer Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'datadev-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'datadeveloper'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -36,7 +36,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datadev-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datadeveloper')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -65,7 +65,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Hadoop Operator Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'operations-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'operations'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -73,7 +73,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('operations-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('operations')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -102,7 +102,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Stream Processing Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'streaming-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'streaming'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -110,7 +110,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('streaming-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('streaming')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>
@@ -139,7 +139,7 @@
                <div class="modal-body">
                   <div id="getStartedContent" class="tabcontent align-left">
                      <h6>Configuration: Data Analysis Cluster</h6>
-                     <div ng-repeat="blueprint in blueprints | filter:{name:'datascientist-default'}:true">
+                     <div ng-repeat="blueprint in blueprints | filter:{name:'datascientist'}:true">
                         <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
                      </div>
                      <!--end wrapper-->
@@ -147,7 +147,7 @@
                </div>
                <div class="modal-footer">
                   <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datascientist-default')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                  <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datascientist')"><a>Confirm Cluster Configuration &raquo;</a></button>
                </div>
             </div>
          </div>

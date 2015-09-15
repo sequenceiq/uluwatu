@@ -43,10 +43,10 @@ body{
 	margin: 0 auto;
 }
 
-.logo{
-	padding-top: 18px;
-	width: 180px;
-	height: auto;
+.logo {
+   padding-top: 18px;
+   width: 500px;
+   height: auto;
 }
 
 #green-bar{
