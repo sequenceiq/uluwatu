@@ -51,6 +51,7 @@ var identityServerAddress = process.env.ULU_IDENTITY_ADDRESS
 var sultansAddress = process.env.ULU_SULTANS_ADDRESS
 var cloudbreakAddress = process.env.ULU_CLOUDBREAK_ADDRESS
 var hostAddress = process.env.ULU_HOST_ADDRESS;
+var defaultLaunchCred = process.env.LAUNCH_DEFAULT_CREDENTIAL;
 var clientScopes = 'openid' +
     '+cloudbreak.templates' +
     '+cloudbreak.credentials' +
@@ -86,6 +87,11 @@ if (!cloudbreakAddress || (cloudbreakAddress.substring(0, 7) !== "http://" && cl
 
 if (!sultansAddress || (sultansAddress.substring(0, 7) !== "http://" && sultansAddress.substring(0, 8) !== "https://")){
   console.log("ULU_SULTANS_ADDRESS must be specified and it must be a standard URL: 'http[s]://host[:port]/'");
+  environmentSet = false;
+}
+
+if (!defaultLaunchCred){
+  console.log("LAUNCH_DEFAULT_CREDENTIAL must be specified and it must be the name of default credentail that has already created for Launch.");
   environmentSet = false;
 }
 
@@ -331,7 +337,7 @@ app.put('*', function(req,res){
 function createLaunchStack(req, res, method) {
   //get admin credential
   cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
-  proxyRestClient.get(cloudbreakAddress + '/account/credentials/launcharmadmincredential', cbRequestArgs, function(cred, response) {
+  proxyRestClient.get(cloudbreakAddress + '/account/credentials/' + defaultLaunchCred, cbRequestArgs, function(cred, response) {
     //create credential for user
     var pkey = 'Basic: ' + req.body.launchCredPassword;
     var newCred = {
@@ -367,7 +373,7 @@ function createLaunchStack(req, res, method) {
 
 function createLaunchClusterWithWASB(req, res, method) {
   cbRequestArgs.headers.Authorization = "Bearer " + req.session.token;
-  proxyRestClient.get(cloudbreakAddress + '/account/credentials/launcharmadmincredential', cbRequestArgs, function(cred, response) {
+  proxyRestClient.get(cloudbreakAddress + '/account/credentials/' + defaultLaunchCred, cbRequestArgs, function(cred, response) {
     req.body.fileSystem = {
       name: req.body.name,
       type: 'WASB_INTEGRATED',
