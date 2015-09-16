@@ -193,7 +193,7 @@
             <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                <div class="panel-body">
                    <div class="progress">
-                     <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
+                     <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-success': !isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
                        {{errorMessageTransformer(cluster)}}
                      </div>
                    </div>

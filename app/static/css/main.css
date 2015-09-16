@@ -764,3 +764,7 @@ section.tutorials {
         page-break-after: avoid;
     }
 }
+
+.progress-bar-success {
+    background-color: #69be28 !important;
+}
