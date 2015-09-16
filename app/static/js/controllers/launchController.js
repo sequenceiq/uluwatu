@@ -7,11 +7,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
         var azureRegions = [
                     {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},
-                    {key: 'EAST_US', value: 'East US', cloud: 'AZURE'},
-                    {key: 'CENTRAL_US', value: 'Central US', cloud: 'AZURE'},
-                    {key: 'SOUTH_CENTRAL_US', value: 'South Central US'},
-                    {key: 'NORTH_CENTRAL_US', value: 'North Central US', cloud: 'AZURE'},
-                    {key: 'EAST_US_2', value: 'East US 2', cloud: 'AZURE'}
+                    {key: 'SOUTH_CENTRAL_US', value: 'South Central US'}
                 ];
 
         $rootScope.activeCluster = {};
