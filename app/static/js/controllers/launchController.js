@@ -298,7 +298,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 blueprintId: blueprint.id,
                 region: azureRegions[0].key,
                 validateBlueprint: false,
-                "public": false
+                "public": false,
+                email: true
             };
             
             var instanceGroups = [];
