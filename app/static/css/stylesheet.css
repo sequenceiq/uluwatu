@@ -579,3 +579,51 @@ a.orangelink {font-size: 80%; color: #E16900;}
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
 }
+
+/* Additional CSS for notification popups */
+
+.dropdown-menu {
+width:360px !important;
+font-size:13px !important;
+}
+
+
+.dropdown-menu>li {
+border-bottom:1px solid #EEE;
+
+}
+
+.dropdown-menu>li>a {
+white-space: normal !important;
+padding: 7px 20px !important;
+
+
+}
+
+.notification-new {
+background-color: #c7edc5;
+}
+
+.notification-time {
+font-size:12px;
+color:#AAA;
+}
+
+.modal-title-h2 {
+color: white !important;
+}
+
+.modal-success{
+background-color: green;
+color:#fff !important;
+}
+
+.modal-confirmation{
+background-color: #448EA8;
+color:#fff !important;
+}
+
+.modal-error{
+background-color: #7e1b1b;
+color:#fff !important;
+}​

@@ -192,7 +192,7 @@
             </div>
             <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                <div class="panel-body">
-                   <div class="progress">
+                   <div class="progress" ng-show="!(cluster.status == 'AVAILABLE' && cluster.cluster.status == 'AVAILABLE')">
                      <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-success': !isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
                        {{errorMessageTransformer(cluster)}}
                      </div>
@@ -203,7 +203,7 @@
                         <h6>Apache Ambari</h6>
                         <br/>
                         <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> creating...</h7>
-                        <h7 ng-show="cluster.cluster.ambariServerIp"><a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080">http://{{cluster.cluster.ambariServerIp}}:8080</a></h7>
+                        <h7 ng-show="cluster.cluster.ambariServerIp"><a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a></h7>
                         <br/>
                         <br/>
                         <h7>username:</h7>
@@ -233,7 +233,7 @@
                      <div class="col-md-12 col-sm-12">
                         <ul class="services-list">
                            <h5>Services</h5>
-                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}">http://{{value}}</a></li>
+                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}" target="_blank">http://{{value}}</a></li>
                         </ul>
                      </div>
                   </div>
