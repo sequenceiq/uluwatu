@@ -202,10 +202,9 @@
                      <div class="col-md-6 col-sm-12 nopadding">
                         <h6>Apache Ambari</h6>
                         <br/>
-                        {{cluster.cluster.ambariServerIp}}
                         <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> creating...</h7>
-                        <h7 ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null">url:</h7>
-                        <a ng-show="cluster.cluster.ambariServerIp && cluster.cluster.ambariIp!=null" href="http://{{cluster.cluster.ambariIp}}:8080" target="_blank">http://{{cluster.cluster.ambariIp}}:8080</a><br/>
+                        <h7 ng-show="cluster.cluster.ambariServerIp"><a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080">http://{{cluster.cluster.ambariServerIp}}:8080</a></h7>
+                        <br/>
                         <br/>
                         <h7>username:</h7>
                         {{cluster.cluster.userName}}

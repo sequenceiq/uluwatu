@@ -25,7 +25,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         getUluwatuClusters();
 
         $scope.changeShowGetStarted = function() {
-            $rootScope.showGetStarted = !$scope.showGetStarted;
+            $rootScope.showGetStarted = !$rootScope.showGetStarted;
         }
 
         $scope.isUndefined = function (variable) {
@@ -70,6 +70,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 } else {
                     $rootScope.clusters.push(result);
                 }
+                $scope.showGetStarted = false;
             }, function(failure) {
                 $scope.showError(failure, $rootScope.msg.cluster_failed);
             });
@@ -203,6 +204,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                    item.progress = $scope.setProgressForStatus(item);
               });
               $scope.$parent.orderClusters();
+              $rootScope.showGetStarted = $rootScope.clusters.length < 1;
           });
         }
 
