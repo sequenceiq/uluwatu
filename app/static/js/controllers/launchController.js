@@ -20,7 +20,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         $scope.securityGroups = AccountSecurityGroup.query()
         $scope.networks = AccountNetwork.query();
         $scope.blueprints = AccountBlueprint.query();
-        $scope.credentials = AccountCredential.query();
+        $rootScope.credentials = AccountCredential.query();
         $scope.templates = AccountTemplate.query();
         getUluwatuClusters();
 
@@ -70,7 +70,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 } else {
                     $rootScope.clusters.push(result);
                 }
-                $scope.showGetStarted = false;
+                $rootScope.showGetStarted = false;
             }, function(failure) {
                 $scope.showError(failure, $rootScope.msg.cluster_failed);
             });
@@ -195,7 +195,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
               $rootScope.clusters = clusters;
               angular.forEach($rootScope.clusters, function(item) {
                    var nodeCount = 0;
-                   var credential = $filter('filter')($scope.credentials, {id: item.credentialId, cloudPlatform: 'AZURE_RM'}, true)[0];
+                   var credential = $filter('filter')($rootScope.credentials, {id: item.credentialId, cloudPlatform: 'AZURE_RM'}, true)[0];
                    item.stackCredential= credential;
                    angular.forEach(item.instanceGroups, function(group) {
                        nodeCount += group.nodeCount;
@@ -223,7 +223,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             } else if ($scope.endsWith(actCluster.status, 'FAILED')){
                 return 100;
             } else if (actCluster.status == 'UPDATE_IN_PROGRESS') {
-                if (actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
+                if (actCluster.cluster && actCluster.cluster.status == 'UPDATE_IN_PROGRESS') {
                     return 75;
                 }
                 return 25;

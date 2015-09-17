@@ -53,22 +53,23 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
     }
 
     function handleStatusChange(notification){
-      var actCluster = $filter('filter')($rootScope.clusters, { id: notification.stackId })[0];
+      var actCluster = getClusterReference(notification.stackId);
       if (actCluster != undefined) {
         actCluster.status = notification.eventType;
+        actCluster.statusReason = notification.eventMessage;
         addNotificationToGlobalEvents(notification);
       }
       actCluster.progress = $rootScope.setProgressForStatus(actCluster);
     }
 
     function handleAvailableNotification(notification) {
-      var actCluster = $filter('filter')($rootScope.clusters, { id: notification.stackId })[0];
+      var actCluster = getClusterReference(notification.stackId);
       var msg = notification.eventMessage;
       var nodeCount = notification.nodeCount;
       if (nodeCount != null && nodeCount != undefined && nodeCount != 0) {
         actCluster.nodeCount = nodeCount;
       }
-      refreshMetadata(notification)
+      refreshMetadata(notification, actCluster);
       actCluster.status = notification.eventType;
       $scope.showSuccess(msg, actCluster.name);
       addNotificationToGlobalEvents(notification);
@@ -90,7 +91,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
     }
 
     function handleUpdateInProgressNotification(notification) {
-      var actCluster = $filter('filter')($rootScope.clusters, { id: notification.stackId })[0];
+      var actCluster = getClusterReference(notification.stackId);
       var msg = notification.eventMessage;
       var indexOfAmbariIp = msg.indexOf("Ambari ip:");
       if (actCluster != undefined && msg != null && msg != undefined && indexOfAmbariIp > -1) {
@@ -100,6 +101,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
         actCluster.cluster.ambariServerIp = msg.split(':')[1];
         actCluster.progress = 75;
       }
+      refreshMetadata(notification, actCluster);
       $scope.showSuccess(notification.eventMessage, notification.stackName);
       handleStatusChange(notification);
     }
@@ -109,23 +111,43 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       $rootScope.events.push(item);
     }
 
-    function refreshMetadata(notification) {
-      if($rootScope.activeCluster.id != undefined && $rootScope.activeCluster.id == notification.stackId) {
+    function refreshMetadata(notification, filteredCluster) {
+      console.log(notification)
+      
+      if(filteredCluster != undefined) {
         GlobalStack.get({ id: notification.stackId }, function(success) {
-          // refresh host metadata
-          if (success.cluster != null && success.cluster.hostGroups != null) {
-            $rootScope.activeCluster.cluster.hostGroups = success.cluster.hostGroups;
-          }
-          // refresh instance metadata
-          var metadata = []
-          angular.forEach(success.instanceGroups, function(item) {
-              angular.forEach(item.metadata, function(item1) {
-              metadata.push(item1)
-              $rootScope.activeCluster.metadata = metadata // trigger activeCluster.metadata
-            });
+          var actCluster = success;
+          actCluster.hoursUp = success.cluster.hoursUp;
+          actCluster.minutesUp = success.cluster.minutesUp;
+          actCluster.blueprintId = success.cluster.blueprintId;
+
+          var nodeCount = 0;
+          var credential = $filter('filter')($rootScope.credentials, {id: actCluster.credentialId, cloudPlatform: 'AZURE_RM'}, true)[0];
+          actCluster.stackCredential= credential;
+          angular.forEach(actCluster.instanceGroups, function(group) {
+             nodeCount += group.nodeCount;
           });
+          actCluster.nodeCount = nodeCount;
+          actCluster.progress = $rootScope.setProgressForStatus(actCluster);
+          for(var i=0;i<$rootScope.clusters.length;++i) {
+              if ($rootScope.clusters[i].id === actCluster.id) {
+              $rootScope.clusters[i] = actCluster;
+              break;
+            };
+          }
         });
       }
+    }
+
+    function getClusterReference(clusterId) {
+      var cluster = undefined;
+      for(var i=0;i<$rootScope.clusters.length;++i) {
+        if ($rootScope.clusters[i].id === clusterId) {
+          cluster = $rootScope.clusters[i];
+          break;
+        };
+      }
+      return cluster;
     }
 
   }

@@ -176,7 +176,7 @@
    <h2> Clusters </h2>
    <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
    <div class="panel-group" id="accordion" aria-multiselectable="false">   
-      <div ng-repeat="cluster in clusters">
+      <div ng-repeat="cluster in clusters | orderBy : 'name' : false">
       
          <div class="panel panel-default">
             <div class="panel-heading">
@@ -192,18 +192,20 @@
             </div>
             <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                <div class="panel-body">
-                   <div class="progress" ng-show="!(cluster.status == 'AVAILABLE' && cluster.cluster.status == 'AVAILABLE')">
-                     <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-success': !isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
-                       {{errorMessageTransformer(cluster)}}
+                  <div class="col-md-12" ng-show="!(cluster.status == 'AVAILABLE' && cluster.cluster.status == 'AVAILABLE')">
+                     <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> {{errorMessageTransformer(cluster)}}...</h7>
+                     <br/>
+                     <div class="progress">
+                        <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-success': !isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">
+                        </div>
                      </div>
-                   </div>
+                  </div>
                   <div class="col-md-6">
                      <h5>Login Details</h5>
                      <div class="col-md-6 col-sm-12 nopadding">
                         <h6>Apache Ambari</h6>
                         <br/>
-                        <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> creating...</h7>
-                        <h7 ng-show="cluster.cluster.ambariServerIp"><a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a></h7>
+                        <h7>URL: </h7><a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
                         <br/>
                         <br/>
                         <h7>username:</h7>
@@ -233,7 +235,7 @@
                      <div class="col-md-12 col-sm-12">
                         <ul class="services-list">
                            <h5>Services</h5>
-                           <li ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}" target="_blank">http://{{value}}</a></li>
+                           <li ng-show="cluster.cluster.ambariServerIp" ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}" target="_blank">http://{{value}}</a></li>
                         </ul>
                      </div>
                   </div>
