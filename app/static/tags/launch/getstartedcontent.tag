@@ -186,7 +186,7 @@
                   </a>
                   <div class="pull-right">
 
-                    <button class="btn btn-xs btn-hdp pull-right" ng-click="deleteCluster(cluster)"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
+                    <button class="btn btn-xs btn-hdp pull-right" data-toggle="modal" data-target="#confirm-modal-{{cluster.name}}"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
                   </div>
                </h4>
             </div>
@@ -243,6 +243,30 @@
             </div>
          </div>
          <!--end wrapper-->
+
+         <!-- Confirmation Modal -->
+         <div id="confirm-modal-{{cluster.name}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+               <!-- Modal content-->
+               <div class="modal-content">
+                  <div class="modal-header modal-confirmation">
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     <h2 class="modal-title modal-title-h2">Confirmation</h2>
+                  </div>
+                  <div class="modal-body">
+                     <div id="getStartedContent" class="tabcontent align-left">
+                        Do you want to delete the '{{cluster.name}}' cluster?
+                        <!--end wrapper-->
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                     <button class="btn btn-hdp pull-right" ng-click="deleteCluster(cluster)"><a>Confirm</a></button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--End of Modal -->
 
       </div>
    </div>

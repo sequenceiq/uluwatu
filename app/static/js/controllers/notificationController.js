@@ -112,8 +112,6 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
     }
 
     function refreshMetadata(notification, filteredCluster) {
-      console.log(notification)
-      
       if(filteredCluster != undefined) {
         GlobalStack.get({ id: notification.stackId }, function(success) {
           var actCluster = success;
