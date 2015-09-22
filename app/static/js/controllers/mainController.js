@@ -6,6 +6,23 @@ var $jq = jQuery.noConflict();
 angular.module('uluwatuControllers').controller('mainController', ['$scope', '$rootScope', '$filter', '$interval',
     function ($scope, $rootScope, $filter, $interval) {
 
+        $scope.successEvents = [ "REQUESTED",
+                                  "CREATE_IN_PROGRESS",
+                                  "START_REQUESTED",
+                                  "START_IN_PROGRESS",
+                                  "STOPPED",
+                                  "STOP_REQUESTED",
+                                  "STOP_IN_PROGRESS",
+                                  "DELETE_IN_PROGRESS" ];
+
+        $scope.errorEvents = [ "CLUSTER_CREATION_FAILED",
+                                "CREATE_FAILED",
+                                "START_FAILED",
+                                "DELETE_FAILED",
+                                "UPDATE_FAILED",
+                                "STOP_FAILED" ];
+
+
         $scope.showManagement = true;
         $scope.showAccountPanel = false;
 
@@ -55,9 +72,9 @@ angular.module('uluwatuControllers').controller('mainController', ['$scope', '$r
         }
 
         $scope.getClassforEvent = function(event) {
-            if(event.eventType.indexOf('SUCCESS') !== -1) {
+            if($scope.successEvents.indexOf(event.eventType) !== -1) {
                 return "label label-success";
-            } else if(event.eventType.indexOf('FAILED') !== -1) {
+            } else if($scope.errorEvents.indexOf(event.eventType) !== -1) {
                 return "label label-danger";
             } else {
                 return "label label-warning";
@@ -65,9 +82,9 @@ angular.module('uluwatuControllers').controller('mainController', ['$scope', '$r
         }
 
         $scope.getStringforEvent = function(event) {
-            if(event.eventType.indexOf('SUCCESS') !== -1) {
+            if($scope.successEvents.indexOf(event.eventType) !== -1) {
                 return "Success";
-            } else if(event.eventType.indexOf('FAILED') !== -1) {
+            } else if($scope.errorEvents.indexOf(event.eventType) !== -1) {
                 return "Error";
             } else {
                 return "Warning";

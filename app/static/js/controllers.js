@@ -160,13 +160,9 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
             }
          });
 
-        function getUserPermission(){
-          UserPermission.get(function(success){
-            $scope.user.admin = success.admin;
-          });
-          AccountDetails.get(function(success){
-            var created = new Date(success.meta.created);
-            var end = new Date(success.meta.created);
+         $scope.$watch('user.created', function(){
+            var created = new Date($scope.user.created);
+            var end = new Date($scope.user.created);
             var actual = new Date();
             end.setDate(end.getDate() + 7);
             $scope.user.expire = end;
@@ -184,6 +180,14 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
                 second: diffSec,
                 secondString: diffSec
             }
+         });
+
+        function getUserPermission(){
+          UserPermission.get(function(success){
+            $scope.user.admin = success.admin;
+          });
+          AccountDetails.get(function(success){
+            $scope.user.created = success.meta.created;
           });
         }
     }

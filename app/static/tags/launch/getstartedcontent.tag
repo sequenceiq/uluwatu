@@ -1,7 +1,7 @@
 <div ng-controller="launchController" >
-   <div id="getStartedPanel" ng-show="showGetStarted || $root.clusters.length == 0">
+   <div id="getStartedPanel" ng-show="showGetStarted">
       <h2>Select Cluster Configuration</h2>
-      <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()" ng-show="clusters.length != 0"> <a href="">Show Clusters</a></button>
+      <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()" > <a href="">Show My Clusters</a></button>
       <div class="wrapper">
          <div id="track-container">
             <div class="one-track col-md-3 col-sm-6 col-xs-6">
@@ -16,7 +16,7 @@
                </button>
             </div>
             <!-- Modal -->
-            <div id="sandbox-equivalent" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="modal01-title" aria-hidden="true">
+            <div id="sandbox-equivalent" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="modal01-title" aria-hidden="true" >
                <div class="modal-dialog modal-lg">
                   <!-- Modal content-->
                   <div class="modal-content">
@@ -24,7 +24,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                      </div>
-                     <div class="modal-body">
+                     <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
                          <div id="getStartedContent" class="tabcontent align-left">
                             <h6>Configuration: Data Developer Cluster</h6>
                             <div>
@@ -50,11 +50,11 @@
             </div>
             <br/>
             <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#small" ng-click="setModalBlueprint('operations')">
-            <a>View Cluster Details &raquo;</a>
+            <a>View Details &raquo;</a>
             </button>
          </div>
          <!-- Modal -->
-         <div id="small" class="modal fade" role="dialog">
+         <div id="small" class="modal fade" role="dialog" style="height: 100%;">
             <div class="modal-dialog modal-lg">
                <!-- Modal content-->
                <div class="modal-content">
@@ -62,7 +62,7 @@
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
                      <div id="getStartedContent" class="tabcontent align-left">
                         <h6>Configuration: Hadoop Operator Cluster</h6>
                         <div>
@@ -91,7 +91,7 @@
             </button>
          </div>
          <!-- Modal -->
-         <div id="streaming" class="modal fade" role="dialog">
+         <div id="streaming" class="modal fade" role="dialog" style="height: 100%;">
             <div class="modal-dialog modal-lg">
                <!-- Modal content-->
                <div class="modal-content">
@@ -99,7 +99,7 @@
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
                      <div id="getStartedContent" class="tabcontent align-left">
                         <h6>Configuration: Stream Processing Cluster</h6>
                         <div>
@@ -128,7 +128,7 @@
             </button>
          </div>
          <!-- Modal -->
-         <div id="spark" class="modal fade" role="dialog">
+         <div id="spark" class="modal fade" role="dialog" style="height: 100%;">
             <div class="modal-dialog modal-lg">
                <!-- Modal content-->
                <div class="modal-content">
@@ -136,7 +136,7 @@
                      <button type="button" class="close" data-dismiss="modal">&times;</button>
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
                      <div id="getStartedContent" class="tabcontent align-left">
                         <h6>Configuration: Data Analysis Cluster</h6>
                         <div>
@@ -170,10 +170,11 @@
          </div>
       </div>
    </div>
-   <div ng-show="!showGetStarted && $root.clusters.length > 0">
-      <h2> Clusters </h2>
+   <div ng-show="!showGetStarted">
+      <h2 ng-show="clusters.length != 0"> Clusters </h2>
       <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
       <div class="panel-group" id="accordion" aria-multiselectable="false">
+        <h1 ng-show="clusters.length == 0">No cluster created :(</h1>
          <div ng-repeat="cluster in clusters | orderBy : 'name' : false">
             <div class="panel panel-default">
                <div class="panel-heading">

@@ -12,7 +12,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
         $rootScope.activeCluster = {};
         $rootScope.activeCredential = {};
-        $rootScope.showGetStarted = true;
+        $rootScope.showGetStarted = false;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
         $scope.activeMetadata = {};
@@ -208,7 +208,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                    item.progress = $scope.setProgressForStatus(item);
               });
               $scope.$parent.orderClusters();
-              $rootScope.showGetStarted = $rootScope.clusters.length < 1;
           });
         }
 
