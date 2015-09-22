@@ -24,18 +24,19 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                      </div>
-                     <div class="modal-body"
-                     <div id="getStartedContent" class="tabcontent align-left">
-                        <h6>Configuration: Data Developer Cluster</h6>
-                        <div>
-                           <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
-                        </div>
-                        <!--end wrapper-->
+                     <div class="modal-body">
+                         <div id="getStartedContent" class="tabcontent align-left">
+                            <h6>Configuration: Data Developer Cluster</h6>
+                            <div>
+                               <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
+                            </div>
+                            <!--end wrapper-->
+                         </div>
                      </div>
-                  </div>
-                  <div class="modal-footer">
-                     <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
-                     <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datadeveloper')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                     <div class="modal-footer">
+                        <h6><a class="orangelink pull-left" href="" data-dismiss="modal">&laquo; Back to Cluster Configurations</a></h6>
+                        <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="createCluster('datadeveloper')"><a>Confirm Cluster Configuration &raquo;</a></button>
+                     </div>
                   </div>
                </div>
             </div>
@@ -48,7 +49,7 @@
                Administar and secure Hadoop Cluster
             </div>
             <br/>
-            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#small" ng-click="setModalBlueprint('datadeveloper')">
+            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#small" ng-click="setModalBlueprint('operations')">
             <a>View Cluster Details &raquo;</a>
             </button>
          </div>
@@ -85,7 +86,7 @@
                Develop real-time Apps with Hadoop
             </div>
             <br/>
-            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#streaming" ng-click="setModalBlueprint('datadeveloper')">
+            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#streaming" ng-click="setModalBlueprint('streaming')">
             <a>View Cluster Details &raquo;</a>
             </button>
          </div>
@@ -122,7 +123,7 @@
                Analyze data with Hadoop &amp; Spark
             </div>
             <br/>
-            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#spark" ng-click="setModalBlueprint('datadeveloper')">
+            <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#spark" ng-click="setModalBlueprint('datascientist')">
             <a>View Cluster Details &raquo;</a>
             </button>
          </div>
