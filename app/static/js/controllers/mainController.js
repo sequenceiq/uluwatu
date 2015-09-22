@@ -44,7 +44,14 @@ angular.module('uluwatuControllers').controller('mainController', ['$scope', '$r
             } else {
                 return 'Now';
             }
+        }
 
+        $scope.getMaxEventCount = function() {
+            if ($rootScope.events && $rootScope.events.length < 10) {
+                return $rootScope.events.length;
+            } else {
+                return 10;
+            }
         }
 
         $scope.getClassforEvent = function(event) {

@@ -198,8 +198,8 @@
                      </div>
                      <div class="col-md-6">
                         <h5>Login Details</h5>
-                        <div class="col-md-6 col-sm-12 nopadding" ng-show="cluster.cluster.ambariServerIp && cluster.cluster.userName && cluster.cluster.userName">
-                           <h6 ng-show="cluster.cluster.ambariServerIp">Apache Ambari</h6>
+                        <div class="col-md-6 col-sm-12 nopadding" >
+                           <h6>Apache Ambari</h6>
                            <br/>
                            <h7>URL: </h7>
                            <a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
@@ -208,7 +208,7 @@
                            <h7 ng-show="cluster.cluster.userName">username:</h7>
                            {{cluster.cluster.userName}}
                            <br/>
-                           <h7 ng-show="cluster.cluster.userName">password:</h7>
+                           <h7 ng-show="cluster.cluster.password">password:</h7>
                            {{cluster.cluster.password}}
                            <br/>
                         </div>
@@ -230,7 +230,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="col-md-12 col-sm-12">
-                           <ul class="services-list" ng-show="cluster.cluster.serviceEndPoints.size() > 0">
+                           <ul class="services-list" ng-show="getServiceEndpointsListSize(cluster) > 0">
                               <h5>Services</h5>
                               <li ng-show="cluster.cluster.ambariServerIp" ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}" target="_blank">http://{{value}}</a></li>
                            </ul>

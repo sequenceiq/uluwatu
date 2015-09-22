@@ -74,6 +74,13 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             });
         }
 
+        $scope.getServiceEndpointsListSize = function(cluster) {
+            if (cluster.cluster.serviceEndPoints) {
+                return Object.keys(cluster.cluster.serviceEndPoints).length;
+            }
+            return 0;
+        }
+
         $scope.selectMetadata = function (metadata, userName) {
             $scope.activeMetadata = metadata;
             $scope.activeUsername = userName;
