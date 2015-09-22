@@ -257,7 +257,7 @@
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="deleteCluster(cluster)"><a>Confirm</a></button>
+                        <button class="btn btn-hdp pull-right" ng-click="deleteCluster(cluster)" data-dismiss="modal"><a>Confirm</a></button>
                      </div>
                   </div>
                </div>
