@@ -1,5 +1,5 @@
 <div ng-controller="launchController" >
-   <div id="getStartedPanel" ng-show="showGetStarted">
+   <div id="getStartedPanel" ng-show="showGetStarted || $root.clusters.length == 0">
       <h2>Select Cluster Configuration</h2>
       <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()" ng-show="clusters.length != 0"> <a href="">Show Clusters</a></button>
       <div class="wrapper">
@@ -170,7 +170,7 @@
          </div>
       </div>
    </div>
-   <div ng-show="!showGetStarted">
+   <div ng-show="!showGetStarted && $root.clusters.length > 0">
       <h2> Clusters </h2>
       <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
       <div class="panel-group" id="accordion" aria-multiselectable="false">
@@ -198,28 +198,28 @@
                      </div>
                      <div class="col-md-6">
                         <h5>Login Details</h5>
-                        <div class="col-md-6 col-sm-12 nopadding">
-                           <h6>Apache Ambari</h6>
+                        <div class="col-md-6 col-sm-12 nopadding" ng-show="cluster.cluster.ambariServerIp && cluster.cluster.userName && cluster.cluster.userName">
+                           <h6 ng-show="cluster.cluster.ambariServerIp">Apache Ambari</h6>
                            <br/>
                            <h7>URL: </h7>
                            <a ng-show="cluster.cluster.ambariServerIp" href="http://{{cluster.cluster.ambariServerIp}}:8080" target="_blank">http://{{cluster.cluster.ambariServerIp}}:8080</a>
                            <br/>
                            <br/>
-                           <h7>username:</h7>
+                           <h7 ng-show="cluster.cluster.userName">username:</h7>
                            {{cluster.cluster.userName}}
                            <br/>
-                           <h7>password:</h7>
+                           <h7 ng-show="cluster.cluster.userName">password:</h7>
                            {{cluster.cluster.password}}
                            <br/>
                         </div>
                         <div class="col-md-6 col-sm-12">
                            <h6>Virtual machines</h6>
-                           <br/>
-                           <h7>SSH username:</h7>
-                           {{cluster.cluster.userName}}
-                           <br/>
-                           <h7>SSH password:</h7>
-                           {{cluster.cluster.password}}
+                           <br ng-show="cluster.stackCredential.loginUserName"/>
+                           <h7 ng-show="cluster.stackCredential.loginUserName">SSH username:</h7>
+                           {{cluster.stackCredential.loginUserName}}
+                           <br ng-show="cluster.stackCredential.name"/>
+                           <h7 ng-show="cluster.stackCredential.name">SSH password:</h7>
+                           {{cluster.stackCredential.publicKey.replace('Basic: ','')}}
                            <br/>
                            <br/>
                            <div ng-repeat="instanceGroup in cluster.instanceGroups | orderBy : 'group' : false">
@@ -230,7 +230,7 @@
                      </div>
                      <div class="col-md-6">
                         <div class="col-md-12 col-sm-12">
-                           <ul class="services-list">
+                           <ul class="services-list" ng-show="cluster.cluster.serviceEndPoints.size() > 0">
                               <h5>Services</h5>
                               <li ng-show="cluster.cluster.ambariServerIp" ng-repeat="(key, value) in cluster.cluster.serviceEndPoints" ng-show="!cluster.cluster.serviceEndPoints[key].startsWith('null:')">{{key}}: <a href="http://{{value}}" target="_blank">http://{{value}}</a></li>
                            </ul>
@@ -251,13 +251,13 @@
                      </div>
                      <div class="modal-body">
                         <div id="getStartedContent" class="tabcontent align-left">
-                           Do you want to delete the '{{cluster.name}}' cluster?
+                           Do you want to delete the <code>{{cluster.name}}</code> cluster?
                            <!--end wrapper-->
                         </div>
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-hdp pull-right" ng-click="deleteCluster(cluster)"><a>Confirm</a></button>
+                        <button class="btn btn-hdp pull-right" data-dismiss="modal" ng-click="deleteCluster(cluster)"><a>Confirm</a></button>
                      </div>
                   </div>
                </div>

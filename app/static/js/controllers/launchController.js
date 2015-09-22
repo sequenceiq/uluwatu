@@ -58,7 +58,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             $scope.cluster.name = $scope.cluster.name + getHash();
             var userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
             if (userName.length < 6) {
-                userName = userName + 'launch';
+                userName = userName + '1234';
             }
             $scope.cluster.userName = userName;
             $scope.cluster.password = generatePassword();
@@ -66,26 +66,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             $scope.cluster.region = azureRegions[regionNumber].key;
             $scope.cluster.storageAccountRegion = azureRegions[regionNumber].value;
             UluwatuCluster.save($scope.cluster, function (result) {
-                var nodeCount = 0;
-                angular.forEach(result.instanceGroups, function(group) {
-                  nodeCount += group.nodeCount;
-                });
-                result.nodeCount = nodeCount;
-                result.cloudPlatform = 'AZURE_RM';
-                result.public = $scope.cluster.public;
-                angular.forEach(result.instanceGroups, function(item) {
-                  item.templateId = parseFloat(item.templateId);
-                });
-                result.blueprintId = parseFloat(result.blueprintId);
-                result.stackCredential = $rootScope.activeCredential;
-                result.cluster.userName = $scope.cluster.userName;
-                result.cluster.password = $scope.cluster.password;
-                var existingCluster = $filter('filter')($rootScope.clusters, {id: result.id}, true)[0];
-                if (existingCluster != undefined) {
-                    existingCluster = result;
-                } else {
-                    $rootScope.clusters.push(result);
-                }
+                $rootScope.credentials = AccountCredential.query();
+                getUluwatuClusters();
                 $rootScope.showGetStarted = false;
             }, function(failure) {
                 $scope.showError(failure, $rootScope.msg.cluster_failed);

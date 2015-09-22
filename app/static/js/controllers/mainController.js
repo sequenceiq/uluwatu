@@ -19,6 +19,53 @@ angular.module('uluwatuControllers').controller('mainController', ['$scope', '$r
             $scope.showAccountPanel = true;
         }
 
+        $scope.eventErrorMessageTransformer = function(event){
+            if (event.eventMessage != undefined) {
+                return event.eventMessage.replace(new RegExp("^.+Exception: "), "").replace(new RegExp("^.+due to: "), "");
+            }
+            return "";
+        }
+
+        $scope.getClassForEventIndex = function(event){
+            if ($rootScope.events.indexOf(event) == $rootScope.events.length - 1 ) {
+                return "notification-new";
+            }
+            return "";
+        }
+
+        $scope.eventTimestampAsFloat = function(element) {
+            return parseFloat(element.eventTimestamp) * (-1);
+        }
+
+        $scope.getHourDifference = function(element) {
+            var hours = Math.abs(Math.round((new Date(element.eventTimestamp) - new Date()) / 36e5));
+            if (hours > 0) {
+                return hours + ' hrs ago';
+            } else {
+                return 'Now';
+            }
+
+        }
+
+        $scope.getClassforEvent = function(event) {
+            if(event.eventType.indexOf('SUCCESS') !== -1) {
+                return "label label-success";
+            } else if(event.eventType.indexOf('FAILED') !== -1) {
+                return "label label-danger";
+            } else {
+                return "label label-warning";
+            }
+        }
+
+        $scope.getStringforEvent = function(event) {
+            if(event.eventType.indexOf('SUCCESS') !== -1) {
+                return "Success";
+            } else if(event.eventType.indexOf('FAILED') !== -1) {
+                return "Error";
+            } else {
+                return "Warning";
+            }
+        }
 
         $rootScope.config = {
             'GCP' : {

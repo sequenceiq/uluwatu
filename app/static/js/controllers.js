@@ -69,21 +69,21 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
         }
 
         $scope.showErrorMessage = function(message, prefix) {
-            $scope.modifyStatusMessage(message, prefix);
-            $scope.modifyStatusClass("has-error");
-            $scope.popupError($scope.statusMessage);
+            //$scope.modifyStatusMessage(message, prefix);
+            //$scope.modifyStatusClass("has-error");
+            //$scope.popupError($scope.statusMessage);
         }
 
         $scope.showWarningMessage = function(message) {
-          $scope.modifyStatusMessage(message);
-          $scope.modifyStatusClass("has-warning");
-          $scope.popupWarning($scope.statusMessage);
+          //$scope.modifyStatusMessage(message);
+          //$scope.modifyStatusClass("has-warning");
+          //$scope.popupWarning($scope.statusMessage);
         }
 
         $scope.showSuccess = function(message, prefix) {
-          $scope.modifyStatusMessage(message);
-          $scope.modifyStatusClass("has-success");
-          $scope.popupSuccess($scope.statusMessage);
+          //$scope.modifyStatusMessage(message);
+          //$scope.modifyStatusClass("has-success");
+          //$scope.popupSuccess($scope.statusMessage);
         }
 
         $scope.popup = function(message, modifyClass) {
@@ -153,6 +153,12 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
         $scope.eventTimestampAsFloat = function(element) {
           return parseFloat(element.eventTimestamp);
         }
+
+         $scope.$watch('user.email', function(){
+            if ($scope.user.email !== undefined && $scope.user.email !== null) {
+                $scope.user.formalName = $scope.user.email.split("@")[0];
+            }
+         });
 
         function getUserPermission(){
           UserPermission.get(function(success){
