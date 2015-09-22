@@ -16,6 +16,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
         $scope.activeMetadata = {};
+        $rootScope.modalBlueprint = {};
 
         $scope.securityGroups = AccountSecurityGroup.query()
         $scope.networks = AccountNetwork.query();
@@ -32,7 +33,22 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             return angular.isUndefined(variable) || variable === null;
         }
 
+        $scope.setModalBlueprint = function (blueprintName) {
+             var blueprint = $filter('filter')($scope.blueprints, {name: blueprintName}, true)[0];
+             if (blueprint == null || blueprint == undefined) {
+                $rootScope.modalBlueprint = {};
+             } else {
+                $rootScope.modalBlueprint = blueprint;
+             }
+        }
+
         $scope.createCluster = function (blueprintName) {
+            angular.forEach($rootScope.clusters, function(item) {
+                if (item.status == 'UPDATE_IN_PROGRESS' || item.status == 'CREATE_IN_PROGRESS' || item.cluster.status == null || item.cluster.status == undefined) {
+                    $scope.showErrorMessage($rootScope.msg.cluster_creation_only_one);
+                     return;
+                }
+            });
             var blueprint = $filter('filter')($scope.blueprints, {name: blueprintName}, true)[0];
             $scope.cluster = initCluster(blueprint);
             $scope.cluster.ambariStackDetails = null;
@@ -46,7 +62,11 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 return;
             }
             $scope.cluster.name = $scope.cluster.name + getHash();
-            $scope.cluster.userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
+            var userName = $scope.user.email.split("@")[0].replace(/[^\w\s]/gi, '_').replace(/_/g,'');
+            if (userName.length < 6) {
+                userName = userName + 'launch';
+            }
+            $scope.cluster.userName = userName;
             $scope.cluster.password = generatePassword();
             var regionNumber = new Date().getTime() % azureRegions.length;
             $scope.cluster.region = azureRegions[regionNumber].key;
@@ -64,6 +84,8 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 });
                 result.blueprintId = parseFloat(result.blueprintId);
                 result.stackCredential = $rootScope.activeCredential;
+                result.cluster.userName = $scope.cluster.userName;
+                result.cluster.password = $scope.cluster.password;
                 var existingCluster = $filter('filter')($rootScope.clusters, {id: result.id}, true)[0];
                 if (existingCluster != undefined) {
                     existingCluster = result;
@@ -85,7 +107,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             UluwatuCluster.delete(cluster, function (result) {
                 var actCluster = $filter('filter')($rootScope.clusters, { id: cluster.id }, true)[0];
                 actCluster.status = "DELETE_IN_PROGRESS";
-                $scope.$broadcast('DELETE_PERISCOPE_CLUSTER', cluster.id);
                 $scope.setProgressForStatus(actCluster);
             }, function (failure){
                 $scope.showError(failure, $rootScope.msg.cluster_delete_failed);
