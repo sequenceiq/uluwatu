@@ -43,12 +43,6 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         }
 
         $scope.createCluster = function (blueprintName) {
-            angular.forEach($rootScope.clusters, function(item) {
-                if (item.status == 'UPDATE_IN_PROGRESS' || item.status == 'CREATE_IN_PROGRESS' || item.cluster.status == null || item.cluster.status == undefined) {
-                    $scope.showErrorMessage($rootScope.msg.cluster_creation_only_one);
-                     return;
-                }
-            });
             var blueprint = $filter('filter')($scope.blueprints, {name: blueprintName}, true)[0];
             $scope.cluster = initCluster(blueprint);
             $scope.cluster.ambariStackDetails = null;
