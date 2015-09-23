@@ -3,29 +3,31 @@
     <header>
         <div class="container">
             <div class="row ">
-                <div class="col-md-6"><a href="http://hortonworks.com" target="_blank"><img src="images/splash/Launch-Logo.png" alt="" class="logo"></a></div>
+                <div class="col-md-6">
+                    <a href="http://hortonworks.com" target="_blank"><img src="images/splash/Launch-Logo.png" alt="" class="logo"></a>
+                </div>
                 <div class="col-md-6">
                     <div class="row">
-                    <div class="col-md-2 header-top">
-                        <!-- Dropdown Menu -->
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell fa-lg"></i><span class="label label-success">{{getMaxEventCount()}}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li ng-repeat="event in $root.events.slice(-10, $root.events.length)|orderBy:eventTimestampAsFloat"><a class="{{getClassForEventIndex(event)}}" href=""><span class="{{getClassforEvent(event)}}">{{getStringforEvent(event)}}</span> {{eventErrorMessageTransformer(event)}} <span class="pull-right notification-time">{{getHourDifference(event)}}</span></a></li>
+                        <div class="col-md-2 header-top">
+                            <!-- Dropdown Menu -->
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-bell fa-lg"></i><span class="label label-success">{{getMaxEventCount()}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li ng-repeat="event in $root.events.slice(-10, $root.events.length)|orderBy:eventTimestampAsFloat"><a class="{{getClassForEventIndex(event)}}" href=""><span class="{{getClassforEvent(event)}}">{{getStringforEvent(event)}}</span> {{eventErrorMessageTransformer(event)}} <span class="pull-right notification-time">{{getHourDifference(event)}}</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 header-text header-top">Trial Time Remaining:</div>
+                        <div class="col-md-3 header-top"><button class="btn btn-block btn-hdp "> <a href="">{{user.expired.hourString}}: {{user.expired.minuteString}}: {{user.expired.secondString}}</a></button></div>
+                        <div class="col-md-3  header-top">
+                            <button class="btn btn-default" data-toggle="dropdown"> <a href=""> {{user.formalName}} <b class="caret"></b></a></button>
+                            <ul class="pull right dropdown-menu">
+                                <li class="pull right"><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> {{msg.dashboard_logout_label}}</a></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-md-4 header-text header-top">Trial Time Remaining:</div>
-                    <div class="col-md-3 header-top"><button class="btn btn-block btn-hdp "> <a href="">{{user.expired.hourString}}: {{user.expired.minuteString}}: {{user.expired.secondString}}</a></button></div>
-                    <div class="col-md-3  header-top">
-                        <button class="btn btn-default" data-toggle="dropdown"> <a href=""> {{user.formalName}} <b class="caret"></b></a></button>
-                        <ul class="pull right dropdown-menu">
-                            <li class="pull right"><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> {{msg.dashboard_logout_label}}</a></li>
-                        </ul>
-                    </div>
                     </div>
                 </div>
             </div>

@@ -12,7 +12,7 @@
                </div>
                <br/>
                <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#sandbox-equivalent" ng-click="setModalBlueprint('datadeveloper')">
-               <a>View Cluster Details &raquo;</a>
+               <a>View Details &raquo;</a>
                </button>
             </div>
             <!-- Modal -->
@@ -87,7 +87,7 @@
             </div>
             <br/>
             <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#streaming" ng-click="setModalBlueprint('streaming')">
-            <a>View Cluster Details &raquo;</a>
+            <a>View Details &raquo;</a>
             </button>
          </div>
          <!-- Modal -->
@@ -124,7 +124,7 @@
             </div>
             <br/>
             <button type="button" class="btn  btn-hdp" data-toggle="modal" data-target="#spark" ng-click="setModalBlueprint('datascientist')">
-            <a>View Cluster Details &raquo;</a>
+            <a>View Details &raquo;</a>
             </button>
          </div>
          <!-- Modal -->
