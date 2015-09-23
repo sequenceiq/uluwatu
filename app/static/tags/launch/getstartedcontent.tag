@@ -25,7 +25,7 @@
                         <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                      </div>
                      <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
-                         <div id="getStartedContent" class="tabcontent align-left">
+                         <div id="sandbox-equivalent-modal" class="align-left">
                             <h6>Configuration: Data Developer Cluster</h6>
                             <div>
                                <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
@@ -63,7 +63,7 @@
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
                   <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
-                     <div id="getStartedContent" class="tabcontent align-left">
+                     <div id="small-bp-modal" class="align-left">
                         <h6>Configuration: Hadoop Operator Cluster</h6>
                         <div>
                            <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
@@ -100,7 +100,7 @@
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
                   <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
-                     <div id="getStartedContent" class="tabcontent align-left">
+                     <div id="streaming-bp-modal" class="align-left">
                         <h6>Configuration: Stream Processing Cluster</h6>
                         <div>
                            <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
@@ -137,7 +137,7 @@
                      <h2 class="modal-title">Additional Cluster Configuration Details</h2>
                   </div>
                   <div class="modal-body" style="overflow-y: auto;max-height: 30em;">
-                     <div id="getStartedContent" class="tabcontent align-left">
+                     <div id="spark-bp-modal" class="align-left">
                         <h6>Configuration: Data Analysis Cluster</h6>
                         <div>
                            <div ng-include src="'tags/launch/getstartedblueprintlist.tag'"></div>
