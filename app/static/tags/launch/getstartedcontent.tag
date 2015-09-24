@@ -153,28 +153,13 @@
             </div>
          </div>
          <!--End of Modal -->
-         <!-- Modal -->
-         <div id="myModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-               <!-- Modal content-->
-               <div class="modal-content">
-                  <div class="modal-header modal-header-blue">
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                     <h4 class="modal-title">Cluster Creation In Progress</h4>
-                  </div>
-                  <div class="modal-body">
-                     <p>Creating cluster with Spark Ready Configuration</p>
-                  </div>
-               </div>
-            </div>
-         </div>
       </div>
    </div>
    <div ng-show="!showGetStarted">
-      <h2 ng-show="clusters.length != 0"> Clusters </h2>
+      <h2>My Clusters</h2>
       <button class="btn btn-hdp pull-right" ng-click="changeShowGetStarted()"> <a href="">&#43; Create Cluster</a></button>
       <div class="panel-group" id="accordion" aria-multiselectable="false">
-        <h1 ng-show="clusters.length == 0">No cluster created :(</h1>
+        <h4 ng-show="clusters.length == 0">There are no available clusters.</h4>
          <div ng-repeat="cluster in clusters | orderBy : 'name' : false">
             <div class="panel panel-default">
                <div class="panel-heading">

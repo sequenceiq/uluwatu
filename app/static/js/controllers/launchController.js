@@ -2,8 +2,8 @@
 
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', '$timeout', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate',
-    function ($scope, $rootScope, $filter, $timeout, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, AccountBlueprint, AccountCredential, AccountTemplate) {
+angular.module('uluwatuControllers').controller('launchController', ['$scope', '$rootScope', '$filter', '$timeout', 'UluwatuCluster', 'GlobalStack', 'Cluster', 'GlobalStackInstance', 'AccountNetwork', 'AccountSecurityGroup', '$interval', 'UserEvents', 'AccountBlueprint', 'AccountCredential', 'AccountTemplate', '$modal',
+    function ($scope, $rootScope, $filter, $timeout, UluwatuCluster, GlobalStack, Cluster, GlobalStackInstance, AccountNetwork, AccountSecurityGroup, $interval, UserEvents, AccountBlueprint, AccountCredential, AccountTemplate, $modal) {
 
         var azureRegions = [
                     {key: 'WEST_US', value: 'West US', cloud: 'AZURE'},
@@ -12,7 +12,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
 
         $rootScope.activeCluster = {};
         $rootScope.activeCredential = {};
-        $rootScope.showGetStarted = false;
+        $rootScope.showGetStarted = true;
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
         $scope.activeMetadata = {};
@@ -69,8 +69,30 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 $rootScope.credentials = AccountCredential.query();
                 getUluwatuClusters();
                 $rootScope.showGetStarted = false;
+                var modalInstance = $modal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '/tags/launch/successmodal.tag',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        item: function () {
+                          return { name: $scope.cluster.name };
+                        }
+                    }
+                });
             }, function(failure) {
-                $scope.showError(failure, $rootScope.msg.cluster_failed);
+                var modalInstance = $modal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: '/tags/launch/errormodal.tag',
+                    controller: 'ModalInstanceCtrl',
+                    resolve: {
+                        item: function () {
+                          return {
+                            name: $scope.cluster.name,
+                            error: failure.data
+                          };
+                        }
+                    }
+                });
             });
         }
 
@@ -207,6 +229,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                    item.nodeCount = nodeCount;
                    item.progress = $scope.setProgressForStatus(item);
               });
+              $rootScope.showGetStarted = $rootScope.clusters.length < 1;
               $scope.$parent.orderClusters();
           });
         }
@@ -390,4 +413,17 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         }
         var mytimeout = $timeout($scope.onTimeout,1000);
 
-    }]);
+}]);
+
+angular.module('uluwatuControllers').controller('ModalInstanceCtrl', function ($scope, $modalInstance, item) {
+
+  $scope.item = item;
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});

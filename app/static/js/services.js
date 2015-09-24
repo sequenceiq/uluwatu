@@ -240,7 +240,6 @@ uluwatuServices.factory('UluwatuCluster', ['StackValidation', 'UserStack', 'Acco
                         ambariStackDetails: cluster.ambariStackDetails === 'undefined' ? null : cluster.ambariStackDetails,
                         region: cluster.storageAccountRegion
                     }
-                    successHandler(cluster);
                     Cluster.save({ id: result.id }, cbCluster, function (result) {
                         cluster.hoursUp = 0;
                         cluster.minutesUp = 0;
