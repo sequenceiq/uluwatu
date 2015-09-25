@@ -167,8 +167,10 @@
                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne{{cluster.id}}">
                      {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
                      </a>
-                     <div class="pull-right" ng-show="cluster.status !== 'DELETE_IN_PROGRESS'">
-                        <button class="btn btn-xs btn-hdp pull-right" data-toggle="modal" data-target="#confirm-modal-{{cluster.name}}"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
+                     <div class="pull-right">
+                        <div class="toggle btn btn-xs ios" ng-class="{'btn-success': cluster.status == 'AVAILABLE','btn-default off': cluster.status == 'STOPPED'}" data-toggle="toggle" ng-model="cluster.status" ios-checkbox ng-show="true" ng-click="confirmClusterStatusChange(cluster)"/>
+                        &nbsp;
+                        <button ng-show="cluster.status !== 'DELETE_IN_PROGRESS'" class="btn btn-xs btn-hdp pull-right" data-toggle="modal" data-target="#confirm-modal-{{cluster.name}}"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
                      </div>
                   </h4>
                </div>

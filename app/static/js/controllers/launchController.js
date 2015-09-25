@@ -300,6 +300,29 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             return "";
         }
 
+        $scope.confirmClusterStatusChange = function(cluster) {
+            var statusChange = cluster.status == 'STOPPED' ? 'start' : 'stop';
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: '/tags/launch/startStopConfirmationModal.tag',
+                controller: 'ModalInstanceCtrl',
+                resolve: {
+                    item: function () {
+                      return {
+                        cluster: cluster,
+                        modalMsg: 'Do you really want to ' + statusChange + ' the cluster '
+                      };
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+              console.log(selectedItem.cluster);
+            }, function () {
+              console.log('Modal dismissed at: ' + new Date());
+            });
+        }
+
         $scope.selectCluster = function(cluster) {
             $scope.selectedCluster = cluster
         }
@@ -426,4 +449,31 @@ angular.module('uluwatuControllers').controller('ModalInstanceCtrl', function ($
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+});
+
+angular.module('uluwatuControllers').directive('iosCheckbox', function() {
+    return {
+        restrict: 'A',
+        scope: {
+            value: '=ngModel'
+        },
+        template:   '<div class="toggle-group" ng-click="changeStatus()">' +
+                        '<label class="btn btn-success btn-xs toggle-on">On</label>' +
+                        '<label class="btn btn-default btn-xs active toggle-off">Off</label>' +
+                        '<span class="toggle-handle btn btn-default btn-xs"></span>' +
+                    '</div>',
+        link: function(scope, iElement, iAttrs) {
+            scope.changeStatus = function() {
+                console.log(iElement)
+                console.log(scope.value)
+                if(iElement.hasClass('btn-success')) {
+                    iElement.removeClass('btn-success');
+                    iElement.addClass('btn-default off');
+                } else {
+                    iElement.removeClass('btn-default off');
+                    iElement.addClass('btn-success');
+                }
+            }
+        }
+    };
 });
