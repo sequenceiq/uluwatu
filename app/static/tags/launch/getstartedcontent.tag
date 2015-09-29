@@ -168,7 +168,7 @@
                      {{cluster.name}}  [ {{cluster.nodeCount}} nodes ]
                      </a>
                      <div class="pull-right">
-                        <div class="toggle btn btn-xs ios" ng-class="{'btn-success': cluster.status == 'AVAILABLE','btn-default off': cluster.status == 'STOPPED'}" data-toggle="toggle" ng-model="cluster.status" ios-checkbox ng-show="true" ng-click="confirmClusterStatusChange(cluster)"/>
+                        <div class="toggle btn btn-xs ios" ng-class="{'btn-success': cluster.status == 'AVAILABLE','btn-default off': cluster.status == 'STOPPED'}" data-toggle="toggle" ng-model="cluster" ios-checkbox ng-show="true" ng-click="confirmClusterStatusChange(cluster)"/>
                         &nbsp;
                         <button ng-show="cluster.status !== 'DELETE_IN_PROGRESS'" class="btn btn-xs btn-hdp pull-right" data-toggle="modal" data-target="#confirm-modal-{{cluster.name}}"><a href=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></button>
                      </div>

@@ -80,19 +80,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                     }
                 });
             }, function(failure) {
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: '/tags/launch/errormodal.tag',
-                    controller: 'ModalInstanceCtrl',
-                    resolve: {
-                        item: function () {
-                          return {
-                            name: $scope.cluster.name,
-                            error: failure.data
-                          };
-                        }
-                    }
-                });
+                createErrorModal('Cluster ' + $scope.cluster.name + ' could not be created:', failure.data.message);
             });
         }
 
@@ -174,26 +162,24 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
                   activeCluster.status = "STOP_REQUESTED";
                 }, function(error) {
-                  $scope.showError(error, $rootScope.msg.cluster_stop_failed);
+                    createErrorModal('Cluster ' + activeCluster.name + ' could not be stopped:', error.data.message); //$rootScope.msg.cluster_stop_failed
                 });
 
             }, function(error) {
-              $scope.showError(error, $rootScope.msg.cluster_stop_failed);
+                createErrorModal('Cluster ' + activeCluster.name + ' could not be stopped:', error.data.message); //$rootScope.msg.cluster_stop_failed
             });
         }
 
         $scope.startCluster = function (activeCluster) {
             var newStatus = {"status":"STARTED"};
             GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
-
                 Cluster.update({id: activeCluster.id}, newStatus, function(success){
                     activeCluster.status = "START_REQUESTED";
                 }, function(error) {
-                  $scope.showError(error, $rootScope.msg.cluster_start_failed);
+                    createErrorModal('Cluster ' + activeCluster.name + ' could not be started:', error.data.message); //$rootScope.msg.cluster_start_failed
                 });
-
             }, function(error) {
-              $scope.showError(error, $rootScope.msg.cluster_start_failed);
+                createErrorModal('Cluster ' + activeCluster.name + ' could not be started:', error.data.message); //$rootScope.msg.cluster_start_failed
             });
         }
 
@@ -214,6 +200,22 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             } else if(cluster.status == "AVAILABLE") {
                 $scope.stopCluster(cluster);
             }
+        }
+
+        function createErrorModal(modalTitle, modalMsg) {
+            return $modal.open({
+                animation: true,
+                templateUrl: '/tags/launch/errormodal.tag',
+                controller: 'ModalInstanceCtrl',
+                resolve: {
+                    item: function () {
+                      return {
+                        title: modalTitle,
+                        message: modalMsg
+                      };
+                    }
+                }
+            });
         }
 
         function getUluwatuClusters(){
@@ -303,7 +305,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
         $scope.confirmClusterStatusChange = function(cluster) {
             var statusChange = cluster.status == 'STOPPED' ? 'start' : 'stop';
             var modalInstance = $modal.open({
-                animation: $scope.animationsEnabled,
+                animation: true,
                 templateUrl: '/tags/launch/startStopConfirmationModal.tag',
                 controller: 'ModalInstanceCtrl',
                 resolve: {
@@ -317,7 +319,13 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
             });
 
             modalInstance.result.then(function (selectedItem) {
-              console.log(selectedItem.cluster);
+                if (selectedItem.cluster.status === 'AVAILABLE' && selectedItem.cluster.cluster.status === 'AVAILABLE') {
+                    $scope.stopCluster(selectedItem.cluster);
+                } else if (selectedItem.cluster.status === 'STOPPED') {
+                    $scope.startCluster(selectedItem.cluster);
+                } else {
+                    createErrorModal('Cluster ' + selectedItem.cluster.name + ' could not be started/stopped:', "A cluster could be started/stopped only if it's installation has been finished and the cluster hasn't stucked in an error state.");
+                }
             }, function () {
               console.log('Modal dismissed at: ' + new Date());
             });
@@ -464,12 +472,10 @@ angular.module('uluwatuControllers').directive('iosCheckbox', function() {
                     '</div>',
         link: function(scope, iElement, iAttrs) {
             scope.changeStatus = function() {
-                console.log(iElement)
-                console.log(scope.value)
-                if(iElement.hasClass('btn-success')) {
+                if(scope.value.status === 'AVAILABLE' && scope.value.cluster.status === 'AVAILABLE') {
                     iElement.removeClass('btn-success');
                     iElement.addClass('btn-default off');
-                } else {
+                } else if (scope.value.status === 'STOPPED') {
                     iElement.removeClass('btn-default off');
                     iElement.addClass('btn-success');
                 }

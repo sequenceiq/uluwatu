@@ -7,8 +7,8 @@
       </div>
       <div class="modal-body">
          <div id="getStartedContent" class="tabcontent align-left">
-            <h4>Cluster '{{item.name}}' could not be created:</h4>
-            <p class="lead"><mark>{{item.error.message}}</mark></p>
+            <h4>{{item.title}}</h4>
+            <p class="lead"><mark>{{item.message}}</mark></p>
          </div>
       </div>
    </div>
