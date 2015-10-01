@@ -1,7 +1,7 @@
 <h2>Explore the tutorial path suited to your needs</h2>
 <div id="track-container">
     <div class="one-track col-md-3 col-sm-6 col-xs-6">
-        <img src="images/splash/developer.png" class="track-img">
+        <img src="images/configs/data-developer-config.png" class="track-img">
         <div class="track-text">
             <h5>Data Developer</h5> Learn developing Data Apps with Hadoop &amp; Spark
         </div>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="one-track col-md-3 col-sm-6 col-xs-6">
-        <img src="images/splash/admin.png" class="track-img">
+        <img src="images/configs/operations-config.png" class="track-img">
         <div class="track-text">
             <h5>Operator</h5> Learn adminstering and securing Hadoop Cluster
         </div>
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="one-track col-md-3 col-sm-6 col-xs-6">
-        <img src="images/configs/streaming-config-icon.png" class="track-img">
+        <img src="images/configs/streaming-developer-config.png" class="track-img">
         <div class="track-text">
             <h5>Streaming Developer</h5> Learn developing real-time app with Hadoop
         </div>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="one-track col-md-3 col-sm-6 col-xs-6">
-        <img src="images/splash/spark-ready-config-icon.png" class="track-img">
+        <img src="images/configs/data-scientist-config.png" class="track-img">
         <div class="track-text">
             <h5>Data Scientist</h5> Learn analyzing data with Hadoop &amp; Spark
         </div>

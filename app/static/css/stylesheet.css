@@ -267,7 +267,7 @@ nav a{
 .track-img{
 	margin: 6%;
 	height: 120px; /* changed height */
-	width: auto;
+	width: 120px;
 	/* border around icons */
 	border: 1px solid #ccc;
 	padding: 10px;

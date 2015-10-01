@@ -5,7 +5,7 @@
       <div class="wrapper">
          <div id="track-container">
             <div class="one-track col-md-3 col-sm-6 col-xs-6">
-               <img src="images/splash/developer.png" class="track-img">
+               <img src="images/configs/data-developer-config.png" class="track-img">
                <div class="track-text">
                   <h5>Data Developer</h5>
                   Develop Data Apps with Hadoop &amp; Spark
@@ -43,7 +43,7 @@
          </div>
          <!--End of Modal -->
          <div class="one-track col-md-3 col-sm-6 col-xs-6">
-            <img src="images/splash/admin.png" class="track-img">
+            <img src="images/configs/operations-config.png" class="track-img">
             <div class="track-text">
                <h5>Operator</h5>
                Administar and secure Hadoop Cluster
@@ -80,7 +80,7 @@
          </div>
          <!--End of Modal -->
          <div class="one-track col-md-3 col-sm-6 col-xs-6">
-            <img src="images/configs/streaming-config-icon.png" class="track-img">
+            <img src="images/configs/streaming-developer-config.png" class="track-img">
             <div class="track-text">
                <h5>Streaming Developer</h5>
                Develop real-time Apps with Hadoop
@@ -117,7 +117,7 @@
          </div>
          <!--End of Modal -->
          <div class="one-track col-md-3 col-sm-6 col-xs-6">
-            <img src="images/configs/spark-ready-config-icon.png" class="track-img">
+            <img src="images/configs/data-scientist-config.png" class="track-img">
             <div class="track-text">
                <h5>Data Scientist</h5>
                Analyze data with Hadoop &amp; Spark
