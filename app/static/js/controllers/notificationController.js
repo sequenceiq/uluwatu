@@ -11,6 +11,7 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
                           "STOPPED",
                           "STOP_REQUESTED",
                           "STOP_IN_PROGRESS",
+                          "IMAGE_COPY_STATE",
                           "DELETE_IN_PROGRESS" ];
 
     var errorEvents = [ "CLUSTER_CREATION_FAILED",
@@ -56,7 +57,8 @@ function ($scope, $rootScope, $filter, Cluster, GlobalStack) {
       var actCluster = getClusterReference(notification.stackId);
       if (actCluster != undefined) {
         actCluster.status = notification.eventType;
-        actCluster.statusReason = notification.eventMessage;
+        var statusReason = notification.eventType === "IMAGE_COPY_STATE" ? 'Copying image:' + notification.eventMessage + '% ' : notification.eventMessage;
+        actCluster.statusReason = statusReason;
         addNotificationToGlobalEvents(notification);
       }
       actCluster.progress = $rootScope.setProgressForStatus(actCluster);
