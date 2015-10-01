@@ -177,7 +177,7 @@
                <div id="collapseOne{{cluster.id}}" class="panel-collapse collapse in">
                   <div class="panel-body">
                      <div class="col-md-12" ng-show="!(cluster.status == 'AVAILABLE' && cluster.cluster.status == 'AVAILABLE')">
-                        <h7 ng-show="cluster.cluster.ambariServerIp==null"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> {{errorMessageTransformer(cluster)}}...</h7>
+                        <h7><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> {{errorMessageTransformer(cluster)}}...</h7>
                         <br/>
                         <div class="progress">
                            <div ng-class="{ 'progress-bar': true, 'progress-bar-danger': isFailedCluster(cluster), 'progress-bar-success': !isFailedCluster(cluster), 'progress-bar-striped': true, 'active': true }" role="progressbar" aria-valuenow="{{cluster.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{cluster.progress}}%">

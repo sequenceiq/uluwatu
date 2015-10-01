@@ -324,7 +324,7 @@ angular.module('uluwatuControllers').controller('launchController', ['$scope', '
                 } else if (selectedItem.cluster.status === 'STOPPED') {
                     $scope.startCluster(selectedItem.cluster);
                 } else {
-                    createErrorModal('Cluster ' + selectedItem.cluster.name + ' could not be started/stopped:', "A cluster could be started/stopped only if it's installation has been finished and the cluster hasn't stucked in an error state.");
+                    createErrorModal('Cluster ' + selectedItem.cluster.name + ' could not be started/stopped:', "A cluster could be started/stopped only if it hasn't stucked in an error state and an action(install,start,stop,terminate) is not in proggress on it.");
                 }
             }, function () {
               console.log('Modal dismissed at: ' + new Date());
@@ -462,24 +462,21 @@ angular.module('uluwatuControllers').controller('ModalInstanceCtrl', function ($
 angular.module('uluwatuControllers').directive('iosCheckbox', function() {
     return {
         restrict: 'A',
-        scope: {
-            value: '=ngModel'
-        },
-        template:   '<div class="toggle-group" ng-click="changeStatus()">' +
+        template:   '<div class="toggle-group">' +
                         '<label class="btn btn-success btn-xs toggle-on">On</label>' +
                         '<label class="btn btn-default btn-xs active toggle-off">Off</label>' +
                         '<span class="toggle-handle btn btn-default btn-xs"></span>' +
                     '</div>',
         link: function(scope, iElement, iAttrs) {
-            scope.changeStatus = function() {
-                if(scope.value.status === 'AVAILABLE' && scope.value.cluster.status === 'AVAILABLE') {
-                    iElement.removeClass('btn-success');
-                    iElement.addClass('btn-default off');
-                } else if (scope.value.status === 'STOPPED') {
+            scope.$watch(iAttrs['ngModel'], function (n, o) {
+                if(n.status === 'AVAILABLE' && n.cluster.status === 'AVAILABLE') {
                     iElement.removeClass('btn-default off');
                     iElement.addClass('btn-success');
+                } else {
+                    iElement.removeClass('btn-success');
+                    iElement.addClass('btn-default off');
                 }
-            }
+              }, true);
         }
     };
 });
