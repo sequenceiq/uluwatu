@@ -89,7 +89,7 @@
         
             <li><a href="#browser-compatibility">Browser compatibility</a></li>
         
-            <li><a href="#running-uluwatu-locally">Running Uluwatu locally</a></li>
+            <li><a href="#running-uluwatu-locally-for-development">Running Uluwatu locally for development</a></li>
         
             <li><a href="#running-uluwatu-in-docker">Running Uluwatu in Docker</a></li>
         
@@ -133,18 +133,31 @@ The goal of the UI is to ease to process and allow you to create a Hadoop cluste
 <li>Safari 6 or newer</li>
 <li>Firefox 24 or newer</li>
 </ul>
-<h3 id="running-uluwatu-locally">Running Uluwatu locally</h3>
-<p>If you'd like to run Uluwatu on your local machine, you should have npm and node.js installed. After checking out the git repository, run <code>npm install</code> in Uluwatu's directory and set these environment variables:</p>
-<ul>
-<li><code>ULU_CLOUDBREAK_ADDRESS</code>: the address of the Cloudbreak backend (format: <code>http[s]://[host]:[port]</code>)</li>
-<li><code>ULU_PERISCOPE_ADDRESS</code>: the address of the Periscope backend (format: <code>http[s]://[host]:[port]</code>)</li>
-<li><code>ULU_SULTANS_ADDRESS</code>: <a href="https://github.com/sequenceiq/sultans">Sultans</a> is SequenceIQ's registration, user management and custom login service. If you'd like to have registration and custom login features you should deploy your own Sultans application and provide its base address here or you can use our deployed version on our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
-<li><code>ULU_IDENTITY_ADDRESS</code>: the address of the identity server - you'll either need to <a href="http://blog.sequenceiq.com/blog/2014/10/16/using-uaa-as-an-identity-server/">run your own</a> UAA server properly configured, or you can use our own identity server deployed to our QA environment. If you'd like to connect to our QA server please contact us for connection details. (format: <code>http[s]://[host]:[port]</code>)</li>
-<li><code>ULU_OAUTH_CLIENT_ID</code>: the <code>client_id</code> of the Uluwatu app configured in the UAA server</li>
-<li><code>ULU_OAUTH_CLIENT_SECRET</code>: the <code>client_secret</code> of the Uluwatu app configured in the UAA server</li>
-<li><code>ULU_HOST_ADDRESS</code>: the <code>redirect_url</code> of the Uluwatu app configured in the UAA server - when running Uluwatu locally in a dev environment it should be something like <code>http://localhost:3000/authorize</code></li>
-</ul>
+<h3 id="running-uluwatu-locally-for-development">Running Uluwatu locally for development</h3>
+<p>If you'd like to run Uluwatu on your local machine, you should have npm and node.js installed. After checking out the git repository, run <code>npm install</code> in Uluwatu's directory and set these environment variables:
+If you using the <a href="https://github.com/sequenceiq/cloudbreak-deployer">cloudbreak-deployer</a> and you started with <code>cbd start</code> then the uluwatu container is running and the name is <code>cbreak_uluwatu_1</code> so you have to remove it with <code>docker rm -f cbreak_uluwatu_1</code>.
+After that you have to start an ambassador container with this command:</p>
+<pre class="prettyprint well"><code>docker run -d -p 3000:3000 -e PORT=3000 -e SERVICE_NAME=uluwatu --name local_uluwatu_ambassador sequenceiq/ambassadord 192.168.59.3:3000
+</code></pre>
+
+<blockquote>
+<p>NOTE: Ambassador supports static forwards, DNS-based forwards (with SRV), Consul+Etcd based forwards, or forwards based on the connecting container's intended backend.</p>
+</blockquote>
+<p>Now you can start the local uluwatu just set some environment variable:</p>
+<pre class="prettyprint well"><code>ULU_CLOUDBREAK_ADDRESS=http://192.168.59.103:9090
+ULU_PERISCOPE_ADDRESS=http://192.168.59.103:8085
+ULU_IDENTITY_ADDRESS=http://192.168.59.103:8089
+ULU_OAUTH_CLIENT_ID=uluwatu
+ULU_IDENTITY_PORT=443
+ULU_SULTANS_ADDRESS=http://192.168.59.103:3001
+ULU_HOST_ADDRESS=http://192.168.59.103:3000
+ULU_OAUTH_CLIENT_SECRET=cbsecret2015
+ULU_OAUTH_REDIRECT_URI=http://192.168.59.103:3000/authorize
+NODE_TLS_REJECT_UNAUTHORIZED=0
+</code></pre>
+
 <p>If the environment variables are set, simply run <code>node server.js</code></p>
+<p>When you create a pull request please format your code with the <code>format.sh</code> script.</p>
 <h3 id="running-uluwatu-in-docker">Running Uluwatu in Docker</h3>
 <p>If you'd like to deploy a stable version of Uluwatu somewhere, we recommend to use its Docker image (that's how we do it in production) so it's not needed to have node installed on the server. This image grabs the latest release from the Github repo and starts the node server. The environment variables should be provided like above.
 <code>docker run -d --name uluwatu \
