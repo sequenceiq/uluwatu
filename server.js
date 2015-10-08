@@ -387,16 +387,6 @@ function createLaunchClusterWithWASB(req, res, method) {
         storageName: (req.body.name + 'sa').replace("-","")
       }
     };
-    req.body.ambariStackDetails = {
-      stack: "HDP",
-      version: "2.3",
-      os: "redhat6",
-      stackRepoId: "HDP-2.3",
-      stackBaseURL: "http://private-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.0.1",
-      utilsRepoId: "HDP-UTILS-1.1.0.20",
-      utilsBaseURL: "http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6",
-      verify: false
-    };
     delete req.body.region;
     cbRequestArgs.data = req.body;
     
