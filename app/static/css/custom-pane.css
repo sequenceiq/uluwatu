@@ -1,0 +1,46 @@
+.cb-pane {
+    border-width: 5px;
+    border-color: #333;
+
+    color: #fff !important;
+        
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+    -ms-transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    transition: 0.5s ease;
+    background-color: #333;
+}
+.cb-pane:hover  {
+    border: 5px solid #69be28;
+}
+
+.media-body {
+    width: 100% !important;
+    color: white;
+}
+
+.media-body, .media-left, .media-right {
+    vertical-align: top !important;
+}
+
+.media-heading {
+    margin-bottom: 0px !important; 
+}
+
+.media-icon {
+    zoom: 2 !important;
+    color: white;
+}
+
+.media-body {
+    padding-left: 10px;
+}
+
+.media-list { 
+    padding: 10px;
+}

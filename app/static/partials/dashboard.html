@@ -1,189 +1,222 @@
-<div data-spy="scroll" data-target="#notification-controls" jquery-event-listener-registrar ng-controller="mainController">
+<nav class="navbar navbar-default no-margin" >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header fixed-brand">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
+            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </button>
+        <a class="navbar-brand">Cloudbreak</a>
+    </div>
+    <!-- navbar-header-->
 
-    <!-- NAVBAR ............................................................... -->
-
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-
-            <div class="navbar-header">
-                <span class="navbar-brand">
-                    {{msg.dashboard_title}}
-                </span>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-                    <span class="sr-only">{{msg.dashboard_toogle_label}}</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <!-- .navbar-header -->
-
-            <div class="collapse navbar-collapse" id="navbar-collapse-1">
-
-                <ul class="nav navbar-nav navbar-right">
-
-                    <li ng-class="showManagement == true ? 'active' : ''" ng-disabled="showManagement"><a data-value="cred-002" ng-click="activateManagement()"><i class="fa fa-cloud fa-fw"></i> {{msg.dashboard_board_panel_label}}</a></li>
-
-                    <li ng-class="showAccountPanel == true ? 'active' : ''" ng-disabled="showAccountPanel"><a data-value="cred-003" ng-click="activateAccountPanel()"><i class="fa fa-tasks fa-fw"></i> {{msg.dashboard_account_panel_label}}</a></li>
-
-                    <!-- ........ CREDENTIALS DROPDOWN ......................................... -->
-
-                    <li class="dropdown" id="menu-credential">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-tag fa-fw"></i>
-                            <span ng-class="$root.activeCredential === undefined ? 'text-danger' : 'text'">{{$root.activeCredential === undefined ? msg.dashboard_select_credential_label : $root.activeCredential.name}}</span>
-                            <b class="caret"></b>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-chevron-right" aria-hidden="true"></span></button>
+            </li>
+        </ul>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-messages navbar-menu-dropdown">
+                    <li>
+                        <a>
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="credential in $root.credentials | orderBy:'name'">
-                                <a href="" id="{{credential.id}}" value="{{credential.name}}" ng-click="$root.activeCredential = credential">{{credential.name}}</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="" class="not-option" data-toggle="collapse" data-target="#panel-credentials-collapse"><i class="fa fa-edit fa-fw"></i>
-                                {{msg.credential_manage_title}}</a>
-                            </li>
-                        </ul>
                     </li>
-
-                    <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user fa-fw"></i> {{user.email}} <b class="caret"></b>
+                    <li>
+                        <a>
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/logout" data-value="cred-001"><i class="fa fa-sign-out fa-fw"></i> {{msg.dashboard_logout_label}}</a></li>
-                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-center">
+                            <strong>Read All Messages</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
                     </li>
                 </ul>
-                <!-- .navbar-nav -->
-            </div>
-            <!-- navbar-collapse -->
-        </div>
-        <!-- .container -->
-    </nav>
+                <!-- /.dropdown-messages -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-tasks navbar-menu-dropdown">
+                    <li>
+                        <a>
+                            <div>
+                                <p>
+                                    <strong>Task 1</strong>
+                                    <span class="pull-right text-muted">40% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <p>
+                                    <strong>Task 2</strong>
+                                    <span class="pull-right text-muted">20% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-center">
+                            <strong>See All Tasks</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-tasks -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts navbar-menu-dropdown" id="menu">
+                    <li>
+                        <a>
+                            <div>
+                                <i class="fa fa-comment fa-fw"></i> New Comment
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                <span class="pull-right text-muted small">12 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <i class="fa fa-tasks fa-fw"></i> New Task
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <div>
+                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-center">
+                            <strong>See All Alerts</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-alerts -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user navbar-menu-dropdown">
+                    <li><a><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    </div>
+    <!-- bs-example-navbar-collapse-1 -->
 
+</nav>
+<div id="wrapper" ng-controller="mainController">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" ng-controller="menuController">
+        <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
 
-    <section class="clusters">
-        <div class="container-fluid carousel slide">
-
-            <!-- .... CLUSTERS PANEL NOTIFICATION AND CONTROLS BAR ...................... -->
-
-            <div class="row" id="clusters-bar" data-spy="affix" data-offset-top="52">
-                <!-- data-offset-top = @navbar-height -->
-
-                <!-- collapse/open button and notification -->
-                <div class="col-sm-7 col-xs-8 combo-box {{statusclass}}">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                        <a href="" id="toggle-cluster-block-btn" class="btn btn-fa-2x btn-info" role="button" title="toggle cluster panel"><i class="fa fa-angle-up fa-2x fa-fw-forced"></i></a>
-                    </span>
-                        <input id="notification-n-filtering" disabled role="alert" type="text" class="form-control" placeholder="" value="{{shortStatusMessage}}">
-                        <i class="fa fa-warning form-control-feedback" style="line-height: 40px !important;"></i>
-                    </div>
-                </div>
-                <div class="col-sm-2 col-xs-2">
-                    <div class="dropdown">
-                        <button class="btn btn-info btn-block btn-collapse-title dropdown-toggle" type="button" id="sort-clusters-btn" data-toggle="dropdown">
-                            <i class="fa fa-sort-amount-asc fa-fw"></i><span class="sr-only">{{msg.dashboard_sort_title}} </span><span class="title"> {{msg.dashboard_sort_name_label}}</span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li class="dropdown-header">{{msg.dashboard_sort_prefix}}</li>
-                            <!-- <li class="disabled"><a href="" data-sort-by="state" data-sort-asc="true">state</a></li> -->
-                            <li><a id="orderByNameBtn" href="" ng-click="order('name',false)">{{msg.dashboard_sort_name_label}}</a></li>
-                            <li><a href="" ng-click="order('nodeCount',false)">{{msg.dashboard_sort_nodes_label}}</a></li>
-                            <li><a href="" ng-click="orderByUptime()">{{msg.dashboard_sort_uptime_label}}</a></li>
-                        </ul>
-                    </div>
-                    <!-- .dropdown -->
-                </div>
-
-                <!-- create cluster button -->
-                <div class="col-sm-3 col-xs-2">
-                    <button id="create-cluster-btn" ng-disabled="activeCredential === undefined" class="btn btn-success btn-block btn-collapse-title" role="button">
-                        <i class="fa fa-plus fa-fw"></i>
-                        <span> {{msg.dashboard_create_cluster_label}}</span>
-                    </button>
-                </div>
-
-            </div>
-            <!-- .row .notification-controls -->
-
-            <div class="carousel-inner" ng-controller="clusterController">
-
-                <!-- .... CLUSTERS "SLIDE 1" ................................................ -->
-
-                <div class="item active">
-                    <div ng-include src="'tags/stack/clusterlistpanel.tag'" onload="addClusterListPanelJQEventListeners()"></div>
-                </div>
-                <!-- .item -->
-
-                <!-- .... CLUSTER DETAILS "SLIDE 2" ......................................... -->
-
-                <div class="item">
-                    <div class="row cluster-details" ng-include src="'tags/stack/activecluster.tag'" onload="addActiveClusterJQEventListeners()"></div>
-                </div>
-                <!-- .item -->
-
-                <!-- .... CREATE CLUSTER "SLIDE 3" .......................................... -->
-
-                <!-- <div class="item"> -->
-                <div class="item">
-                    <div class="row create-cluster" ng-include src="'tags/stack/clusterform.tag'" onload="addClusterFormJQEventListeners()" style="margin-bottom: 15px;"></div>
-                    <!-- .create-cluster -->
-                </div>
-                <!-- .item -->
-
-            </div>
-            <!-- .carousel-inner -->
-
-
-        </div>
-        <!-- .container-fluid carousel -->
-    </section>
-
-
-    <section class="management-panels" ng-show="showManagement">
-        <div class="container-fluid">
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('securitygroup')" src="'tags/securitygrouppanel.tag'"></div>
-            </div>
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('network')" src="'tags/networkpanel.tag'"></div>
-            </div>
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('templates')" src="'tags/templatepanel.tag'"></div>
-            </div>
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('blueprints')" src="'tags/blueprintpanel.tag'"></div>
-            </div>
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('credentials')" src="'tags/credentialpanel.tag'"></div>
-            </div>
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('recipes')" src="'tags/recipepanel.tag'"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="management-panels" ng-show="showAccountPanel">
-        <link href="css/Admin.min.css" rel="stylesheet">
-        <div class="container-fluid">
-            <div class="row">
-                <div ng-include onload="addPanelJQueryEventListeners('usages'); addDatePickerPanelJQueryEventListeners()" src="'tags/usagepanel.tag'"></div>
-            </div>
-            <div ng-controller="accountuserController">
-                <div class="row">
-                    <div ng-include onload="addPanelJQueryEventListeners('account')" src="'tags/accountpanel.tag'"></div>
-                </div>
-                <div class="row">
-                    <div ng-include onload="addPanelJQueryEventListeners('users')" src="'tags/userspanel.tag'"></div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <div ng-controller="notificationController"></div>
-
+            <li ng-class="{ 'active': $root.menuPanel.credentialsActive }" ng-click="changeActiveMenu('credentialsActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-key fa-stack-1x "></i></span> Credentials</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.templatesActive }" ng-click="changeActiveMenu('templatesActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-cubes fa-stack-1x "></i></span> Templates</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.networksActive }" ng-click="changeActiveMenu('networksActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-wifi fa-stack-1x "></i></span>Networks</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.securityGroupsActive }" ng-click="changeActiveMenu('securityGroupsActive')">
+                <a> <span class="fa-stack fa-lg pull-left"><i class="fa fa-user-secret fa-stack-1x "></i></span>Security Groups</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.blueprintsActive }" ng-click="changeActiveMenu('blueprintsActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-object-group fa-stack-1x "></i></span>Blueprints</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.recipesActive }" ng-click="changeActiveMenu('recipesActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-cutlery fa-stack-1x "></i></span>Recipes</a>
+            </li>
+            <li ng-class="{ 'active': $root.menuPanel.stacksActive }" ng-click="changeActiveMenu('stacksActive')">
+                <a><span class="fa-stack fa-lg pull-left"><i class="fa fa-share-alt fa-stack-1x "></i></span>Stacks</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div ng-include src="'partials/credentials/list.tag'" ng-show="$root.menuPanel.credentialsActive"></div>
+        <div ng-include src="'partials/templates/list.tag'" ng-show="$root.menuPanel.templatesActive"></div>
+    </div>
+    <!-- /#page-content-wrapper -->
 </div>
+
