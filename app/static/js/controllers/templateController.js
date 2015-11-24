@@ -241,7 +241,6 @@ angular.module('uluwatuControllers').controller('templateController', ['$scope',
                 volumeCount: 1,
                 volumeSize: 100,
                 parameters: {
-                    volumeType: $rootScope.params.defaultDisks.GCP
                 }
             }
         }
