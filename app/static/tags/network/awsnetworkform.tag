@@ -54,7 +54,7 @@
         <label class="col-sm-3 col-sm-offset-2 control-label" for="aws_networkIGWID">{{msg.network_aws_form_gateway_id_label}}</label>
 
         <div class="col-sm-7">
-            <input type="text" class="form-control" name="aws_networkIGWID" ng-model="network.parameters.internetGatewayId" ng-maxlength="30" id="aws_networkIGWID" placeholder="{{msg.network_aws_form_gateway_id_placeholder}}" ng-pattern="/igw-[a-zA-Z0-9]{8}/">
+            <input type="text" class="form-control" name="aws_networkIGWID" ng-model="network.parameters.internetGatewayId" ng-maxlength="30" id="aws_networkIGWID" placeholder="{{msg.network_aws_form_gateway_id_placeholder}}" ng-pattern="/[iv]gw-[a-zA-Z0-9]{8}/">
             <div class="help-block" ng-show="awsNetworkForm.aws_networkIGWID.$dirty && awsNetworkForm.aws_networkIGWID.$invalid">
                 <i class="fa fa-warning"></i> {{msg.network_internetgatewayid_invalid}}
             </div>
